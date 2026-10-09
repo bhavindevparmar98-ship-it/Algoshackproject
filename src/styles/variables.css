@@ -1,0 +1,36 @@
+:root {
+  --color-white: #ffffff;
+  --color-bg-soft: #f7f9fa;
+  --color-bg-button-hover: #f2f6f9;
+  --color-bg-dark: #0e2a3d;
+  --color-bg-dark-2: #263f50;
+  --color-text-primary: #202b34;
+  --color-text-secondary: #54606a;
+  --color-text-muted: #74818c;
+  --color-text-light: #b4c0c8;
+  --color-text-on-dark: #e4e9ed;
+  --color-border: #e4e9ed;
+  --color-border-strong: #d1d9df;
+  --color-border-soft: #f1f4f6;
+  --color-border-dark: #3e5564;
+  --color-brand-blue: #2979b3;
+  --color-brand-blue-light: #2f8bcc;
+  --color-brand-cyan: #1b9dd9;
+  --color-brand-teal: #00b4a0;
+  --color-success: #009c8c;
+  --color-star: #edba00;
+  --gradient-brand: linear-gradient(126.58deg, #1b9dd9 3.97%, #00b4a0 92.99%);
+  --gradient-stats-number: linear-gradient(90deg, #bdb2f5 0%, #9cc9ff 30%, #a6e7f4 58%, #8ff0dc 100%);
+  --color-stats-card-bg: rgba(255, 255, 255, 0.08);
+  --color-stats-card-border: rgba(255, 255, 255, 0.2);
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Source Serif 4", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --shadow-soft: 0 1.5rem 3rem rgba(32, 43, 52, 0.08);
+  --shadow-strong: 0 2rem 4rem rgba(14, 42, 61, 0.16);
+  --radius-small: 0.75rem;
+  --radius-medium: 1.25rem;
+  --radius-large: 2rem;
+  --container-large: 72rem;
+  --padding-global: clamp(1rem, 2vw, 2rem);
+}

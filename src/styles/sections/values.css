@@ -1,0 +1,39 @@
+.section_values {
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-bg-soft) 100%);
+}
+
+.values_component {
+  display: grid;
+  gap: 2rem;
+}
+
+.values_grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.value_card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.75rem;
+}
+
+.value_icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.875rem;
+  background: var(--gradient-brand);
+  color: var(--color-white);
+  font-weight: 700;
+  box-shadow: 0 0.75rem 1.5rem rgba(27, 157, 217, 0.2);
+}
+
+@media (max-width: 767px) {
+  .values_grid {
+    grid-template-columns: 1fr;
+  }
+}

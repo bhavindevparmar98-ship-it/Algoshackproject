@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import heroIllustration from "../../assets/about-hero.svg";
+---
+
+<section class="section_about_hero">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="about_hero_component">
+          <div class="about_hero_content">
+            <span class="eyebrow">Our story</span>
+            <h1 class="heading-style-display">A thoughtful partner for bold ideas.</h1>
+            <p class="about_hero_text text-size-large text-color-secondary">
+              We blend strategy, design, and execution to help growing teams turn complexity into momentum.
+            </p>
+            <div class="about_hero_actions">
+              <a class="button is-primary" href="#process">What we do</a>
+              <a class="button is-secondary" href="#team">Meet the team</a>
+            </div>
+            <ul class="about_hero_trust" aria-label="Key company metrics">
+              <li>
+                <strong>12+</strong>
+                <span>Years building digital products</span>
+              </li>
+              <li>
+                <strong>48</strong>
+                <span>Launches delivered with clarity</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="about_hero_visual">
+            <div class="about_hero_image_wrap">
+              <Image src={heroIllustration} alt="Illustration of product strategy and teamwork" class="about_hero_image" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

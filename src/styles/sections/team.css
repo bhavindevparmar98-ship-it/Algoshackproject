@@ -1,0 +1,40 @@
+.section_team {
+  background: var(--color-white);
+}
+
+.team_component {
+  display: grid;
+  gap: 2rem;
+}
+
+.team_grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.team_member {
+  overflow: hidden;
+}
+
+.team_member_image {
+  background: linear-gradient(180deg, rgba(27, 157, 217, 0.12), rgba(0, 180, 160, 0.08));
+}
+
+.team_member_image img {
+  width: 100%;
+  aspect-ratio: 1 / 1.1;
+  object-fit: cover;
+}
+
+.team_member_content {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.5rem;
+}
+
+@media (max-width: 991px) {
+  .team_grid {
+    grid-template-columns: 1fr;
+  }
+}

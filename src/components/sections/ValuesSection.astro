@@ -1,0 +1,33 @@
+---
+const values = [
+  { title: "Clarity over chaos", text: "We simplify the decisions that matter most and cut through busywork with focused thinking." },
+  { title: "Momentum over perfection", text: "We help teams ship meaningful progress early, learn fast, and improve with confidence." },
+  { title: "Trust over noise", text: "Every recommendation is grounded in data, context, and long-term business realities." },
+  { title: "Partnership over handoff", text: "We stay close to your goals, offering strategic partnership from concept through execution." }
+];
+---
+
+<section class="section_values" id="services">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-medium">
+        <div class="values_component">
+          <div class="section_heading">
+            <span class="eyebrow">What guides us</span>
+            <h2 class="heading-style-h2">The principles behind every engagement.</h2>
+          </div>
+
+          <div class="values_grid">
+            {values.map((value) => (
+              <article class="value_card card">
+                <div class="value_icon" aria-hidden="true">✓</div>
+                <h3 class="heading-style-h5">{value.title}</h3>
+                <p class="text-size-regular text-color-secondary">{value.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

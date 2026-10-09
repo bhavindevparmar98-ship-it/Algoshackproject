@@ -1,0 +1,52 @@
+---
+const storyPoints = [
+  "We work closely with founders, marketers, and product leaders to simplify how decisions get made.",
+  "Our process reduces noise and creates momentum through research, prototypes, and measurable improvement.",
+  "We believe great strategy is grounded in empathy, clear communication, and operational discipline."
+];
+
+const storyStrengths = [
+  { title: "Strategy-first", text: "We anchor every project in outcomes, not guesswork." },
+  { title: "Human-centered", text: "We build with clarity and empathy for your customers and teams." },
+  { title: "Built to scale", text: "From positioning to product execution, we design for sustainable growth." }
+];
+---
+
+<section class="section_story" id="process">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-medium">
+        <div class="story_component">
+          <div class="section_heading">
+            <span class="eyebrow">Why we exist</span>
+            <h2 class="heading-style-h2">We help ambitious teams move from friction to focus.</h2>
+          </div>
+
+          <div class="story_content">
+            <div class="story_copy">
+              <p class="text-size-large text-color-secondary">
+                Algoshack was founded to give businesses a more thoughtful way to design momentum. We work at the intersection of brand, product, and execution so ideas become direction and direction becomes traction.
+              </p>
+
+              <ul class="story_list">
+                {storyPoints.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="story_cards">
+              {storyStrengths.map((item) => (
+                <article class="story_card card">
+                  <span class="story_card_number">0{storyStrengths.indexOf(item) + 1}</span>
+                  <h3 class="heading-style-h5">{item.title}</h3>
+                  <p class="text-size-regular text-color-secondary">{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

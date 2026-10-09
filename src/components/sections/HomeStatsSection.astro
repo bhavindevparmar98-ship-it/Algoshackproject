@@ -1,0 +1,49 @@
+---
+const stats = [
+  { number: "8+", label: "Years of quality engineering" },
+  { number: "250+", label: "Enterprise engagements" },
+  { number: "300+", label: "People on the team" },
+  { number: "37%+", label: "Women in workspace" },
+  { number: "96 / 94", label: "SaaS / SaSo NPS" },
+  { number: "2,000+", label: "Person-years of expertise" }
+];
+---
+
+<section class="section_home_stats" aria-label="AlgoShack at a glance">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="home_stats_component">
+          {stats.map((stat, index) => (
+            <article class:list={["home_stats_card", { "is-first": index === 0, "is-last": index === stats.length - 1 }]}>
+              <div class="home_stats_content">
+                <p class="home_stats_number heading-style-h1">{stat.number}</p>
+                <p class="home_stats_label">{stat.label}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll(".home_stats_card").forEach((card) => {
+    const number = card.querySelector(".home_stats_number");
+
+    if (!(number instanceof HTMLElement)) {
+      throw new Error("Stats card is missing its number element.");
+    }
+
+    card.addEventListener("mousemove", (event) => {
+      const bounds = card.getBoundingClientRect();
+      const position = ((event.clientX - bounds.left) / bounds.width) * 100;
+      number.style.setProperty("--mx", `${position.toFixed(1)}%`);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      number.style.setProperty("--mx", "0%");
+    });
+  });
+</script>

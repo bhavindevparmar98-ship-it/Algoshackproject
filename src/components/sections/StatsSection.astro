@@ -1,0 +1,25 @@
+---
+const stats = [
+  { value: "7k+", label: "Design reviews and decision sessions" },
+  { value: "92%", label: "Client retention across long-term partnerships" },
+  { value: "4.9/5", label: "Average satisfaction across product engagements" },
+  { value: "18", label: "Countries where our clients operate" }
+];
+---
+
+<section class="section_stats">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-small">
+        <div class="stats_component">
+          {stats.map((stat) => (
+            <article class="stats_item">
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

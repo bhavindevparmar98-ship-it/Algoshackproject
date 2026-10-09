@@ -1,0 +1,108 @@
+.padding-global {
+  padding-inline: var(--padding-global);
+}
+
+.container-large {
+  width: min(100%, var(--container-large));
+  margin-inline: auto;
+}
+
+.padding-section-small {
+  padding-block: 3rem;
+}
+
+.padding-section-medium {
+  padding-block: 4.5rem;
+}
+
+.padding-section-large {
+  padding-block: 6rem;
+}
+
+.text-size-large {
+  font-size: 1.125rem;
+  line-height: 1.611;
+}
+
+.text-size-regular {
+  font-size: 1rem;
+  line-height: 1.625;
+}
+
+.text-size-small {
+  font-size: 0.875rem;
+  line-height: 1.714;
+}
+
+.text-weight-medium {
+  font-weight: 500;
+}
+
+.text-color-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-color-muted {
+  color: var(--color-text-muted);
+}
+
+.heading-style-display {
+  font-family: var(--font-serif);
+  font-size: clamp(2.75rem, 5vw, 4rem);
+  line-height: 1.046;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.heading-style-h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 3.5vw, 2.75rem);
+  line-height: 1.114;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.heading-style-h4 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  line-height: 1.214;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.heading-style-h5 {
+  font-size: 1.375rem;
+  line-height: 1.318;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.heading-style-h6 {
+  font-size: 1.125rem;
+  line-height: 1.333;
+  font-weight: 600;
+}
+
+.max-width-medium {
+  max-width: 40rem;
+}
+
+.max-width-large {
+  max-width: 46rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.background-color-soft {
+  background: var(--color-bg-soft);
+}
