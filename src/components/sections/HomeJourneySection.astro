@@ -1,0 +1,77 @@
+---
+import { Image } from "astro:assets";
+import visionImage from "../../assets/our-story-img-1.jpg";
+import missionImage from "../../assets/our-story-img-3.jpg";
+import sdlcImage from "../../assets/our-story-img-4.jpg";
+
+const journeyStats = [
+  { number: "8+", label: "Years of quality engineering" },
+  { number: "2,000+", label: "Person-years of expertise" },
+  { number: "3", label: "Patents" },
+  { number: "250+", label: "Enterprise engagements" }
+];
+---
+
+<section class="section_journey" aria-labelledby="journey-heading">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="home_journey_component">
+          <header class="home_journey_header">
+            <p class="home_journey_eyebrow text-style-allcaps text-color-blue">Our story</p>
+            <div class="home_journey_title_wrap">
+              <h2 class="heading-style-h2" id="journey-heading">It started with one stubborn question.</h2>
+              <p class="text-size-large">Why should testing be the slowest, most expensive part of shipping software?</p>
+            </div>
+          </header>
+
+          <div class="home_journey_content">
+            <div class="home_journey_bento">
+              <article class="home_journey_card is-photo is-tall is-vision">
+                <Image src={visionImage} alt="" class="home_journey_image" />
+                <div class="home_journey_card_content">
+                  <p class="home_journey_card_label text-style-allcaps text-color-teal">Our vision</p>
+                  <p class="home_journey_card_text heading-style-h5">To be among the most admired testing technology companies in the world.</p>
+                </div>
+              </article>
+
+              <div class="home_journey_bento_right">
+                <article class="home_journey_card is-photo is-mission">
+                  <Image src={missionImage} alt="" class="home_journey_image" />
+                  <div class="home_journey_card_content">
+                    <p class="home_journey_card_label text-style-allcaps text-color-teal">Our mission</p>
+                    <p class="home_journey_card_text heading-style-h5">To empower software companies and technology businesses to deliver bug-free software, faster and cheaper.</p>
+                  </div>
+                </article>
+
+                <article class="home_journey_card is-number">
+                  <div class="home_journey_card_content">
+                    <p class="home_journey_card_number global-para-xlarge">300+</p>
+                    <p class="home_journey_card_text heading-style-h5">People across India and the United States</p>
+                  </div>
+                </article>
+
+                <article class="home_journey_card is-photo is-wide is-sdlc">
+                  <Image src={sdlcImage} alt="" class="home_journey_image" />
+                  <div class="home_journey_card_content">
+                    <p class="home_journey_card_label text-style-allcaps text-color-teal">What we do</p>
+                    <p class="home_journey_card_text heading-style-h5">We design, run, heal and govern quality across the entire SDLC from requirement to result as one autonomous, auditable system that sits between your applications, your frameworks and your AI models.</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div class="home_journey_stats" aria-label="Our experience">
+              {journeyStats.map((stat) => (
+                <article class="home_journey_stat">
+                  <p class="home_journey_stat_number">{stat.number}</p>
+                  <p class="home_journey_stat_label text-style-allcaps">{stat.label}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,112 @@
+---
+const values = [
+  {
+    title: "Client-focused",
+    description:
+      "Our success derives from a deep understanding of all our clients, to whom all of AlgoShack is committed to deliver exceptional service and value.",
+    icon: "client"
+  },
+  {
+    title: "Leadership",
+    description:
+      "We lead from the front, displaying our integrity and using facts to support our straight talk. We create an environment for positive change built on collaboration and trust.",
+    icon: "leadership"
+  },
+  {
+    title: "Execution excellence",
+    description:
+      "We insist on excellence in all we do for clients and ourselves, striving always for recognition among the leaders in our industry.",
+    icon: "execution"
+  },
+  {
+    title: "Aspiration",
+    description:
+      "We aspire individually and collectively to be more tomorrow than we are today.",
+    icon: "aspiration"
+  },
+  {
+    title: "Results",
+    description:
+      "We accept individual responsibility for our commitments and expect to be accountable for results.",
+    icon: "results"
+  }
+];
+---
+
+<section class="section_values home_values_section" aria-labelledby="home-values-heading">
+  <svg class="home_values_gradients" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="home-values-gradient" gradientUnits="userSpaceOnUse" x1="2" y1="9" x2="34" y2="27">
+        <stop offset="0.04" stop-color="#1B9DD9" />
+        <stop offset="0.93" stop-color="#00B4A0" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="home_values_component">
+          <header class="home_values_header">
+            <p class="home_values_eyebrow text-style-allcaps text-color-blue">Our values</p>
+            <h2 class="heading-style-h2 is-left" id="home-values-heading">We stay CLEAR.</h2>
+            <p class="home_values_text">
+              Defining, understanding and living a clear set of values is how we build a high-performance culture, and how we keep it as we grow.
+            </p>
+          </header>
+
+          <div class="home_values_list">
+            {values.map((value) => (
+              <article class="home_values_card">
+                <svg class="home_values_icon" viewBox="0 0 36 36" fill="none" stroke="url(#home-values-gradient)" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  {value.icon === "client" && (
+                    <>
+                      <circle cx="18" cy="18" r="13.5" />
+                      <circle cx="18" cy="14" r="4.5" />
+                      <path d="M9.6 28.2c1.9-4 5.1-6.2 8.4-6.2s6.5 2.2 8.4 6.2" />
+                    </>
+                  )}
+                  {value.icon === "leadership" && (
+                    <>
+                      <circle cx="18" cy="12" r="4.5" />
+                      <path d="M10.5 28c0-4.6 3.4-8 7.5-8s7.5 3.4 7.5 8" />
+                      <circle cx="6.5" cy="14.5" r="3.2" />
+                      <path d="M2 26c0-3.4 2-5.6 4.5-5.9" />
+                      <circle cx="29.5" cy="14.5" r="3.2" />
+                      <path d="M34 26c0-3.4-2-5.6-4.5-5.9" />
+                    </>
+                  )}
+                  {value.icon === "execution" && (
+                    <>
+                      <rect x="3" y="3" width="30" height="30" rx="1.5" />
+                      <rect x="3" y="3" width="11.5" height="11.5" rx="1" />
+                      <rect x="22.5" y="22.5" width="10.5" height="10.5" rx="1" />
+                    </>
+                  )}
+                  {value.icon === "aspiration" && (
+                    <>
+                      <path d="M4.5 27 14 17.5l5 5L31 10.5" />
+                      <path d="M23 10.5h8V18.5" />
+                    </>
+                  )}
+                  {value.icon === "results" && (
+                    <>
+                      <circle cx="18" cy="18" r="14" />
+                      <circle cx="18" cy="18" r="5.5" />
+                      <path d="M18 18 31.5 4.5" />
+                      <path d="M25 4.5h6.5V11" />
+                    </>
+                  )}
+                </svg>
+                <div class="home_values_card_content">
+                  <h3 class="home_values_card_title">{value.title}</h3>
+                  <p class="home_values_text">{value.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

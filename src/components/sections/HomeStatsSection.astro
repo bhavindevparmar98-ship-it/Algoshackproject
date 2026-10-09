@@ -17,7 +17,7 @@ const stats = [
           {stats.map((stat, index) => (
             <article class:list={["home_stats_card", { "is-first": index === 0, "is-last": index === stats.length - 1 }]}>
               <div class="home_stats_content">
-                <p class="home_stats_number heading-style-h1">{stat.number}</p>
+                <p class="home_stats_number heading-style-h1 global-para-xlarge">{stat.number}</p>
                 <p class="home_stats_label">{stat.label}</p>
               </div>
             </article>
@@ -27,23 +27,3 @@ const stats = [
     </div>
   </div>
 </section>
-
-<script>
-  document.querySelectorAll(".home_stats_card").forEach((card) => {
-    const number = card.querySelector(".home_stats_number");
-
-    if (!(number instanceof HTMLElement)) {
-      throw new Error("Stats card is missing its number element.");
-    }
-
-    card.addEventListener("mousemove", (event) => {
-      const bounds = card.getBoundingClientRect();
-      const position = ((event.clientX - bounds.left) / bounds.width) * 100;
-      number.style.setProperty("--mx", `${position.toFixed(1)}%`);
-    });
-
-    card.addEventListener("mouseleave", () => {
-      number.style.setProperty("--mx", "0%");
-    });
-  });
-</script>

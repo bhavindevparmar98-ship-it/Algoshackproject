@@ -18,5 +18,7 @@ const { title = "Algoshack | About Us" } = Astro.props;
   </head>
   <body>
     <slot />
+    <!-- Loads shared client-side behaviors, including the homepage stats gradient. -->
+    <script src="../scripts/global.ts"></script>
   </body>
 </html>

@@ -1,23 +1,23 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Navbar from "../components/layout/Navbar.astro";
 import Footer from "../components/layout/Footer.astro";
-import AboutHeroSection from "../components/sections/AboutHeroSection.astro";
-import StorySection from "../components/sections/StorySection.astro";
-import StatsSection from "../components/sections/StatsSection.astro";
-import ValuesSection from "../components/sections/ValuesSection.astro";
-import TeamSection from "../components/sections/TeamSection.astro";
+import HomeHeroSection from "../components/sections/HomeHeroSection.astro";
+import HomeStatsSection from "../components/sections/HomeStatsSection.astro";
+import HomeJourneySection from "../components/sections/HomeJourneySection.astro";
+import HomeValuesSection from "../components/sections/HomeValuesSection.astro";
+import HomePlatformSection from "../components/sections/HomePlatformSection.astro";
+import FaqSection from "../components/sections/FaqSection.astro";
 ---
 
-<BaseLayout title="About Us | Algoshack">
-  <Navbar />
-  <main class="page-wrapper">
+<BaseLayout title="AlgoShack – Engineering quality at the speed of AI">
+  <main class="page-wrapper page-about">
     <div class="main-wrapper">
-      <AboutHeroSection />
-      <StorySection />
-      <StatsSection />
-      <ValuesSection />
-      <TeamSection />
+      <HomeHeroSection />
+      <HomeStatsSection />
+      <HomeJourneySection />
+      <HomeValuesSection />
+      <HomePlatformSection />
+      <FaqSection />
     </div>
   </main>
   <Footer />

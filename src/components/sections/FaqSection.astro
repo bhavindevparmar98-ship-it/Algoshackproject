@@ -1,0 +1,98 @@
+---
+const faqs = [
+  {
+    question: "What is AlgoShack?",
+    answer:
+      "A digital-native platform company established in January 2018, specialising in AI-augmented autonomous testing and quality engineering. 300+ people across India and the United States, 2,000+ person-years of testing expertise, six published patents, and 250+ enterprise engagements.",
+  },
+  {
+    question: "What is algoQA?",
+    answer:
+      "algoQA is AlgoShack's AI-augmented autonomous testing platform. Its agents plan, generate, run and maintain tests across web, mobile and API layers, so quality engineering keeps pace with every release.",
+  },
+  {
+    question: "Where is AlgoShack based?",
+    answer:
+      "We operate from offices across India and the United States, with teams working closely with customers across time zones.",
+  },
+  {
+    question: "Who do you work with?",
+    answer:
+      "We partner with 250+ enterprises across industries, from fast-moving digital businesses to large regulated organisations that need dependable, scalable quality engineering.",
+  },
+  {
+    question: "What certifications do you hold?",
+    answer:
+      "Our teams hold leading industry testing and cloud certifications, and our delivery follows established quality and information-security standards.",
+  },
+  {
+    question: "Are you hiring?",
+    answer:
+      "Yes. We are always looking for engineers, testers and AI specialists who care about quality. Get in touch and tell us about yourself.",
+  },
+];
+---
+
+<section class="section_faq" id="faq" aria-labelledby="faq-heading">
+  <div class="padding-global">
+    <div class="faq_component">
+      <header class="faq_header">
+        <p class="faq_eyebrow">FAQs</p>
+        <div class="faq_header-text">
+          <h2 class="faq_heading" id="faq-heading">About the company</h2>
+          <p class="faq_subtext">The questions people ask before they get in touch.</p>
+        </div>
+      </header>
+
+      <div class="faq_list" data-faq>
+        {faqs.map((item, index) => {
+          const open = index === 0;
+          const questionId = `faq-question-${index}`;
+          const answerId = `faq-answer-${index}`;
+
+          return (
+            <div class:list={["faq_item", { "is-open": open }]} data-faq-item>
+              <span class="faq_icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none">
+                  <path
+                    d="M5.75 2.5 11.25 8l-5.5 5.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+
+              <h3 class="faq_question-wrap">
+                <button
+                  type="button"
+                  class="faq_question"
+                  id={questionId}
+                  aria-expanded={open ? "true" : "false"}
+                  aria-controls={answerId}
+                  data-faq-trigger
+                >
+                  {item.question}
+                </button>
+              </h3>
+
+              <div
+                class="faq_answer-wrap"
+                id={answerId}
+                role="region"
+                aria-labelledby={questionId}
+                aria-hidden={!open ? "true" : "false"}
+                inert={!open}
+              >
+                <div class="faq_answer-inner">
+                  <p class="faq_answer">{item.answer}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
