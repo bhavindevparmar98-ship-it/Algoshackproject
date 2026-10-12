@@ -1,0 +1,113 @@
+---
+import { Image } from "astro:assets";
+import SectionHeader from "../common/SectionHeader.astro";
+import newJerseyImage from "../../assets/our-story-img-4.jpg";
+import bengaluruImage from "../../assets/our-story-img-3.jpg";
+
+interface Office {
+  id: string;
+  tag: string;
+  city: string;
+  address: string;
+  image: ImageMetadata;
+}
+
+const offices: Office[] = [
+  {
+    id: "new-jersey",
+    tag: "Americas",
+    city: "New Jersey, United States",
+    address: "131 Continental Dr Ste 301, Newark, DE 19713, USA",
+    image: newJerseyImage,
+  },
+  {
+    id: "bengaluru",
+    tag: "Headquarters",
+    city: "Bengaluru, India",
+    address:
+      "AlgoShack Technologies Pvt. Ltd. Outer Ring Road, Bellandur Bengaluru, Karnataka 560103",
+    image: bengaluruImage,
+  },
+];
+
+const mapsUrl = (query: string) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+---
+
+<section class="section_locations" id="locations" aria-labelledby="locations-heading">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="locations_component">
+          <SectionHeader
+            eyebrow="Locations"
+            title="Two offices, one team."
+            description="300+ professionals across India and the United States, with delivery coverage in both time zones."
+            titleId="locations-heading"
+            className="locations_header"
+            eyebrowClass="text-style-allcaps text-color-blue"
+            titleWrapClass="locations_header-content"
+            titleClass="heading-style-h2 text-align-center"
+            descriptionClass="text-size-large text-align-center"
+          />
+
+          <div class="locations_list" role="list">
+            {
+              offices.map((office) => (
+                <article class="locations_card" id={office.id} role="listitem">
+                  <div class="locations_image-wrapper">
+                    <Image
+                      class="locations_image"
+                      src={office.image}
+                      alt=""
+                      loading="lazy"
+                    />
+                    <div class="locations_tag">
+                      <svg
+                        class="locations_tag-icon"
+                        viewBox="0 0 256 256"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="M128 64a40 40 0 1 0 40 40 40 40 0 0 0-40-40Zm0 64a24 24 0 1 1 24-24 24 24 0 0 1-24 24Zm0-112a88.1 88.1 0 0 0-88 88c0 31.4 14.51 64.68 42 96.25a254.19 254.19 0 0 0 41.45 38.3 8 8 0 0 0 9.18 0A254.19 254.19 0 0 0 174 200.25c27.45-31.57 42-64.85 42-96.25a88.1 88.1 0 0 0-88-88Zm0 206c-16.53-13-72-60.75-72-118a72 72 0 0 1 144 0c0 57.23-55.47 105-72 118Z" />
+                      </svg>
+                      <span class="locations_tag-text text-size-small">{office.tag}</span>
+                    </div>
+                  </div>
+
+                  <div class="locations_content">
+                    <div class="locations_content-top">
+                      <h3 class="heading-style-h3">{office.city}</h3>
+                      <p class="text-size-large">{office.address}</p>
+                    </div>
+
+                    <a
+                      class="locations_link"
+                      href={mapsUrl(office.address)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span class="text-size-regular">Get directions</span>
+                      <svg
+                        class="locations_link-icon"
+                        viewBox="0 0 256 256"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="M221.66 133.66l-72 72a8 8 0 0 1-11.32-11.32L196.69 136H40a8 8 0 0 1 0-16h156.69l-58.35-58.34a8 8 0 0 1 11.32-11.32l72 72a8 8 0 0 1 0 11.32Z" />
+                      </svg>
+                    </a>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

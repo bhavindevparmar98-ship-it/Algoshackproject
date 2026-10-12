@@ -1,4 +1,6 @@
 ---
+import SectionHeader from "../common/SectionHeader.astro";
+
 const faqs = [
   {
     question: "What is AlgoShack?",
@@ -36,13 +38,17 @@ const faqs = [
 <section class="section_faq" id="faq" aria-labelledby="faq-heading">
   <div class="padding-global">
     <div class="faq_component">
-      <header class="faq_header">
-        <p class="faq_eyebrow">FAQs</p>
-        <div class="faq_header-text">
-          <h2 class="faq_heading" id="faq-heading">About the company</h2>
-          <p class="faq_subtext">The questions people ask before they get in touch.</p>
-        </div>
-      </header>
+      <SectionHeader
+        eyebrow="FAQs"
+        title="About the company"
+        description="The questions people ask before they get in touch."
+        titleId="faq-heading"
+        className="faq_header"
+        eyebrowClass="faq_eyebrow"
+        titleWrapClass="faq_header-text"
+        titleClass="faq_heading"
+        descriptionClass="faq_subtext"
+      />
 
       <div class="faq_list" data-faq>
         {faqs.map((item, index) => {
@@ -64,7 +70,7 @@ const faqs = [
                 </svg>
               </span>
 
-              <h3 class="faq_question-wrap">
+              <h3 class="faq_question-wrap heading-style-h3">
                 <button
                   type="button"
                   class="faq_question"

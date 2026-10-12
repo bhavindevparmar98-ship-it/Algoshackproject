@@ -1,0 +1,48 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface TimelineItem {
+  year: string;
+  title: string;
+  text: string;
+  image: ImageMetadata;
+  alt?: string;
+}
+
+interface Props {
+  items: TimelineItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="timeline_list" data-timeline>
+  {
+    items.map((item) => (
+      <article class="timeline_item">
+        <div class="timeline_content">
+          <div class="timeline_copy">
+            <p class="timeline_year">{item.year}</p>
+            <h3 class="timeline_title heading-style-h3">{item.title}</h3>
+            <p class="text-size-large">{item.text}</p>
+          </div>
+        </div>
+        <div class="timeline_media">
+          <Image
+            class="timeline_image"
+            src={item.image}
+            alt={item.alt ?? ""}
+            loading="lazy"
+          />
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<script>
+  import { initTimelines } from "../../../scripts/timeline";
+
+  initTimelines();
+</script>

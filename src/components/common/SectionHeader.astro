@@ -1,0 +1,43 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  titleId?: string;
+  className: string;
+  eyebrowClass: string;
+  titleClass: string;
+  descriptionClass?: string;
+  titleWrapClass?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  titleId,
+  className,
+  eyebrowClass,
+  titleClass,
+  descriptionClass = "",
+  titleWrapClass = "",
+} = Astro.props;
+const resolvedTitleClass = [...new Set(`${titleClass} heading-style-h2`.split(/\s+/))];
+---
+
+<header class={className}>
+  <span class={eyebrowClass}>{eyebrow}</span>
+  {
+    titleWrapClass ? (
+      <div class={titleWrapClass}>
+        <h2 class={resolvedTitleClass.join(" ")} id={titleId}>{title}</h2>
+        {description && <p class={descriptionClass}>{description}</p>}
+      </div>
+    ) : (
+      <>
+        <h2 class={resolvedTitleClass.join(" ")} id={titleId}>{title}</h2>
+        {description && <p class={descriptionClass}>{description}</p>}
+      </>
+    )
+  }
+</header>

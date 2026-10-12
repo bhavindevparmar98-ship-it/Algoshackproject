@@ -1,0 +1,171 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+
+const industries = [
+  {
+    id: "medtech",
+    icon: "heartbeat",
+    title: "MedTech & Radiology Informatics",
+    text: "Regulated, safety-critical, IEC 62304 and ISO 14971 territory. Traceability isn't optional.",
+    image: "../src/assets/slider-img-1.jpg",
+    href: "#",
+    visible: true,
+  },
+  {
+    id: "retail",
+    icon: "bag",
+    title: "Retail & digital commerce",
+    text: "Add a short description for Retail & digital commerce here.",
+    image: "../src/assets/slider-img-2.jpg",
+    href: "#",
+    visible: true,
+  },
+  {
+    id: "banking",
+    icon: "bank",
+    title: "Banking & fintech",
+    text: "Add a short description for Banking & fintech here.",
+    image: "../src/assets/slider-img-3.jpg",
+    href: "#",
+    visible: true,
+  },
+  {
+    id: "logistics",
+    icon: "truck",
+    title: "Logistics",
+    text: "Add a short description for Logistics here.",
+    image: "../src/assets/slider-img-4.jpg",
+    href: "#",
+    visible: false,
+  },
+  {
+    id: "it",
+    icon: "monitor",
+    title: "Information & Technology",
+    text: "Add a short description for Information & Technology here.",
+    image: "../src/assets/slider-img-5.jpg",
+    href: "#",
+    visible: false,
+  },
+];
+
+const icons: Record<string, string> = {
+  heartbeat:
+    '<path d="M16 27.5S4 20.7 4 12.3C4 8 6.8 5.5 10 5.5c2.4 0 4.6 1.3 6 3.5 1.4-2.2 3.6-3.5 6-3.5 3.2 0 6 2.5 6 6.8 0 8.4-12 15.2-12 15.2Z"/><path d="M3 16.5h6.5l2.5-4.5 4 8 2.5-3.5H29"/>',
+  bag: '<path d="M5.5 10h21l-1.6 17.5H7.1L5.5 10Z"/><path d="M11 14V9.5a5 5 0 0 1 10 0V14"/>',
+  bank: '<path d="M16 4 4 11h24L16 4Z"/><path d="M7 14v9M13 14v9M19 14v9M25 14v9M4 27h24"/>',
+  truck:
+    '<path d="M3 8h16v15H3zM19 13h6l4 5v5h-10"/><circle cx="9" cy="24.5" r="3"/><circle cx="23" cy="24.5" r="3"/>',
+  monitor: '<rect x="4" y="6" width="24" height="16" rx="1.5"/><path d="M11 27h10M16 22v5"/>',
+};
+
+const firstVisible = industries.findIndex((industry) => industry.visible);
+---
+
+<section class="usecases" id="use-cases">
+  <div class="usecases__inner">
+    <SectionHeader
+      eyebrow="Industries"
+      title="Proven where the cost of a bug is highest."
+      description="algoQA is built for regulated environments. Governance and traceability are in the platform, not bolted on. Your data is never used to train anyone else's model."
+      className="usecases__header"
+      eyebrowClass="usecases__eyebrow"
+      titleWrapClass="usecases__titles"
+      titleClass="usecases__title"
+      descriptionClass="usecases__description"
+    />
+
+    <div class="usecases__panels">
+      {
+        industries.map((industry, index) => (
+          <article
+            class:list={["uc-panel", { "is-active": index === firstVisible }]}
+            hidden={!industry.visible}
+            style={`background-image: url('${industry.image}')`}
+          >
+            <button
+              type="button"
+              class="uc-panel__tab"
+              aria-expanded={index === firstVisible ? "true" : "false"}
+              aria-controls={`uc-${industry.id}`}
+            >
+              <span class="uc-panel__label">
+                <svg
+                  viewBox="0 0 32 32"
+                  width="32"
+                  height="32"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  set:html={icons[industry.icon]}
+                />
+                <span class="uc-panel__label-text">{industry.title}</span>
+              </span>
+            </button>
+
+            <div class="uc-panel__content" id={`uc-${industry.id}`}>
+              <div class="uc-panel__text">
+                <div class="uc-panel__title-row">
+                  <svg
+                    viewBox="0 0 32 32"
+                    width="32"
+                    height="32"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    set:html={icons[industry.icon]}
+                  />
+                  <h3 class="heading-style-h3">{industry.title}</h3>
+                </div>
+                <p class="uc-panel__desc">{industry.text}</p>
+              </div>
+
+              <a class="uc-btn" href={industry.href}>
+                <span>Explore</span>
+                <svg
+                  viewBox="0 0 16 16"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>(".usecases__panels");
+
+  if (root) {
+    const panels = Array.from(root.querySelectorAll<HTMLElement>(".uc-panel:not([hidden])"));
+
+    const setActive = (index: number) => {
+      panels.forEach((panel, panelIndex) => {
+        const active = panelIndex === index;
+        panel.classList.toggle("is-active", active);
+        panel.querySelector(".uc-panel__tab")?.setAttribute("aria-expanded", String(active));
+      });
+    };
+
+    panels.forEach((panel, index) => {
+      panel.querySelector(".uc-panel__tab")?.addEventListener("click", () => setActive(index));
+    });
+  }
+</script>

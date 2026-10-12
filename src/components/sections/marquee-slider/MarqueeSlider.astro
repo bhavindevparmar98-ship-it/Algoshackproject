@@ -1,0 +1,27 @@
+---
+interface Props {
+  speed?: number;
+  label?: string;
+}
+
+const { speed = 40, label = "Slider" } = Astro.props;
+---
+
+<div
+  class="marquee_slider"
+  data-marquee
+  data-speed={speed}
+  role="region"
+  aria-roledescription="carousel"
+  aria-label={label}
+>
+  <div class="marquee_track">
+    <slot />
+  </div>
+</div>
+
+<script>
+  import { initMarquees } from "../../../scripts/marquee";
+
+  initMarquees();
+</script>

@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  image: ImageMetadata;
+  quote: string;
+  name: string;
+  role: string;
+  alt?: string;
+}
+
+const { image, quote, name, role, alt = "" } = Astro.props;
+---
+
+<article class="life_card">
+  <Image class="life_card_image" src={image} alt={alt} loading="lazy" />
+  <div class="life_card_content">
+    <svg class="life_card_icon" viewBox="0 0 32 28" fill="currentColor" aria-hidden="true">
+      <path d="M0 28V15.5C0 6.7 5.1 1.4 13.4 0l1.6 3.2C10.5 4.7 8.3 7.4 8 11.3H14V28H0Zm17 0V15.5C17 6.7 22.1 1.4 30.4 0L32 3.2c-4.5 1.5-6.7 4.2-7 8.1h6V28H17Z" />
+    </svg>
+    <p class="life_card_quote">"{quote}"</p>
+    <div class="life_card_divider" aria-hidden="true"></div>
+    <div class="life_card_author">
+      <p class="life_card_name">{name}</p>
+      <p class="life_card_role">{role}</p>
+    </div>
+  </div>
+</article>

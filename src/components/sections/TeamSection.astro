@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import avatarOne from "../../assets/team-1.svg";
 import avatarTwo from "../../assets/team-2.svg";
 import avatarThree from "../../assets/team-3.svg";
+import SectionHeader from "../common/SectionHeader.astro";
 
 const team = [
   { name: "Aarav Shah", role: "Founder & Strategy Lead", image: avatarOne },
@@ -16,10 +17,13 @@ const team = [
     <div class="container-large">
       <div class="padding-section-medium">
         <div class="team_component">
-          <div class="section_heading">
-            <span class="eyebrow">Meet the team</span>
-            <h2 class="heading-style-h2">A small team with a clear point of view.</h2>
-          </div>
+          <SectionHeader
+            eyebrow="Meet the team"
+            title="A small team with a clear point of view."
+            className="section_heading"
+            eyebrowClass="eyebrow"
+            titleClass="heading-style-h2"
+          />
 
           <div class="team_grid">
             {team.map((member) => (
@@ -28,7 +32,7 @@ const team = [
                   <Image src={member.image} alt={`${member.name} profile illustration`} />
                 </div>
                 <div class="team_member_content">
-                  <h3 class="heading-style-h5">{member.name}</h3>
+                  <h3 class="heading-style-h3">{member.name}</h3>
                   <p class="text-size-small text-color-secondary">{member.role}</p>
                 </div>
               </article>

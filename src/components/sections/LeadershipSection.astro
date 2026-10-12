@@ -1,0 +1,83 @@
+---
+import LeaderCard from "./LeaderCard.astro";
+import SectionHeader from "../common/SectionHeader.astro";
+---
+
+<section class="leadership" id="leadership">
+  <SectionHeader
+    eyebrow="Leadership"
+    title="The people accountable for it."
+    description="A leadership team drawn from enterprise quality engineering, product and delivery, with decades of shipping software into regulated environments."
+    className="leadership__header"
+    eyebrowClass="leadership__eyebrow"
+    titleWrapClass="leadership__titles"
+    titleClass="leadership__title"
+    descriptionClass="leadership__description"
+  />
+
+  <div class="leadership__grid">
+    <LeaderCard
+      name="Lina Zhao"
+      role="Chief Marketing Officer"
+      image="../src/assets/team-img-1.jpg"
+      linkedin="https://www.linkedin.com/"
+    >
+      <p>
+        Lina brings over 12 years of experience in strategic marketing and brand
+        management. She previously worked as Marketing Director at Innovate Media,
+        where she led campaigns that increased brand visibility and market share.
+      </p>
+      <p>
+        Her focus includes digital marketing, consumer insights, and content
+        strategy. Lina has successfully launched several high-profile marketing
+        initiatives, which resulted in increased engagement and customer loyalty
+        across various sectors.
+      </p>
+    </LeaderCard>
+
+    <LeaderCard
+      name="Lina Zhao"
+      role="Chief Innovation Officer"
+      image="../src/assets/team-img-2.jpg"
+      linkedin="https://www.linkedin.com/"
+    >
+      <p>
+        Placeholder bio. Ahiya Chief Innovation Officer nu background, pehla na roles
+        ane e company ma shu focus kare che e short ma lakho.
+      </p>
+      <p>
+        Biju paragraph: achievements, domains ane experience.
+      </p>
+    </LeaderCard>
+
+    <LeaderCard
+      name="Rajiv Kumar"
+      role="Co-founder"
+      image="../src/assets/team-img-3.jpg"
+      linkedin="https://www.linkedin.com/"
+    >
+      <p>
+        Placeholder bio. Ahiya Rajiv Kumar nu background, pehla na roles ane
+        company ma shu focus kare che e short ma lakho.
+      </p>
+      <p>
+        Biju paragraph: achievements, domains ane experience.
+      </p>
+    </LeaderCard>
+
+    <LeaderCard
+      name="Maya Patel"
+      role="Designer"
+      image="../src/assets/team-img-4.jpg"
+      linkedin="https://www.linkedin.com/"
+    >
+      <p>
+        Placeholder bio. Ahiya Maya Patel nu background, pehla na roles ane
+        company ma shu focus kare che e short ma lakho.
+      </p>
+      <p>
+        Biju paragraph: achievements, domains ane experience.
+      </p>
+    </LeaderCard>
+  </div>
+</section>

@@ -1,0 +1,89 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+import TestimonialCard from "./testimonials/TestimonialCard.astro";
+import MarqueeSlider from "./marquee-slider/MarqueeSlider.astro";
+import author1 from "../../assets/author-img-1.png";
+import author2 from "../../assets/author-img-2.jpg";
+import author3 from "../../assets/author-img-3.jpg";
+import author4 from "../../assets/author-img-4.jpg";
+import author5 from "../../assets/author-img-5.jpg";
+import logo1 from "../../assets/testimonial-logo-1.png";
+import logo2 from "../../assets/testimonial-logo-2.png";
+import logo3 from "../../assets/testimonial-logo-3.png";
+import logo4 from "../../assets/testimonial-logo-4.png";
+import logo5 from "../../assets/testimonial-logo-5.png";
+
+const testimonials = [
+  {
+    quote:
+      "The integration of AI has significantly reduced our manual testing hours, allowing us to focus on innovation rather than routine checks.",
+    logo: { src: logo1, alt: "Client logo 1", width: 104 },
+    author: {
+      image: author1,
+      name: "Product Manager",
+      role: "E-commerce, San Francisco",
+    },
+  },
+  {
+    quote:
+      "Regression that used to take a full sprint now closes inside a day, and every result traces back to the requirement that asked for it.",
+    logo: { src: logo2, alt: "Client logo 2", width: 131 },
+    author: { image: author2, name: "QA Director", role: "MedTech, Bengaluru" },
+  },
+  {
+    quote:
+      "We kept our Selenium estate. algoQA extended it instead of asking us to throw four years of work away.",
+    logo: { src: logo3, alt: "Client logo 3", width: 128 },
+    author: {
+      image: author3,
+      name: "Test Architect",
+      role: "Banking & fintech, London",
+    },
+  },
+  {
+    quote:
+      "Self-healing removed the single biggest source of noise in our pipeline. Nobody misses the Monday morning locator triage.",
+    logo: { src: logo4, alt: "Client logo 4", width: 148 },
+    author: {
+      image: author4,
+      name: "Head of Engineering",
+      role: "Retail, New Jersey",
+    },
+  },
+  {
+    quote:
+      "Implementing continuous testing has enabled us to deploy updates multiple times a day without fear of breaking existing features.",
+    logo: { src: logo5, alt: "Client logo 5", width: 149 },
+    author: {
+      image: author5,
+      name: "DevOps Engineer",
+      role: "Tech Startup, Austin",
+    },
+  },
+];
+---
+
+<section class="section_testimonials" aria-labelledby="testimonials-heading">
+  <div class="padding-section-large">
+    <div class="testimonial_component">
+      <div class="padding-global">
+        <div class="container-large">
+          <SectionHeader
+            eyebrow="Testimonials"
+            title="What happens after the first conversation."
+            titleId="testimonials-heading"
+            className="testimonial_header"
+            eyebrowClass="testimonial_eyebrow text-style-allcaps text-color-blue"
+            titleClass="heading-style-h2"
+          />
+        </div>
+      </div>
+
+      <MarqueeSlider speed={40} label="Customer testimonials">
+        {testimonials.map((testimonial) => (
+          <TestimonialCard {...testimonial} />
+        ))}
+      </MarqueeSlider>
+    </div>
+  </div>
+</section>

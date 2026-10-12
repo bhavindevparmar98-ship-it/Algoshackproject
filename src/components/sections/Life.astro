@@ -1,0 +1,78 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+import LifeCard from "./life/LifeCard.astro";
+import MarqueeSlider from "./marquee-slider/MarqueeSlider.astro";
+import lifeImage1 from "../../assets/AlgoShack-img-1.jpg";
+import lifeImage2 from "../../assets/AlgoShack-img-2.jpg";
+import lifeImage3 from "../../assets/AlgoShack-img-3.jpg";
+import lifeImage4 from "../../assets/AlgoShack-img-4.jpg";
+import lifeImage5 from "../../assets/AlgoShack-img-5.jpg";
+
+const stories = [
+  {
+    image: lifeImage1,
+    alt: "AlgoShack team member at work",
+    quote:
+      "I started my career here and learnt so much from the moment I started. In a very short time I got the opportunity to deal with clients.",
+    name: "QA Director",
+    role: "MedTech, Bengaluru",
+  },
+  {
+    image: lifeImage2,
+    alt: "AlgoShack team members working together",
+    quote:
+      "I started my career here and learnt so much from the moment I started. In a very short time I got the opportunity to deal with clients.",
+    name: "QA Director",
+    role: "MedTech, Bengaluru",
+  },
+  {
+    image: lifeImage3,
+    alt: "AlgoShack colleague",
+    quote:
+      "AlgoShack is a great place to learn new technologies, has a nice working atmosphere, and in a short time I was communicating with clients.",
+    name: "Nagajyothi Kapuluru",
+    role: "Quality engineering",
+  },
+  {
+    image: lifeImage4,
+    alt: "AlgoShack colleague",
+    quote:
+      "A great working experience. Very friendly environment, you always feel supported by the mentors, with exposure to a lot of new and exciting things.",
+    name: "Yashi Rathore",
+    role: "Test engineering",
+  },
+  {
+    image: lifeImage5,
+    alt: "AlgoShack team member",
+    quote:
+      "I started my career here and learnt so much from the moment I started. In a very short time I got the opportunity to deal with clients.",
+    name: "QA Director",
+    role: "MedTech, Bengaluru",
+  },
+];
+---
+
+<section class="section_life" aria-labelledby="life-heading">
+  <div class="padding-section-large">
+    <div class="life_component">
+      <div class="padding-global">
+        <div class="container-large">
+          <SectionHeader
+            eyebrow="Life at AlgoShack"
+            title="Come for the problem. Stay for the people."
+            description="We treat each employee fairly with mutual respect, give them the opportunity and the input to excel in the work, and keep encouraging them. Holi, Diwali, Independence Day, Women's Day, anniversary nights, team outings and a Christmas charity event — the calendar is as full as the roadmap."
+            titleId="life-heading"
+            className="life_header"
+            eyebrowClass="life_eyebrow text-style-allcaps text-color-blue"
+            titleClass="heading-style-h2"
+            descriptionClass="text-size-large"
+          />
+        </div>
+      </div>
+
+      <MarqueeSlider speed={40} label="Life at AlgoShack">
+        {stories.map((story) => <LifeCard {...story} />)}
+      </MarqueeSlider>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,79 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+import Timeline from "./timeline/Timeline.astro";
+import timelineImage1 from "../../assets/timeline-img-1.jpg";
+import timelineImage2 from "../../assets/timeline-img-2.jpg";
+import timelineImage3 from "../../assets/timeline-img-3.jpg";
+import timelineImage4 from "../../assets/timeline-img-4.jpg";
+import timelineImage5 from "../../assets/timeline-img-5.jpg";
+import timelineImage6 from "../../assets/timeline-img-6.jpg";
+
+const milestones = [
+  {
+    year: "2018",
+    title: "AlgoShack is founded",
+    text: "Established in January in Bengaluru with a small team and a conviction that testing needed a system, not more testers.",
+    image: timelineImage1,
+    alt: "AlgoShack's early team",
+  },
+  {
+    year: "2019",
+    title: "First Fortune 100 recognition",
+    text: "Philips Best Innovation Award at the Supplier Innovation Event. Named among BusinessSight Media's 20 Best Places to Work.",
+    image: timelineImage2,
+    alt: "AlgoShack team celebrating an award",
+  },
+  {
+    year: "2021",
+    title: "Certified for regulated work",
+    text: "ISO 9001:2015 certification, with ISO 14971:2007 and IEC 62304:2006 attestations for safety-critical MedTech software.",
+    image: timelineImage3,
+    alt: "Team working together",
+  },
+  {
+    year: "2023",
+    title: "Most resilient supplier",
+    text: "GE HealthCare names AlgoShack Most Resilient Supplier in Delivery at the India Supplier Summit, Bengaluru.",
+    image: timelineImage4,
+    alt: "AlgoShack colleagues at an event",
+  },
+  {
+    year: "2024",
+    title: "GenAI and agentic AI arrive",
+    text: "algoQA moves from rules to autonomous agents. Six patents published. The team crosses 300 people.",
+    image: timelineImage5,
+    alt: "Team collaborating on technology",
+  },
+  {
+    year: "2026",
+    title: "Ranked #3 globally",
+    text: "Ranked #3 among 700+ test automation companies worldwide, with 250+ enterprise engagements delivered.",
+    image: timelineImage6,
+    alt: "AlgoShack team members",
+  },
+];
+---
+
+<section class="section_timeline" id="timeline" aria-labelledby="timeline-heading">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="timeline_component">
+          <SectionHeader
+            eyebrow="Our journey"
+            title="Eight years, one direction."
+            description="From a Bengaluru start-up to a globally ranked quality engineering platform company with customers on two continents."
+            titleId="timeline-heading"
+            className="timeline_header"
+            eyebrowClass="timeline_eyebrow text-style-allcaps text-color-blue"
+            titleWrapClass="timeline_title_wrap"
+            titleClass="heading-style-h2"
+            descriptionClass="text-size-large"
+          />
+
+          <Timeline items={milestones} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,6 +1,7 @@
 ---
 import PlatformCard from "../homeplatformcard/PlatformCard.astro";
 import PlatformGrid from "../homeplatformcard/PlatformGrid.astro";
+import SectionHeader from "../common/SectionHeader.astro";
 
 const capabilities = [
   {
@@ -50,13 +51,16 @@ const capabilities = [
     <div class="container-large">
       <div class="padding-section-large">
         <div class="home_platform_component">
-          <header class="home_platform_header">
-            <p class="home_platform_eyebrow text-style-allcaps text-color-teal">About algoQA</p>
-            <h2 class="heading-style-h2 is-white" id="platform-heading">See the platform in action.</h2>
-            <p class="text-size-large is-light">
-              An AI-augmented autonomous testing platform for intelligent automation of software testing, leveraging GenAI and agentic AI. Six stages, continuously. Each one feeds the next, and the whole loop learns the application as it runs.
-            </p>
-          </header>
+          <SectionHeader
+            eyebrow="About algoQA"
+            title="See the platform in action."
+            description="An AI-augmented autonomous testing platform for intelligent automation of software testing, leveraging GenAI and agentic AI. Six stages, continuously. Each one feeds the next, and the whole loop learns the application as it runs."
+            titleId="platform-heading"
+            className="home_platform_header"
+            eyebrowClass="home_platform_eyebrow text-style-allcaps text-color-teal"
+            titleClass="heading-style-h2 is-white"
+            descriptionClass="text-size-large is-light"
+          />
 
           <PlatformGrid>
             {capabilities.map((capability) => (
