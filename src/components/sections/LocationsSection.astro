@@ -1,8 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import SectionHeader from "../common/SectionHeader.astro";
-import newJerseyImage from "../../assets/our-story-img-4.jpg";
-import bengaluruImage from "../../assets/our-story-img-3.jpg";
+import newJerseyImage from "../../assets/location-img-1.png";
+import bengaluruImage from "../../assets/location-img-2.png";
 
 interface Office {
   id: string;
@@ -10,9 +10,11 @@ interface Office {
   city: string;
   address: string;
   image: ImageMetadata;
+  directions?: string; // optional: custom Google Maps link
+  visible?: boolean; // false = card hide (default: visible)
 }
 
-const offices: Office[] = [
+const allOffices: Office[] = [
   {
     id: "new-jersey",
     tag: "Americas",
@@ -28,7 +30,17 @@ const offices: Office[] = [
       "AlgoShack Technologies Pvt. Ltd. Outer Ring Road, Bellandur Bengaluru, Karnataka 560103",
     image: bengaluruImage,
   },
+  {
+    id: "office-3",
+    tag: "Headquarters",
+    city: "Bengaluru, India",
+    address:
+      "AlgoShack Technologies Pvt. Ltd. Outer Ring Road, Bellandur Bengaluru, Karnataka 560103",
+    image: bengaluruImage,
+  },
 ];
+
+const offices = allOffices.filter((office) => office.visible !== false);
 
 const mapsUrl = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
@@ -59,7 +71,9 @@ const mapsUrl = (query: string) =>
                     <Image
                       class="locations_image"
                       src={office.image}
-                      alt=""
+                      alt={`${office.city} office`}
+                      width={406}
+                      height={282}
                       loading="lazy"
                     />
                     <div class="locations_tag">
@@ -73,23 +87,23 @@ const mapsUrl = (query: string) =>
                       >
                         <path d="M128 64a40 40 0 1 0 40 40 40 40 0 0 0-40-40Zm0 64a24 24 0 1 1 24-24 24 24 0 0 1-24 24Zm0-112a88.1 88.1 0 0 0-88 88c0 31.4 14.51 64.68 42 96.25a254.19 254.19 0 0 0 41.45 38.3 8 8 0 0 0 9.18 0A254.19 254.19 0 0 0 174 200.25c27.45-31.57 42-64.85 42-96.25a88.1 88.1 0 0 0-88-88Zm0 206c-16.53-13-72-60.75-72-118a72 72 0 0 1 144 0c0 57.23-55.47 105-72 118Z" />
                       </svg>
-                      <span class="locations_tag-text text-size-small">{office.tag}</span>
+                      <span class="locations_tag-text">{office.tag}</span>
                     </div>
                   </div>
 
                   <div class="locations_content">
                     <div class="locations_content-top">
-                      <h3 class="heading-style-h3">{office.city}</h3>
+                      <h3 class="heading-style-h4">{office.city}</h3>
                       <p class="text-size-large">{office.address}</p>
                     </div>
 
                     <a
                       class="locations_link"
-                      href={mapsUrl(office.address)}
+                      href={office.directions ?? mapsUrl(office.address)}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span class="text-size-regular">Get directions</span>
+                      <span class="locations_link-text">Get directions</span>
                       <svg
                         class="locations_link-icon"
                         viewBox="0 0 256 256"
