@@ -1,4 +1,8 @@
 ---
+import teamImg1 from "../../assets/team-img-1.jpg";
+import teamImg2 from "../../assets/team-img-2.jpg";
+import teamImg3 from "../../assets/team-img-3.jpg";
+import teamImg4 from "../../assets/team-img-4.jpg";
 import LeaderCard from "./LeaderCard.astro";
 import SectionHeader from "../common/SectionHeader.astro";
 ---
@@ -19,7 +23,7 @@ import SectionHeader from "../common/SectionHeader.astro";
     <LeaderCard
       name="Lina Zhao"
       role="Chief Marketing Officer"
-      image="../src/assets/team-img-1.jpg"
+      image={teamImg1.src}
       linkedin="https://www.linkedin.com/"
     >
       <p>
@@ -38,7 +42,7 @@ import SectionHeader from "../common/SectionHeader.astro";
     <LeaderCard
       name="Lina Zhao"
       role="Chief Innovation Officer"
-      image="../src/assets/team-img-2.jpg"
+      image={teamImg2.src}
       linkedin="https://www.linkedin.com/"
     >
       <p>
@@ -53,7 +57,7 @@ import SectionHeader from "../common/SectionHeader.astro";
     <LeaderCard
       name="Rajiv Kumar"
       role="Co-founder"
-      image="../src/assets/team-img-3.jpg"
+      image={teamImg3.src}
       linkedin="https://www.linkedin.com/"
     >
       <p>
@@ -68,7 +72,7 @@ import SectionHeader from "../common/SectionHeader.astro";
     <LeaderCard
       name="Maya Patel"
       role="Designer"
-      image="../src/assets/team-img-4.jpg"
+      image={teamImg4.src}
       linkedin="https://www.linkedin.com/"
     >
       <p>
