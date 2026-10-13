@@ -1,101 +1,122 @@
-// Homepage stats: animate each number's gradient while respecting reduced-motion preferences.
+// ---------- Homepage stats ----------
 const cards = document.querySelectorAll<HTMLElement>(".home_stats_card");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const idleSpeed = 0.00035;
-const easing = 0.08;
 
-const items = Array.from(cards, (card, index) => {
-  const number = card.querySelector<HTMLElement>(".home_stats_number");
+const DEFAULT_POSITION = 50; // screenshot jevo default look. Aa value 0-100 ma tune kari shako
+const easing = 0.1;
 
-  if (!number) {
-    throw new Error("Stats card is missing its number element.");
+type StatItem = {
+  number: HTMLElement;
+  position: number;
+  target: number;
+};
+
+const items: StatItem[] = [];
+let running = false;
+
+const render = (item: StatItem) => {
+  item.number.style.setProperty("--mx", `${item.position.toFixed(2)}%`);
+};
+
+const tick = () => {
+  let moving = false;
+
+  items.forEach((item) => {
+    const diff = item.target - item.position;
+
+    if (Math.abs(diff) > 0.05) {
+      item.position += diff * easing;
+      moving = true;
+    } else {
+      item.position = item.target;
+    }
+
+    render(item);
+  });
+
+  if (moving) {
+    requestAnimationFrame(tick);
+  } else {
+    running = false;
   }
+};
 
-  const item = {
+// Animation loop sirf jyare jarur hoy tyare j chale
+const start = () => {
+  if (running) return;
+  running = true;
+  requestAnimationFrame(tick);
+};
+
+cards.forEach((card) => {
+  const number = card.querySelector<HTMLElement>(".home_stats_number");
+  if (!number) return;
+
+  const item: StatItem = {
     number,
-    position: 0,
-    hovered: false,
-    mouse: 0,
-    offset: index * 0.9
+    position: DEFAULT_POSITION,
+    target: DEFAULT_POSITION,
   };
 
-  // Follow the pointer across a stat card. With reduced motion, update directly without animation.
+  render(item); // default look set karo
+
   card.addEventListener("mousemove", (event) => {
     const bounds = card.getBoundingClientRect();
-    item.mouse = Math.min(100, Math.max(0, ((event.clientX - bounds.left) / bounds.width) * 100));
-    item.hovered = true;
+    item.target = Math.min(100, Math.max(0, ((event.clientX - bounds.left) / bounds.width) * 100));
 
     if (reduceMotion) {
-      item.position = item.mouse;
-      number.style.setProperty("--mx", `${item.position.toFixed(2)}%`);
+      item.position = item.target;
+      render(item);
+    } else {
+      start();
     }
   });
 
-  // Resume the idle gradient glide when the pointer leaves a card.
   card.addEventListener("mouseleave", () => {
-    item.hovered = false;
+    item.target = DEFAULT_POSITION;
+
+    if (reduceMotion) {
+      item.position = DEFAULT_POSITION;
+      render(item);
+    } else {
+      start();
+    }
   });
 
-  return item;
+  items.push(item);
 });
 
-// Idle gradient motion is decorative, so stop the animation loop when motion reduction is requested.
-if (!reduceMotion && items.length > 0) {
-  function animateGradient(time: number) {
-    items.forEach((item) => {
-      const idlePosition = ((Math.sin(time * idleSpeed * 2 * Math.PI + item.offset) + 1) / 2) * 100;
-      const target = item.hovered ? item.mouse : idlePosition;
+// ---------- FAQ accordion (independent of motion preference) ----------
+const faqLists = document.querySelectorAll<HTMLElement>("[data-faq]");
 
-      item.position += (target - item.position) * easing;
-      item.number.style.setProperty("--mx", `${item.position.toFixed(2)}%`);
-    });
+faqLists.forEach((list) => {
+  const faqItems = Array.from(list.querySelectorAll<HTMLElement>("[data-faq-item]"));
 
-    requestAnimationFrame(animateGradient);
-  }
+  const setOpen = (item: HTMLElement, open: boolean) => {
+    const trigger = item.querySelector<HTMLButtonElement>("[data-faq-trigger]");
+    const answer = item.querySelector<HTMLElement>(".faq_answer-wrap");
+    if (!trigger || !answer) return;
 
-  // FAQ accordion: keep the answer visibility, inert state, and ARIA state in sync.
-  const faqLists = document.querySelectorAll<HTMLElement>("[data-faq]");
+    item.classList.toggle("is-open", open);
+    trigger.setAttribute("aria-expanded", String(open));
+    answer.setAttribute("aria-hidden", String(!open));
+    answer.inert = !open;
+  };
 
-  faqLists.forEach((list) => {
-    const faqItems = Array.from(list.querySelectorAll<HTMLElement>("[data-faq-item]"));
+  faqItems.forEach((item) => {
+    const trigger = item.querySelector<HTMLButtonElement>("[data-faq-trigger]");
+    if (!trigger) return;
 
-    const setOpen = (item: HTMLElement, open: boolean) => {
-      item.classList.toggle("is-open", open);
+    trigger.addEventListener("click", () => {
+      const willOpen = !item.classList.contains("is-open");
 
-      const trigger = item.querySelector<HTMLButtonElement>("[data-faq-trigger]");
-      const answer = item.querySelector<HTMLElement>(".faq_answer-wrap");
-
-      if (!trigger || !answer) {
-        throw new Error("FAQ item is missing its trigger or answer.");
+      if (willOpen) {
+        faqItems.forEach((other) => {
+          if (other !== item) setOpen(other, false);
+        });
       }
 
-      trigger.setAttribute("aria-expanded", String(open));
-      answer.setAttribute("aria-hidden", String(!open));
-      answer.inert = !open;
-    };
-
-    faqItems.forEach((item) => {
-      const trigger = item.querySelector<HTMLButtonElement>("[data-faq-trigger]");
-
-      if (!trigger) {
-        throw new Error("FAQ item is missing its trigger.");
-      }
-
-      trigger.addEventListener("click", () => {
-        const willOpen = !item.classList.contains("is-open");
-
-        if (willOpen) {
-          faqItems.forEach((other) => {
-            if (other !== item) {
-              setOpen(other, false);
-            }
-          });
-        }
-
-        setOpen(item, willOpen);
-      });
+      setOpen(item, willOpen);
     });
   });
-
-  requestAnimationFrame(animateGradient);
-}
+});

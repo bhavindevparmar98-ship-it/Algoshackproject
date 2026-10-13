@@ -1,48 +1,74 @@
 ---
-import PlatformCard from "../homeplatformcard/PlatformCard.astro";
-import PlatformGrid from "../homeplatformcard/PlatformGrid.astro";
-import SectionHeader from "../common/SectionHeader.astro";
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  text?: string;
+}
 
-const capabilities = [
+const {
+  eyebrow = "Knowledge hub",
+  heading = "See the platform in action.",
+  text = "An AI-augmented autonomous testing platform for intelligent automation of software testing, leveraging GenAI and agentic AI. Six stages, continuously. Each one feeds the next, and the whole loop learns the application as it runs.",
+} = Astro.props;
+
+const cards = [
   {
-    title: "Profiling",
-    description: "Builds a living AI model of your application: UI, workflows, APIs and how they change.",
-    icon: "profiling"
+    title: "AlgoShack in the news",
+    text: "Press releases, coverage and where to find us next.",
+    href: "#",
+    icon: `<path d="M9 6h22a2 2 0 0 1 2 2v26H9a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3z"/><path d="M33 14h3a1 1 0 0 1 1 1v16a3 3 0 0 1-3 3h-1"/><path d="M12 13h14"/><path d="M12 19h14"/><path d="M12 25h8"/>`,
   },
   {
-    title: "Test design",
-    description: "Turns intent into meaningful coverage, in Gherkin, with datasets. Deduplication keeps it lean.",
-    icon: "test-design"
+    title: "Analyst reports",
+    text: "Independent evaluations of the platform and the category.",
+    href: "#",
+    icon: `<path d="M23 4H10a2 2 0 0 0-2 2v28a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V13z"/><path d="M23 4v9h9"/><path d="M14 29v-4"/><path d="M20 29v-8"/><path d="M26 29v-6"/>`,
   },
   {
-    title: "Auto-code",
-    description: "Production-grade scripts generated in the framework and language you already use.",
-    icon: "auto-code"
+    title: "algoQA for enterprise",
+    text: "Deployment models, governance and Service-as-Software.",
+    href: "#",
+    icon: `<rect x="8" y="5" width="16" height="30" rx="2"/><path d="M24 15h6a2 2 0 0 1 2 2v18"/><path d="M13 12h6"/><path d="M13 18h6"/><path d="M13 24h6"/><path d="M15 35v-5h2v5"/><path d="M4 35h32"/>`,
   },
   {
-    title: "Schedule & execute",
-    description: "Impact analysis runs only the tests a change touches; smart ordering sequences them.",
-    icon: "execute"
+    title: "Integrations",
+    text: "Frameworks, CI/CD, ALM, execution cloud and AI models.",
+    href: "#",
+    icon: `<path d="M14 5v8"/><path d="M26 5v8"/><path d="M10 13h20v6a10 10 0 0 1-20 0z"/><path d="M20 29v6"/>`,
   },
   {
-    title: "Optimization",
-    description: "Auto-healing fixes broken locators as the app moves, so the estate evolves instead of rotting.",
-    icon: "optimization"
+    title: "Success stories",
+    text: "What changed for customers, with the numbers attached.",
+    href: "#",
+    icon: `<path d="M12 5h16v10a8 8 0 0 1-16 0z"/><path d="M12 9H6v3a6 6 0 0 0 6 6"/><path d="M28 9h6v3a6 6 0 0 1-6 6"/><path d="M20 23v7"/><path d="M13 35h14"/><path d="M15 35v-5h10v5"/>`,
   },
   {
-    title: "Reporting",
-    description: "Intelligent reports and algoQA Copilot turn every run into answers, traced back to intent.",
-    icon: "reporting"
-  }
+    title: "Patents",
+    text: "Six published applications behind the autonomous loop.",
+    href: "#",
+    icon: `<rect x="4" y="6" width="32" height="22" rx="2.5"/><path d="M10 13h20"/><path d="M10 19h10"/><circle cx="28" cy="22" r="3.5"/><path d="m26 25-1.5 9 3.5-2 3.5 2-1.5-9"/>`,
+  },
+  {
+    title: "Partners",
+    text: "Consulting, services and technology partnerships.",
+    href: "#",
+    icon: `<circle cx="12" cy="14" r="6"/><circle cx="28" cy="14" r="6"/><path d="M4 34v-2a7 7 0 0 1 7-7h2"/><path d="M36 34v-2a7 7 0 0 0-7-7h-2"/><path d="M14 33l6-5 6 5"/>`,
+  },
+  {
+    title: "Contact us",
+    text: "Sales, support, HR, recruitment and both offices.",
+    href: "#",
+    icon: `<rect x="4" y="8" width="32" height="24" rx="3"/><path d="m5 11 15 12L35 11"/>`,
+  },
 ];
 ---
 
-<section class="section_platform" id="platform" aria-labelledby="platform-heading">
-  <svg class="platform_gradients" aria-hidden="true" focusable="false">
+<section class="section_knowledge" id="knowledge-hub" aria-labelledby="knowledge-heading">
+  <svg class="knowledge_gradients" width="0" height="0" aria-hidden="true" focusable="false">
     <defs>
-      <linearGradient id="algoqa-platform-icon-gradient" gradientUnits="userSpaceOnUse" x1="2" y1="9" x2="34" y2="27">
-        <stop offset="0.04" stop-color="#1B9DD9" />
-        <stop offset="0.93" stop-color="#00B4A0" />
+      <linearGradient id="algoqa-knowledge-icon-gradient" gradientUnits="userSpaceOnUse" x1="2" y1="9" x2="34" y2="27">
+        <stop offset="0.04" stop-color="#1B9DD9"></stop>
+        <stop offset="0.93" stop-color="#00B4A0"></stop>
       </linearGradient>
     </defs>
   </svg>
@@ -50,83 +76,250 @@ const capabilities = [
   <div class="padding-global">
     <div class="container-large">
       <div class="padding-section-large">
-        <div class="home_platform_component">
-          <SectionHeader
-            eyebrow="About algoQA"
-            title="See the platform in action."
-            description="An AI-augmented autonomous testing platform for intelligent automation of software testing, leveraging GenAI and agentic AI. Six stages, continuously. Each one feeds the next, and the whole loop learns the application as it runs."
-            titleId="platform-heading"
-            className="home_platform_header"
-            eyebrowClass="home_platform_eyebrow text-style-allcaps text-color-teal"
-            titleClass="heading-style-h2 is-white"
-            descriptionClass="text-size-large is-light"
-          />
+        <div class="knowledge_component">
+          <header class="knowledge_header">
+            <span class="knowledge_eyebrow text-style-allcaps text-color-teal">{eyebrow}</span>
+            <h2 class="heading-style-h2 is-white" id="knowledge-heading">{heading}</h2>
+            <p class="text-size-large is-light">{text}</p>
+          </header>
 
-          <PlatformGrid>
-            {capabilities.map((capability) => (
-              <PlatformCard title={capability.title} description={capability.description}>
-                <svg slot="icon" class="home_platform_icon" viewBox="0 0 40 40" fill="none" stroke="url(#algoqa-platform-icon-gradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    {capability.icon === "profiling" && (
-                      <>
-                        <rect x="4" y="4" width="14" height="14" rx="2.5" />
-                        <rect x="22" y="4" width="14" height="14" rx="2.5" />
-                        <rect x="4" y="22" width="14" height="14" rx="2.5" />
-                        <rect x="22" y="22" width="14" height="14" rx="2.5" />
-                      </>
-                    )}
-                    {capability.icon === "test-design" && (
-                      <>
-                        <path d="m5 11 3 3 5-6" />
-                        <path d="M19 12h16" />
-                        <path d="m5 22 3 3 5-6" />
-                        <path d="M19 23h16" />
-                        <path d="M5 33h8" />
-                        <path d="M19 34h16" />
-                      </>
-                    )}
-                    {capability.icon === "auto-code" && (
-                      <>
-                        <path d="M14 11 4 20l10 9" />
-                        <path d="m26 11 10 9-10 9" />
-                        <path d="m22.5 7-5 26" />
-                      </>
-                    )}
-                    {capability.icon === "execute" && (
-                      <>
-                        <rect x="5" y="8" width="30" height="27" rx="3" />
-                        <path d="M5 16h30" />
-                        <path d="M13 4v8" />
-                        <path d="M27 4v8" />
-                        <path d="m17 22 8 5-8 5z" />
-                      </>
-                    )}
-                    {capability.icon === "optimization" && (
-                      <>
-                        <path d="M5 12h5.5" />
-                        <path d="M17.5 12H35" />
-                        <circle cx="14" cy="12" r="3.5" />
-                        <path d="M5 20h18.5" />
-                        <path d="M30.5 20H35" />
-                        <circle cx="27" cy="20" r="3.5" />
-                        <path d="M5 28h9.5" />
-                        <path d="M21.5 28H35" />
-                        <circle cx="18" cy="28" r="3.5" />
-                      </>
-                    )}
-                    {capability.icon === "reporting" && (
-                      <>
-                        <path d="M5 5v30h30" />
-                        <path d="M13 29V20" />
-                        <path d="M21 29V13" />
-                        <path d="M29 29V9" />
-                      </>
-                    )}
-                </svg>
-              </PlatformCard>
+          <ul class="knowledge_grid" role="list">
+            {cards.map((card) => (
+              <li class="knowledge_item">
+                <a href={card.href} class="knowledge_card">
+                  <div class="knowledge_icon-wrap">
+                    <svg
+                      class="knowledge_icon"
+                      viewBox="0 0 40 40"
+                      width="40"
+                      height="40"
+                      fill="none"
+                      stroke="url(#algoqa-knowledge-icon-gradient)"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                      set:html={card.icon}
+                    />
+                  </div>
+                  <div class="knowledge_card-content">
+                    <h3 class="knowledge_card-title heading-style-h5 is-white">{card.title}</h3>
+                    <p class="knowledge_card-text text-size-regular is-light">{card.text}</p>
+                  </div>
+                </a>
+              </li>
             ))}
-          </PlatformGrid>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<style is:global>
+  .section_knowledge .padding-global {
+    width: 100%;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .section_knowledge .container-large {
+    width: 100%;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .section_knowledge .padding-section-large {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .section_knowledge .heading-style-h2 {
+    margin: 0;
+    font-family: "Source Serif 4", serif;
+    font-weight: 600;
+    font-size: 2.75rem;
+    line-height: 3.0625rem;
+    letter-spacing: -0.015em;
+    text-align: center;
+    color: #fff;
+  }
+  .section_knowledge .heading-style-h5 {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 1.375rem;
+    line-height: 1.8125rem;
+    letter-spacing: -0.005em;
+    color: #fff;
+  }
+  .section_knowledge .text-size-large {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.8125rem;
+    text-align: center;
+    color: #e4e9ed;
+  }
+  .section_knowledge .text-size-regular {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    line-height: 1.625rem;
+    color: #e4e9ed;
+  }
+  .section_knowledge .text-style-allcaps {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    line-height: 1.0625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .section_knowledge .text-color-teal {
+    color: #00b4a0;
+  }
+  .section_knowledge ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .section_knowledge {
+    background-color: #0e2a3d;
+  }
+  .knowledge_gradients {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  .knowledge_component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+  }
+  .knowledge_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 50rem;
+  }
+  .knowledge_eyebrow {
+    margin: 0;
+  }
+  .knowledge_grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    width: 100%;
+  }
+  .knowledge_item {
+    display: flex;
+  }
+  .knowledge_card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+  .knowledge_card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(0, 180, 160, 0.6);
+    transform: translateY(-0.25rem);
+  }
+  .knowledge_card:focus-visible {
+    outline: 0.125rem solid #00b4a0;
+    outline-offset: 0.25rem;
+  }
+  .knowledge_icon-wrap {
+    box-sizing: border-box;
+    flex: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 0.375rem;
+    border-radius: 0.25rem;
+  }
+  .knowledge_icon {
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    overflow: visible;
+  }
+  .knowledge_card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (max-width: 991px) {
+    .section_knowledge .padding-global {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+    .section_knowledge .padding-section-large {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+    .section_knowledge .heading-style-h2 {
+      font-size: 2.25rem;
+      line-height: 2.5625rem;
+      letter-spacing: -0.01em;
+    }
+    .knowledge_component {
+      gap: 3.5rem;
+    }
+    .knowledge_grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    .section_knowledge .padding-global {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    .section_knowledge .padding-section-large {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+    .section_knowledge .heading-style-h2 {
+      font-size: 2rem;
+      line-height: 2.25rem;
+    }
+    .section_knowledge .text-size-large {
+      font-size: 1rem;
+      line-height: 1.625rem;
+    }
+    .knowledge_component {
+      gap: 2.5rem;
+    }
+    .knowledge_grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .knowledge_card {
+      transition: none;
+    }
+    .knowledge_card:hover {
+      transform: none;
+    }
+  }
+</style>

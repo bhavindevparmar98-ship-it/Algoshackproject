@@ -1,32 +1,45 @@
 ---
-import { Image } from "astro:assets";
 import ctaSection from "../../assets/cta-bg-img.png";
+
+interface Props {
+  heading?: string;
+  text?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  image?: string;
+}
+
+const {
+  heading = "Let's build something worth trusting.",
+  text = "Book a demo and see the agents run against a slice of your own application, or talk to us about joining the team. Zero setup cost to begin.",
+  primaryLabel = "Book a demo",
+  primaryHref = "#",
+  secondaryLabel = "Contact us",
+  secondaryHref = "#",
+  image = ctaSection.src,
+}: Props = Astro.props;
 ---
 
-<section class="cta-section">
-    <div class="padding-global">
-        <div class="container-small">
-            <div class="padding-section-small">
-                <div class="cta-component">
-                    <div class="cta-content">
-                        <div class="cta-content_header">
-                            <h2 class="heading-style-h2 is-white">
-                                Let's build something worth trusting.
-                            </h2>
-                            <p class="text-size-large is-light">
-                                Book a demo and see the agents run against a
-                                slice of your own application, or talk to us
-                                about joining the team. Zero setup cost to
-                                begin.
-                            </p>
-                        </div>
-                        <div class="cta-buttons_wrapper">
-                            <a href="#" class="cta-btn">Get Started</a>
-                            <a href="#" class="cta-btn">Get Started</a>                         
-                        </div>
-                    </div>
-                </div>
+<section class="section_cta" style={`--cta-image: url("${image}")`}>
+  <div class="padding-global">
+    <div class="container-small">
+      <div class="padding-section-small">
+        <div class="cta_component">
+          <div class="cta_content">
+            <div class="cta_content-header">
+              <h2 class="heading-style-h2 is-white">{heading}</h2>
+              <p class="text-size-large is-light">{text}</p>
             </div>
+
+            <div class="cta_buttons">
+              <a href={primaryHref} class="cta_button">{primaryLabel}</a>
+              <a href={secondaryHref} class="cta_button is-outline">{secondaryLabel}</a>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>

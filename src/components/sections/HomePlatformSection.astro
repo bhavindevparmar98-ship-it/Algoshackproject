@@ -1,48 +1,56 @@
 ---
-import PlatformCard from "../homeplatformcard/PlatformCard.astro";
-import PlatformGrid from "../homeplatformcard/PlatformGrid.astro";
-import SectionHeader from "../common/SectionHeader.astro";
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  text?: string;
+}
 
-const capabilities = [
+const {
+  eyebrow = "About algoQA",
+  heading = "See the platform in action.",
+  text = "An AI-augmented autonomous testing platform for intelligent automation of software testing, leveraging GenAI and agentic AI. Six stages, continuously. Each one feeds the next, and the whole loop learns the application as it runs.",
+} = Astro.props;
+
+const cards = [
   {
     title: "Profiling",
-    description: "Builds a living AI model of your application: UI, workflows, APIs and how they change.",
-    icon: "profiling"
+    text: "Builds a living AI model of your application: UI, workflows, APIs and how they change.",
+    icon: `<rect x="4" y="4" width="14" height="14" rx="2.5"/><rect x="22" y="4" width="14" height="14" rx="2.5"/><rect x="4" y="22" width="14" height="14" rx="2.5"/><rect x="22" y="22" width="14" height="14" rx="2.5"/>`,
   },
   {
     title: "Test design",
-    description: "Turns intent into meaningful coverage, in Gherkin, with datasets. Deduplication keeps it lean.",
-    icon: "test-design"
+    text: "Turns intent into meaningful coverage, in Gherkin, with datasets. Deduplication keeps it lean.",
+    icon: `<path d="m5 11 3 3 5-6"/><path d="M19 12h16"/><path d="m5 22 3 3 5-6"/><path d="M19 23h16"/><path d="M5 33h8"/><path d="M19 34h16"/>`,
   },
   {
     title: "Auto-code",
-    description: "Production-grade scripts generated in the framework and language you already use.",
-    icon: "auto-code"
+    text: "Production-grade scripts generated in the framework and language you already use.",
+    icon: `<path d="M14 11 4 20l10 9"/><path d="m26 11 10 9-10 9"/><path d="m22.5 7-5 26"/>`,
   },
   {
     title: "Schedule & execute",
-    description: "Impact analysis runs only the tests a change touches; smart ordering sequences them.",
-    icon: "execute"
+    text: "Impact analysis runs only the tests a change touches; smart ordering sequences them.",
+    icon: `<rect x="5" y="8" width="30" height="27" rx="3"/><path d="M5 16h30"/><path d="M13 4v8"/><path d="M27 4v8"/><path d="m17 22 8 5-8 5z"/>`,
   },
   {
     title: "Optimization",
-    description: "Auto-healing fixes broken locators as the app moves, so the estate evolves instead of rotting.",
-    icon: "optimization"
+    text: "Auto-healing fixes broken locators as the app moves, so the estate evolves instead of rotting.",
+    icon: `<path d="M5 12h5.5"/><path d="M17.5 12H35"/><circle cx="14" cy="12" r="3.5"/><path d="M5 20h18.5"/><path d="M30.5 20H35"/><circle cx="27" cy="20" r="3.5"/><path d="M5 28h9.5"/><path d="M21.5 28H35"/><circle cx="18" cy="28" r="3.5"/>`,
   },
   {
     title: "Reporting",
-    description: "Intelligent reports and algoQA Copilot turn every run into answers, traced back to intent.",
-    icon: "reporting"
-  }
+    text: "Intelligent reports and algoQA Copilot turn every run into answers, traced back to intent.",
+    icon: `<path d="M5 5v30h30"/><path d="M13 29V20"/><path d="M21 29V13"/><path d="M29 29V9"/>`,
+  },
 ];
 ---
 
-<section class="section_platform" id="platform" aria-labelledby="platform-heading">
-  <svg class="platform_gradients" aria-hidden="true" focusable="false">
+<section class="section_platform platform_tour" id="platform" aria-labelledby="platform-heading">
+  <svg class="platform_gradients" width="0" height="0" aria-hidden="true" focusable="false">
     <defs>
       <linearGradient id="algoqa-platform-icon-gradient" gradientUnits="userSpaceOnUse" x1="2" y1="9" x2="34" y2="27">
-        <stop offset="0.04" stop-color="#1B9DD9" />
-        <stop offset="0.93" stop-color="#00B4A0" />
+        <stop offset="0.04" stop-color="#1b9dd9"></stop>
+        <stop offset="0.93" stop-color="#00b4a0"></stop>
       </linearGradient>
     </defs>
   </svg>
@@ -50,81 +58,39 @@ const capabilities = [
   <div class="padding-global">
     <div class="container-large">
       <div class="padding-section-large">
-        <div class="home_platform_component">
-          <SectionHeader
-            eyebrow="About algoQA"
-            title="See the platform in action."
-            description="An AI-augmented autonomous testing platform for intelligent automation of software testing, leveraging GenAI and agentic AI. Six stages, continuously. Each one feeds the next, and the whole loop learns the application as it runs."
-            titleId="platform-heading"
-            className="home_platform_header"
-            eyebrowClass="home_platform_eyebrow text-style-allcaps text-color-teal"
-            titleClass="heading-style-h2 is-white"
-            descriptionClass="text-size-large is-light"
-          />
+        <div class="platform_component">
+          <header class="platform_header">
+            <span class="platform_eyebrow text-style-allcaps text-color-teal">{eyebrow}</span>
+            <h2 class="heading-style-h2 is-white" id="platform-heading">{heading}</h2>
+            <p class="text-size-large is-light">{text}</p>
+          </header>
 
-          <PlatformGrid>
-            {capabilities.map((capability) => (
-              <PlatformCard title={capability.title} description={capability.description}>
-                <svg slot="icon" class="home_platform_icon" viewBox="0 0 40 40" fill="none" stroke="url(#algoqa-platform-icon-gradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    {capability.icon === "profiling" && (
-                      <>
-                        <rect x="4" y="4" width="14" height="14" rx="2.5" />
-                        <rect x="22" y="4" width="14" height="14" rx="2.5" />
-                        <rect x="4" y="22" width="14" height="14" rx="2.5" />
-                        <rect x="22" y="22" width="14" height="14" rx="2.5" />
-                      </>
-                    )}
-                    {capability.icon === "test-design" && (
-                      <>
-                        <path d="m5 11 3 3 5-6" />
-                        <path d="M19 12h16" />
-                        <path d="m5 22 3 3 5-6" />
-                        <path d="M19 23h16" />
-                        <path d="M5 33h8" />
-                        <path d="M19 34h16" />
-                      </>
-                    )}
-                    {capability.icon === "auto-code" && (
-                      <>
-                        <path d="M14 11 4 20l10 9" />
-                        <path d="m26 11 10 9-10 9" />
-                        <path d="m22.5 7-5 26" />
-                      </>
-                    )}
-                    {capability.icon === "execute" && (
-                      <>
-                        <rect x="5" y="8" width="30" height="27" rx="3" />
-                        <path d="M5 16h30" />
-                        <path d="M13 4v8" />
-                        <path d="M27 4v8" />
-                        <path d="m17 22 8 5-8 5z" />
-                      </>
-                    )}
-                    {capability.icon === "optimization" && (
-                      <>
-                        <path d="M5 12h5.5" />
-                        <path d="M17.5 12H35" />
-                        <circle cx="14" cy="12" r="3.5" />
-                        <path d="M5 20h18.5" />
-                        <path d="M30.5 20H35" />
-                        <circle cx="27" cy="20" r="3.5" />
-                        <path d="M5 28h9.5" />
-                        <path d="M21.5 28H35" />
-                        <circle cx="18" cy="28" r="3.5" />
-                      </>
-                    )}
-                    {capability.icon === "reporting" && (
-                      <>
-                        <path d="M5 5v30h30" />
-                        <path d="M13 29V20" />
-                        <path d="M21 29V13" />
-                        <path d="M29 29V9" />
-                      </>
-                    )}
-                </svg>
-              </PlatformCard>
+          <div class="platform_grid">
+            {cards.map((card) => (
+              <article class="platform_card">
+                <div class="platform_icon-wrap">
+                  <svg
+                    class="platform_icon"
+                    viewBox="0 0 40 40"
+                    width="40"
+                    height="40"
+                    fill="none"
+                    stroke="url(#algoqa-platform-icon-gradient)"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                    set:html={card.icon}
+                  />
+                </div>
+                <div class="platform_card-content">
+                  <h3 class="platform_card-title heading-style-h5 is-white">{card.title}</h3>
+                  <p class="platform_card-text text-size-regular is-light">{card.text}</p>
+                </div>
+              </article>
             ))}
-          </PlatformGrid>
+          </div>
         </div>
       </div>
     </div>
