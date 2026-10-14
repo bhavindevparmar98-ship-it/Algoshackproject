@@ -5611,7 +5611,7 @@ a:hover > .mega-menu_cta .icon { transform: rotate(-90deg) translateY(3px); }
 
   /* announcement: wrap + 2 line */
   .navbar_announcement { align-items: flex-start; justify-content: flex-start; padding: 16px 48px 16px 16px; }
-  .navbar_announcement-inner { align-items: flex-start; gap: 16px; padding: 0; }
+  .navbar_announcement-inner { align-items: flex-start; gap: 16px; padding: 0; display: flex; flex-direction: row; align-items: center;}
   .navbar_announcement-icon { margin-top: 5px; }
   .navbar_announcement-close { top: 21px; transform: none; font-size: 16px; }
 
