@@ -35,8 +35,9 @@
   --radius-large: 2rem;
   --container-large: 80rem;
   --padding-global: clamp(1rem, 2vw, 2rem);
+  
 }
-
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 /* Base styles: browser reset, document defaults, and semantic element styles. */
 * {
   box-sizing: border-box;
