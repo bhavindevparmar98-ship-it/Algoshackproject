@@ -5212,16 +5212,127 @@ p.global-para-xlarge {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+/* company menu css sart */
 
+/* ---------- container ---------- */
+.mega-menu_component.is-company{
+  width:1041px;
+  max-width:calc(100vw - 32px);
+  padding:0;
+  overflow:hidden;
+  background:#fff;
+  border-radius:4px;
+  box-shadow:0 2px 16px rgba(14,42,61,.12);
+}
+.mega-menu_company{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-column:1 / -1;
+  width:100%;
+  background:#fff;
+}
+.mega-menu_company-col{display:flex;flex-direction:column;min-width:0}
+.mega-menu_company-col + .mega-menu_company-col{border-left:1px solid #E4E9ED}
+ 
+/* ---------- block (section) ---------- */
+.mega-menu_company-block{display:flex;flex-direction:column;gap: 1.25rem;padding:24px;box-sizing:border-box}
+.mega-menu_company-block.is-lg{padding:28px 24px}
+.mega-menu_company-block + .mega-menu_company-block{border-top:1px solid #E4E9ED}
+.mega-menu_company-col > .mega-menu_company-block:last-child{flex:1 1 auto}
+ 
+.is-company .mega-menu_eyebrow{
+  margin:0;padding:8px;
+  font:600 13px/17px 'Inter',sans-serif;
+  letter-spacing:.08em;text-transform:uppercase;color:#74818C;
+}
+.mega-menu_company-list{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+ 
+/* ---------- item (link / static) ---------- */
+.mega-menu_company-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px;border-radius:4px;
+  font:500 16px/19px 'Inter',sans-serif;color:#202B34;text-decoration:none;
+  transition:background-color .15s ease;
+}
+.mega-menu_company-item.is-top{align-items:flex-start}
+a.mega-menu_company-item:hover,
+a.mega-menu_company-item:focus-visible{background:#F4F7F9;outline:none}
+a.mega-menu_company-item:focus-visible{box-shadow:0 0 0 2px #00B4A0 inset}
+.mega-menu_company-item.is-static{cursor:default}
+ 
+.mega-menu_company-icon{
+  flex:none;width:18px;height:18px;
+  fill:none;stroke:#0E2A3D;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;
+}
+.mega-menu_company-item.is-top .mega-menu_company-icon{margin-top:1px}
+.mega-menu_company-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mega-menu_company-title{font:500 16px/19px 'Inter',sans-serif;color:#202B34}
+.mega-menu_company-caption{font:500 12px/17px 'Inter',sans-serif;letter-spacing:.02em;color:#74818C}
+ 
+/* ---------- social ---------- */
+.mega-menu_company-block.is-social{align-items:center;justify-content:center}
+.mega-menu_social{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px;margin:0;padding:0;list-style:none}
+.mega-menu_social a{display:block;width:24px;height:24px;color:#0E2A3D;border-radius:4px;transition:color .15s ease,transform .15s ease}
+.mega-menu_social a:hover{color:#00B4A0;transform:translateY(-1px)}
+.mega-menu_social a:focus-visible{outline:2px solid #00B4A0;outline-offset:2px}
+.mega-menu_social .icon{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+ 
+/* ---------- ratings ---------- */
+.mega-menu_rating{
+  display:flex;align-items:center;gap:12px;
+  padding:8px;border-radius:4px;text-decoration:none;color:#202B34;
+  transition:background-color .15s ease;
+}
+.mega-menu_rating:hover,.mega-menu_rating:focus-visible{background:#F4F7F9;outline:none}
+.mega-menu_rating:focus-visible{box-shadow:0 0 0 2px #00B4A0 inset}
+.mega-menu_rating-logo{flex:none;width:40px;height:40px;object-fit:contain}
+.mega-menu_rating-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mega-menu_rating-row{display:flex;align-items:center;gap:8px}
+.mega-menu_rating-score{font:600 14px/17px 'Inter',sans-serif;color:#202B34}
+.mega-menu_stars{display:flex;align-items:center;gap:3px;color:#EDBA00}
+.mega-menu_stars .icon{width:16px;height:16px;fill:currentColor;stroke:none}
+.mega-menu_rating-count{font:500 12px/17px 'Inter',sans-serif;letter-spacing:.02em;color:#74818C}
+ 
+/* ---------- members of ---------- */
+.mega-menu_members{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);   /* 3 columns */
+  grid-template-rows:auto auto;          /* 2 rows */
+  gap:16px 20px;
+  align-items:center;
+  justify-items:center;
+  padding:8px;
+}
+.mega-menu_member{
+  display:block;
+  width:100%;
+  max-width:77px;
+  height:77px;
+  object-fit:contain;
+  mix-blend-mode:luminosity;
+}
+.mega-menu_member.is-wide{
+  grid-column:1 / -1;                    /* 4th image ne 3 columns ma merge */
+  width:100%;
+  max-width:264px;
+  height:44px;
+}
+ 
+/* ---------- tablet / mobile : stack ---------- */
+@media (max-width:991px){
+  .mega-menu_component.is-company{width:100%;max-width:none;box-shadow:none;border-radius:0}
+  .mega-menu_company{grid-template-columns:1fr}
+  .mega-menu_company-col + .mega-menu_company-col{border-left:0;border-top:1px solid #E4E9ED}
+  .mega-menu_company-block,.mega-menu_company-block.is-lg{padding:16px}
+  .mega-menu_member.is-wide{max-width:220px}
+}
+/*company css end */
 /* panes */
 .mega-menu_pane { display: none; flex-direction: column; gap: 1.25rem; }
 .mega-menu_pane.is-active { display: flex; }
 
-/* ---------------------------------------------------------
-   PLATFORMS – stage (col 2+3) ane pane layouts
-   is-split : main list + aside (badges / reviews)
-   is-wide  : full width (Integrations, Technologies)
-   --------------------------------------------------------- */
+
 .mega-menu_component.is-platforms { grid-template-columns: 347px minmax(0, 1fr); }
 
 .mega-menu_stage {
@@ -5300,6 +5411,7 @@ p.global-para-xlarge {
   max-width: 100%;
   height: 32px;
   object-fit: contain;
+  filter: grayscale();
 }
 
 .mega-menu_group-logos {
@@ -5468,7 +5580,7 @@ a:hover > .mega-menu_cta .icon { transform: rotate(-90deg) translateY(3px); }
   transition: background 0.2s ease;
 }
 .mega-menu_rating:hover { background: var(--navbar-soft); }
-.mega-menu_rating-logo { width: 40px; height: 40px; flex: none; object-fit: contain; }
+.mega-menu_rating-logo { width: 40px; height: 40px; flex: none; object-fit: cover; }
 .mega-menu_rating-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .mega-menu_rating-row { display: flex; align-items: center; gap: 8px; font-size: 14px; line-height: 17px; }
 .mega-menu_rating-row strong { font-weight: 600; color: var(--navbar-ink); }
