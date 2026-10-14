@@ -37,7 +37,8 @@
   --padding-global: clamp(1rem, 2vw, 2rem);
   
 }
-@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+
 /* Base styles: browser reset, document defaults, and semantic element styles. */
 * {
   box-sizing: border-box;
@@ -4644,6 +4645,7 @@ p.global-para-xlarge {
 
 @media (max-width: 767px) {
 
+
   .section_cta {
     min-height: 39.938rem
   }
@@ -4748,6 +4750,13 @@ p.global-para-xlarge {
   .uc-panel__desc {
     max-width: none;
     padding-left: 0;
+  }
+  p.navbar_announcement-text{
+    font-size: 12px;
+    line-height: 21px;
+  }
+  .navbar_announcement-link{
+    margin-left: 0px;
   }
 }
 
@@ -5683,9 +5692,6 @@ a:hover > .mega-menu_cta .icon { transform: rotate(-90deg) translateY(3px); }
     border: 0;
     gap: 4px;
   }
-
-
-
 
   .mega-menu_column.is-tabs,
   .mega-menu_column.is-aside,
