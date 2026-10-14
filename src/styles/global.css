@@ -490,7 +490,7 @@ div {
   flex-direction: column;
   align-items: center;
   gap: 2.5rem;
-  padding: 6rem 1rem 3rem;
+  padding: 6rem 0rem 7.75rem;
 }
 
 .home_hero_copy {
@@ -572,11 +572,27 @@ div {
     line-height: 3.5625rem;
     letter-spacing: -2%;
   }
+  .home_hero_content{
+    padding: 6rem 1rem 6rem;
+  }
+.home_hero_mesh::before,
+.home_hero_mesh::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 73.375rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 }
 
 @media (max-width: 767.99px) {
-  .home_hero_content {
-    padding-block: 4rem;
+
+  .home_hero_content{
+    padding: 6rem 1rem 6rem;
   }
 
   .home_hero_copy h1 {
@@ -593,6 +609,18 @@ div {
   .home_hero_button {
     width: 100%;
   }
+
+  .home_hero_mesh::before,
+.home_hero_mesh::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 73.375rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 }
 
 /* Homepage metrics: stat cards, gradient numbers, and responsive grid. */
