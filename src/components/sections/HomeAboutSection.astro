@@ -1,0 +1,203 @@
+---
+import heroImageOne from "../../assets/hero-img-1.svg";
+import heroImageTwo from "../../assets/hero-img-2.svg";
+---
+
+<section
+  class="section_home_about"
+  style={`--about-img-1: url("${heroImageOne.src}"); --about-img-2: url("${heroImageTwo.src}");`}
+  aria-labelledby="home-about-heading"
+>
+  <div class="home_about_mesh" aria-hidden="true"></div>
+
+  <div class="home_about_content">
+    <div class="home_about_copy">
+      <h1 id="home-about-heading">Engineering quality at the speed of AI.</h1>
+      <p>
+        AlgoShack is a digital-native platform company specialising in AI-augmented
+        autonomous testing and quality engineering. Our flagship product, algoQA, uses
+        GenAI and agentic AI to autonomously generate test cases, executable scripts and
+        datasets, cutting testing cost for DevOps teams by up to 80%.
+      </p>
+    </div>
+
+    <div class="home_about_actions">
+      <a class="home_about_button is-primary" href="#platform">See the platform</a>
+      <a class="home_about_button is-secondary" href="#life">Life at AlgoShack</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section_home_about {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 582px;
+    background: #f7f9fa;
+    display: flex;
+    justify-content: center;
+  }
+
+  .home_about_mesh {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .home_about_mesh::before,
+  .home_about_mesh::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .home_about_mesh::before {
+    background-image: var(--about-img-2);
+  }
+
+  .home_about_mesh::after {
+    background-image: var(--about-img-1);
+  }
+
+  .home_about_content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 764px;
+    padding: 96px 0px 124px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    box-sizing: border-box;
+  }
+
+  .home_about_copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .section_home_about h1 {
+    margin: 0;
+    font-family: "Source Serif 4", serif;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 67px;
+    letter-spacing: -0.025em;
+    text-align: center;
+    color: #202b34;
+  }
+
+  .section_home_about p {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    text-align: center;
+    color: #54606a;
+  }
+
+  .home_about_actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .home_about_button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    padding: 16px 24px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .home_about_button.is-primary {
+    background: #0e2a3d;
+    color: #fff;
+  }
+
+  .home_about_button.is-primary:hover {
+    background: #163b55;
+  }
+
+  .home_about_button.is-secondary {
+    background: #fff;
+    color: #2979b3;
+    border: 1px solid #d1d9df;
+  }
+
+  .home_about_button.is-secondary:hover {
+    border-color: #2979b3;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .home_about_content {
+      max-width: 740px;
+      padding: 6rem 1rem;
+      gap: 2.5rem;
+    }
+
+    .section_home_about h1 {
+      font-size: 52px;
+      line-height: 56px;
+    }
+
+    .section_home_about p {
+      font-size: 16px;
+      line-height: 26px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .section_home_about {
+      min-height: 0;
+    }
+
+    .home_about_content {
+      padding: 6rem 1rem;
+      gap: 2.5rem;
+    }
+
+    .home_about_copy {
+      gap: 16px;
+    }
+
+    .section_home_about h1 {
+      font-size: 36px;
+      line-height: 40px;
+    }
+
+    .section_home_about p {
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    .home_about_actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .home_about_button {
+      width: 100%;
+    }
+
+  }
+</style>

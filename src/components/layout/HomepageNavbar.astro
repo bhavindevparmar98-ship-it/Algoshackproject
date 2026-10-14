@@ -1,0 +1,122 @@
+---
+import navbarMarkup from "./homepage-navbar/navbar.html?raw";
+import "./homepage-navbar/navbar.css";
+import heroImageOne from "../../assets/hero-img-1.svg";
+import heroImageTwo from "../../assets/hero-img-2.svg";
+import navbarLogo from "../../assets/algoshack-navbar-logo.svg";
+import clientLogoOne from "../../assets/testimonial-logo-1.png";
+import clientLogoTwo from "../../assets/testimonial-logo-2.png";
+import clientLogoThree from "../../assets/testimonial-logo-3.png";
+import clientLogoFour from "../../assets/testimonial-logo-4.png";
+import clientLogoFive from "../../assets/testimonial-logo-5.png";
+import devopsIcon from "../../assets/devops.svg";
+import executionCloudIcon from "../../assets/Execution-cloud.svg";
+import databaseSupportIcon from "../../assets/database-support.svg";
+import ciCdPipelineIcon from "../../assets/ci-cd-pipline.svg";
+import almToolsIcon from "../../assets/alm-tools.svg";
+import reportingFormatsIcon from "../../assets/reporting-fromate.svg";
+import llmIdeIcon from "../../assets/llm-img.svg";
+import testManagementIcon from "../../assets/test-development.svg";
+import RatingsCard from "../RatingsCard.astro";
+import TechnologiesCard from "../TechnologiesCard.astro";
+
+const integrationIcons: Record<string, string> = {
+  "devops": devopsIcon.src,
+  "execution-cloud": executionCloudIcon.src,
+  "database-support": databaseSupportIcon.src,
+  "ci-cd": ciCdPipelineIcon.src,
+  "alm-tools": almToolsIcon.src,
+  "reporting-formats": reportingFormatsIcon.src,
+  "llm-ide": llmIdeIcon.src,
+  "test-management": testManagementIcon.src,
+};
+
+const clientLogos = [
+  clientLogoOne,
+  clientLogoTwo,
+  clientLogoThree,
+  clientLogoFour,
+  clientLogoFive,
+];
+
+let renderedNavbar = navbarMarkup.replace(
+  /<img class="navbar_logo"[^>]*>/,
+  `<img class="navbar_logo" src="${navbarLogo.src}" width="124" height="44" alt="AlgoShack">`,
+);
+
+renderedNavbar = renderedNavbar
+  .replaceAll("./assets/hero-img-1.svg", heroImageOne.src)
+  .replaceAll("./assets/hero-img-2.svg", heroImageTwo.src)
+  .replace(/<img class="mega-menu_rating-logo"[^>]*>/g, "");
+
+renderedNavbar = renderedNavbar.replace(
+  /src="menu-icon:([^"]+)"/g,
+  (_match, iconName: string) => {
+    const iconUrl = integrationIcons[iconName];
+    if (!iconUrl) {
+      throw new Error(`Missing integration menu icon: ${iconName}`);
+    }
+
+    return `src="${iconUrl}"`;
+  },
+);
+
+clientLogos.forEach((logo, index) => {
+  renderedNavbar = renderedNavbar.replace(
+    `./assets/clients/client-${index + 1}.png`,
+    logo.src,
+  );
+});
+
+renderedNavbar = renderedNavbar.replace(
+  /<img\b(?=[^>]*\bsrc="\.\/assets\/)[^>]*>/g,
+  "",
+);
+
+renderedNavbar = renderedNavbar
+  .replace(/<span class="mega-menu_logo">\s*<\/span>/g, "")
+  .replace(/<li>\s*<\/li>/g, "");
+
+function splitAtMarker(markup: string, marker: string) {
+  const markerIndex = markup.indexOf(marker);
+  if (markerIndex === -1 || markup.indexOf(marker, markerIndex + marker.length) !== -1) {
+    throw new Error(`Expected exactly one navbar component slot: ${marker}`);
+  }
+
+  return [
+    markup.slice(0, markerIndex),
+    markup.slice(markerIndex + marker.length),
+  ] as const;
+}
+
+const navbarRatingSegments = renderedNavbar.split("<!-- ASTRO_RATINGS_CARD -->");
+if (navbarRatingSegments.length < 2) {
+  throw new Error("Expected at least one navbar ratings-card slot.");
+}
+
+const finalNavbarSegment = navbarRatingSegments.pop();
+if (finalNavbarSegment === undefined) {
+  throw new Error("Could not render the navbar ratings-card slots.");
+}
+
+const [navbarBetweenCards, navbarAfterTechnologies] = splitAtMarker(
+  finalNavbarSegment,
+  "<!-- ASTRO_TECHNOLOGIES_CARD -->",
+);
+---
+
+<div class="homepage-navbar">
+  {navbarRatingSegments.map((segment, index) => (
+    <>
+      <Fragment set:html={segment} />
+      <RatingsCard id={`navbar-rating-${index}`} />
+    </>
+  ))}
+  <Fragment set:html={navbarBetweenCards} />
+  <TechnologiesCard />
+  <Fragment set:html={navbarAfterTechnologies} />
+</div>
+
+<script>
+  import "./homepage-navbar/navbar.js";
+</script>

@@ -1,0 +1,535 @@
+<!--
+  AlgoShack – Navbar (announcement bar + header + mega menus + mobile menu)
+  Naming: Finsweet Client-First  ->  component_element  /  is-combo
+  Fonts : Inter (400/500/600)  – tamara global ma already hase
+  Assets: "./assets/..." path tamara project pramane badlo (niche list ma je je ./assets/ chhe)
+-->
+
+<!-- =============== SVG SPRITE (ek j var, body ni upar) =============== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
+    <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M4 10v4h3l7 4V6L7 10H4z"/><path d="M17.5 9.5a3.5 3.5 0 010 5"/></symbol>
+    <symbol id="i-workflow" viewBox="0 0 24 24"><path d="M20 8a8 8 0 00-14-2L4 8M4 4v4h4M4 16a8 8 0 0014 2l2-2M20 20v-4h-4"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8L11 3zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v4a5 5 0 01-10 0V8zM12 17v4"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16M8 16v-4M12 16V8M16 16v-6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7V3z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M9 8l-5 4 5 4M15 8l5 4-5 4"/></symbol>
+    <symbol id="i-stack" viewBox="0 0 24 24"><path d="M12 4l9 5-9 5-9-5 9-5z"/><path d="M3 14l9 5 9-5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5L10 9.5z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4h13v16H7a2 2 0 01-2-2V4z"/><path d="M5 18a2 2 0 012-2h11"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0012 0M12 17v4M9 21h6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 6h16v12H4V6z"/><path d="M4 7l8 6 8-6"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M4 6h16v14H4V6zM4 11h16M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M5 21V4h9v17M14 9h5v12M3 21h18M8 8h3M8 12h3M8 16h3"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18a6 6 0 0111 0"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><path d="M3 19a6 6 0 0112 0"/><circle cx="17" cy="10" r="2.5"/><path d="M16 14.5a5 5 0 015 4.5"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M4 8h16v11H4V8zM9 8V5h6v3M4 13h16"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.5 4.5 0 018-2.5A4.5 4.5 0 0120 9c0 6-8 11-8 11z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+    <symbol id="i-medal" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-3 5 3-1.5-7.5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.2-5.5-3-5.5 3 1-6.2L3 9.7l6.2-.9L12 3z"/></symbol>
+    <symbol id="i-star-half" viewBox="0 0 24 24"><path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.2-5.5-3-5.5 3 1-6.2L3 9.7l6.2-.9L12 3z"/><path fill="currentColor" stroke="none" d="M12 3v14.3l-5.5 3 1-6.2L3 9.7l6.2-.9L12 3z"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12h.01"/></symbol>
+    <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 4a2 2 0 014 0v2h4v4h-2a2 2 0 100 4h2v4h-4v-2a2 2 0 10-4 0v2H6v-4h2a2 2 0 100-4H6V6h4V4z"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3"/><rect x="9" y="9" width="6" height="6" rx="1"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19l-4 1zM14 7l3 3"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="M4 17l5-5 4 4 7-8M15 8h5v5"/></symbol>
+    <symbol id="i-window" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-tablet" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 11v6M8 8v.01M12 17v-6M12 13.5a2.5 2.5 0 015 0V17"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><path d="M16.8 7.2v.01"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 4l14 16M19 4L5 20"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M14 8h2V4h-2a4 4 0 00-4 4v2H8v4h2v6h4v-6h2l1-4h-3V8z"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10.5 9.5v5l4-2.5-4-2.5z"/></symbol>
+    <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7 10c3.5-1 7.5-1 10.5 1M7.5 13.3c3-1 6-.8 8.5.8M8 16.5c2.3-.6 4.6-.4 6.5.7"/></symbol>
+    <symbol id="i-podcast" viewBox="0 0 24 24"><circle cx="12" cy="11" r="2"/><path d="M12 13v8M8.5 15.5a5 5 0 117 0M5.5 18.5a9 9 0 1113 0"/></symbol>
+  </defs>
+</svg>
+
+<header class="navbar_wrapper" data-navbar>
+
+  <!-- ===================== ANNOUNCEMENT BAR ===================== -->
+  <div class="navbar_announcement" data-navbar-announcement role="region" aria-label="Announcement">
+    <div class="navbar_announcement-inner">
+      <svg class="navbar_announcement-icon icon" aria-hidden="true"><use href="#i-megaphone"/></svg>
+      <p class="navbar_announcement-text">
+        Introducing the new algoQA MCP, built to handle all of the work with your LLM.
+        <a class="navbar_announcement-link" href="/algoqa-mcp">
+          <span>Learn more</span>
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+      </p>
+    </div>
+    <button class="navbar_announcement-close" type="button" data-navbar-announcement-close aria-label="Close announcement">
+      <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
+    </button>
+  </div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <div class="navbar_component">
+    <div class="navbar_container">
+
+      <a class="navbar_brand" href="/" aria-label="AlgoShack home">
+        <!-- LOGO: project ni logo file no path -->
+        <img class="navbar_logo" src="./assets/algoshack-logo.svg" width="123" height="40" alt="AlgoShack">
+      </a>
+
+      <nav class="navbar_menu" id="navbar-menu" data-navbar-menu aria-label="Main">
+        <ul class="navbar_menu-list" role="list">
+
+          <!-- ============ PLATFORMS ============ -->
+          <li class="navbar_item" data-navbar-dropdown>
+            <button class="navbar_link navbar_dropdown-toggle" type="button" aria-expanded="false" aria-controls="mega-platforms">
+              <span>Platforms</span><svg class="navbar_caret icon" aria-hidden="true"><use href="#i-caret"/></svg>
+            </button>
+
+            <div class="mega-menu_component is-platforms" id="mega-platforms" data-mega>
+              <!-- col 1 : categories (tabs) -->
+              <div class="mega-menu_column is-tabs">
+                <p class="mega-menu_eyebrow">Categories</p>
+                <div class="mega-menu_tab-list" role="tablist" aria-orientation="vertical">
+                  <button class="mega-menu_tab is-active" type="button" role="tab" aria-selected="true" data-tab="p-workflows">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-workflow"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Workflows</span><span class="mega-menu_tab-caption">Test design to reporting</span></span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="p-features">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-gear"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Features</span><span class="mega-menu_tab-caption">Leaner, self-healing test suites</span></span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="p-algoai">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">algoAI <span class="mega-menu_badge">New</span></span><span class="mega-menu_tab-caption">Autonomous agents across the lifecycle</span></span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="p-usecases">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Use Cases</span><span class="mega-menu_tab-caption">UI, API to AI testing</span></span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="p-integrations">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-puzzle"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Integrations</span><span class="mega-menu_tab-caption">Fits your existing toolchain</span></span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="p-technologies">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-stack"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Technologies</span><span class="mega-menu_tab-caption">Runs on your stack</span></span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="p-algoscrapers">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-scan"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">algoScrapers</span><span class="mega-menu_tab-caption">Scrapers and standalone utilities</span></span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- col 2 + 3 : panes (har pane potano layout lave chhe) -->
+              <div class="mega-menu_stage">
+                <div class="mega-menu_pane is-split is-active" role="tabpanel" data-pane="p-workflows">
+                  <div class="mega-menu_pane-main">
+                    <p class="mega-menu_eyebrow">Workflows</p>
+                    <ul class="mega-menu_list" role="list">
+                      <li><a class="mega-menu_link" href="/platform/test-design"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-pencil"/></svg><span class="mega-menu_link-title">Test Design</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/platform/test-script-generation"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-code"/></svg><span class="mega-menu_link-title">Test Script Generation</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/platform/test-execution"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-play"/></svg><span class="mega-menu_link-title">Test Execution</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/platform/test-optimisation"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-trend"/></svg><span class="mega-menu_link-title">Test Optimisation</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/platform/test-management"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-window"/></svg><span class="mega-menu_link-title">Test Management</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/platform/reporting-analytics"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-chart"/></svg><span class="mega-menu_link-title">Reporting &amp; Analytics</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-menu_pane-aside">
+                    <!-- ASTRO_RATINGS_CARD -->
+                  </div>
+                </div>
+                <div class="mega-menu_pane is-split" role="tabpanel" data-pane="p-features" hidden>
+                  <div class="mega-menu_pane-main">
+                    <p class="mega-menu_eyebrow">Features</p>
+                    <ul class="mega-menu_list" role="list">
+                      <li><a class="mega-menu_link" href="/features/self-healing"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-workflow"/></svg><span class="mega-menu_link-title">Self-healing Automation</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/features/smart-locators"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-target"/></svg><span class="mega-menu_link-title">Smart Locators</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/features/parallel-execution"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-stack"/></svg><span class="mega-menu_link-title">Parallel Execution</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/features/cross-browser"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-globe"/></svg><span class="mega-menu_link-title">Cross-browser Testing</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/features/test-data"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-grid"/></svg><span class="mega-menu_link-title">Test Data Management</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-menu_pane-aside">
+                    <!-- ASTRO_RATINGS_CARD -->
+                  </div>
+                </div>
+                <div class="mega-menu_pane is-split" role="tabpanel" data-pane="p-algoai" hidden>
+                  <div class="mega-menu_pane-main">
+                    <p class="mega-menu_eyebrow">algoAI</p>
+                    <ul class="mega-menu_list" role="list">
+                      <li><a class="mega-menu_link" href="/algoai/test-case-agent"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-doc"/></svg><span class="mega-menu_link-title">Test Case Agent</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/algoai/script-agent"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-code"/></svg><span class="mega-menu_link-title">Script Agent</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/algoai/data-agent"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-stack"/></svg><span class="mega-menu_link-title">Data Agent</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/algoqa-mcp"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-sparkle"/></svg><span class="mega-menu_link-title">algoQA MCP <span class="mega-menu_badge">New</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-menu_pane-aside">                    
+                    <!-- ASTRO_RATINGS_CARD -->
+                  </div>
+                </div>
+                <div class="mega-menu_pane is-split" role="tabpanel" data-pane="p-usecases" hidden>
+                  <div class="mega-menu_pane-main">
+                    <p class="mega-menu_eyebrow">Use Cases</p>
+                    <ul class="mega-menu_list" role="list">
+                      <li><a class="mega-menu_link" href="/use-cases/ui-testing"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-window"/></svg><span class="mega-menu_link-title">UI Testing</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/use-cases/api-testing"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-code"/></svg><span class="mega-menu_link-title">API Testing</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/use-cases/mobile-testing"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-phone"/></svg><span class="mega-menu_link-title">Mobile App Testing</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/use-cases/ai-testing"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-sparkle"/></svg><span class="mega-menu_link-title">AI Testing</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/use-cases/regression"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-workflow"/></svg><span class="mega-menu_link-title">Regression Testing</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-menu_pane-aside">                    
+                    <!-- ASTRO_RATINGS_CARD -->
+                  </div>
+                </div>
+                <div class="mega-menu_pane is-wide" role="tabpanel" data-pane="p-integrations" hidden>
+                  <p class="mega-menu_eyebrow">Integrations</p>
+                  <div class="mega-menu_wide-grid">
+                    <div class="mega-menu_group-col">
+                        <div class="mega-menu_group">
+                          <a class="mega-menu_group-title" href="/integrations/test-management">Test Management<img class="mega-menu_category-icon" data-menu-icon="test-management" src="menu-icon:test-management" alt="" loading="eager" decoding="async"></a>
+                          <ul class="mega-menu_group-logos" role="list">
+                            <li><img src="./assets/integrations/test-management-1.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/test-management-2.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/test-management-3.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/test-management-4.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/test-management-5.png" alt="" height="32" loading="lazy"></li>
+                          </ul>
+                        </div>
+                        <div class="mega-menu_group">
+                          <a class="mega-menu_group-title" href="/integrations/ci-cd">CI / CD<img class="mega-menu_category-icon" data-menu-icon="ci-cd" src="menu-icon:ci-cd" alt="" loading="eager" decoding="async"></a>
+                          <ul class="mega-menu_group-logos" role="list">
+                            <li><img src="./assets/integrations/ci-cd-1.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/ci-cd-2.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/ci-cd-3.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/ci-cd-4.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/ci-cd-5.png" alt="" height="32" loading="lazy"></li>
+                          </ul>
+                        </div>
+                        <div class="mega-menu_group">
+                          <a class="mega-menu_group-title" href="/integrations/project-management">Project Management<img class="mega-menu_category-icon" data-menu-icon="alm-tools" src="menu-icon:alm-tools" alt="" loading="eager" decoding="async"></a>
+                          <ul class="mega-menu_group-logos" role="list">
+                            <li><img src="./assets/integrations/project-management-1.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/project-management-2.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/project-management-3.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/project-management-4.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/project-management-5.png" alt="" height="32" loading="lazy"></li>
+                          </ul>
+                        </div>
+                        <div class="mega-menu_group">
+                          <a class="mega-menu_group-title" href="/integrations/version-control">Version Control<img class="mega-menu_category-icon" data-menu-icon="devops" src="menu-icon:devops" alt="" loading="eager" decoding="async"></a>
+                          <ul class="mega-menu_group-logos" role="list">
+                            <li><img src="./assets/integrations/version-control-1.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/version-control-2.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/version-control-3.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/version-control-4.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/version-control-5.png" alt="" height="32" loading="lazy"></li>
+                          </ul>
+                        </div>
+                    </div>
+                    <div class="mega-menu_group-col">
+                        <div class="mega-menu_group">
+                          <a class="mega-menu_group-title" href="/integrations/communication">Communication<img class="mega-menu_category-icon" data-menu-icon="llm-ide" src="menu-icon:llm-ide" alt="" loading="eager" decoding="async"></a>
+                          <ul class="mega-menu_group-logos" role="list">
+                            <li><img src="./assets/integrations/communication-1.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/communication-2.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/communication-3.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/communication-4.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/communication-5.png" alt="" height="32" loading="lazy"></li>
+                          </ul>
+                        </div>
+                        <div class="mega-menu_group">
+                          <a class="mega-menu_group-title" href="/integrations/cloud">Cloud &amp; Device Farms<img class="mega-menu_category-icon" data-menu-icon="execution-cloud" src="menu-icon:execution-cloud" alt="" loading="eager" decoding="async"></a>
+                          <ul class="mega-menu_group-logos" role="list">
+                            <li><img src="./assets/integrations/cloud-1.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/cloud-2.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/cloud-3.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/cloud-4.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/cloud-5.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/cloud-6.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/cloud-7.png" alt="" height="32" loading="lazy"></li>
+                          </ul>
+                        </div>
+                        <div class="mega-menu_group">
+                          <a class="mega-menu_group-title" href="/integrations/monitoring">Monitoring<img class="mega-menu_category-icon" data-menu-icon="reporting-formats" src="menu-icon:reporting-formats" alt="" loading="eager" decoding="async"></a>
+                          <ul class="mega-menu_group-logos" role="list">
+                            <li><img src="./assets/integrations/monitoring-1.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/monitoring-2.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/monitoring-3.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/monitoring-4.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/monitoring-5.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/monitoring-6.png" alt="" height="32" loading="lazy"></li>
+                          </ul>
+                        </div>
+                        <div class="mega-menu_group">
+                          <a class="mega-menu_group-title" href="/integrations/security">Security<img class="mega-menu_category-icon" data-menu-icon="database-support" src="menu-icon:database-support" alt="" loading="eager" decoding="async"></a>
+                          <ul class="mega-menu_group-logos" role="list">
+                            <li><img src="./assets/integrations/security-1.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/security-2.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/security-3.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/security-4.png" alt="" height="32" loading="lazy"></li>
+                            <li><img src="./assets/integrations/security-5.png" alt="" height="32" loading="lazy"></li>
+                          </ul>
+                        </div>
+                    </div>
+                  </div>
+                  <a class="mega-menu_button" href="/integrations"><span>Learn more</span><svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></a>
+                </div>
+                <div class="mega-menu_pane is-wide" role="tabpanel" data-pane="p-technologies" hidden>
+                  <!-- ASTRO_TECHNOLOGIES_CARD -->
+                </div>
+                <div class="mega-menu_pane is-split" role="tabpanel" data-pane="p-algoscrapers" hidden>
+                  <div class="mega-menu_pane-main">
+                    <p class="mega-menu_eyebrow">algoScrapers</p>
+                    <ul class="mega-menu_list" role="list">
+                      <li><a class="mega-menu_link" href="/algoscrapers/web"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-window"/></svg><span class="mega-menu_link-title">Web Scraper</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/algoscrapers/desktop"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-monitor"/></svg><span class="mega-menu_link-title">Desktop Scraper</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/algoscrapers/mobile-app"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-phone"/></svg><span class="mega-menu_link-title">M-App Scraper</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                      <li><a class="mega-menu_link" href="/algoscrapers/mobile-site"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-tablet"/></svg><span class="mega-menu_link-title">M-Site Scraper</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- ============ SOLUTIONS ============ -->
+          <li class="navbar_item" data-navbar-dropdown>
+            <button class="navbar_link navbar_dropdown-toggle" type="button" aria-expanded="false" aria-controls="mega-solutions">
+              <span>Solutions</span><svg class="navbar_caret icon" aria-hidden="true"><use href="#i-caret"/></svg>
+            </button>
+
+            <div class="mega-menu_component is-solutions" id="mega-solutions" data-mega>
+              <div class="mega-menu_column is-tabs">
+                <p class="mega-menu_eyebrow">Solutions</p>
+                <div class="mega-menu_tab-list" role="tablist" aria-orientation="vertical">
+                  <button class="mega-menu_tab is-active" type="button" role="tab" aria-selected="true" data-tab="s-model">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-cube"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">By Model</span><span class="mega-menu_tab-caption">Pick how you want to work with us</span></span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="s-usecase">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">By Use Case</span><span class="mega-menu_tab-caption">Solve specific testing challenges</span></span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="s-industry">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">By Industry</span><span class="mega-menu_tab-caption">Built for regulated domains</span></span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="s-role">
+                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span>
+                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">By Role</span><span class="mega-menu_tab-caption">For every quality stakeholder</span></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="mega-menu_column has-border">
+                <div class="mega-menu_pane is-active" role="tabpanel" data-pane="s-model">
+                  <p class="mega-menu_eyebrow">By Model</p>
+                  <ul class="mega-menu_list" role="list">
+                    <li><a class="mega-menu_link has-caption" href="/solutions/saas"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-cube"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">SaaS Platform</span><span class="mega-menu_link-caption">Self-serve algoQA with a free trial</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/solutions/managed-services"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-users"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Managed Testing Services</span><span class="mega-menu_link-caption">Our experts run quality for you</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/solutions/hybrid"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-workflow"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Hybrid</span><span class="mega-menu_link-caption">Platform plus embedded engineers</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu_pane" role="tabpanel" data-pane="s-usecase" hidden>
+                  <p class="mega-menu_eyebrow">By Use Case</p>
+                  <ul class="mega-menu_list" role="list">
+                    <li><a class="mega-menu_link has-caption" href="/use-cases/test-generation"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-doc"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Test Case Generation</span><span class="mega-menu_link-caption">From requirements to executable tests</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/use-cases/regression"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-workflow"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Regression Automation</span><span class="mega-menu_link-caption">Self-healing suites for every release</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/use-cases/api-testing"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-code"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">API &amp; Integration Testing</span><span class="mega-menu_link-caption">Contract-aware API coverage</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/use-cases/test-data"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-stack"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Test Data Management</span><span class="mega-menu_link-caption">Synthetic, compliant datasets</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu_pane" role="tabpanel" data-pane="s-industry" hidden>
+                  <p class="mega-menu_eyebrow">By Industry</p>
+                  <ul class="mega-menu_list" role="list">
+                    <li><a class="mega-menu_link has-caption" href="/industries/bfsi"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-building"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">BFSI</span><span class="mega-menu_link-caption">Banking, financial services &amp; insurance</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/industries/healthcare"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-heart"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Healthcare</span><span class="mega-menu_link-caption">Quality for regulated workflows</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/industries/retail"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-grid"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Retail &amp; eCommerce</span><span class="mega-menu_link-caption">Peak-season ready releases</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/industries/telecom"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-globe"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Telecom</span><span class="mega-menu_link-caption">Scale testing across networks</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu_pane" role="tabpanel" data-pane="s-role" hidden>
+                  <p class="mega-menu_eyebrow">By Role</p>
+                  <ul class="mega-menu_list" role="list">
+                    <li><a class="mega-menu_link has-caption" href="/roles/qa-leaders"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-medal"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">QA Leaders</span><span class="mega-menu_link-caption">Cut cost, raise coverage</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/roles/developers"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-code"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Developers</span><span class="mega-menu_link-caption">Tests that keep up with your code</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/roles/devops"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-workflow"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">DevOps Teams</span><span class="mega-menu_link-caption">Quality gates in every pipeline</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mega-menu_column is-aside">
+                <div class="mega-menu_card">
+                  <svg class="mega-menu_card-icon icon" aria-hidden="true"><use href="#i-medal"/></svg>
+                  <h3 class="mega-menu_card-title">Why AlgoShack?</h3>
+                  <p class="mega-menu_card-text">What sets the autonomous platform apart from coding assistants and legacy tools.</p>
+                  <a class="mega-menu_cta" href="/book-a-demo"><span>Book a demo</span><svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- ============ RESOURCES ============ -->
+          <li class="navbar_item" data-navbar-dropdown>
+            <button class="navbar_link navbar_dropdown-toggle" type="button" aria-expanded="false" aria-controls="mega-resources">
+              <span>Resources</span><svg class="navbar_caret icon" aria-hidden="true"><use href="#i-caret"/></svg>
+            </button>
+
+            <div class="mega-menu_component is-resources" id="mega-resources">
+              <div class="mega-menu_column is-aside">
+                <p class="mega-menu_eyebrow">Featured</p>
+                <a class="mega-menu_feature" href="/blog/engineering-quality-at-the-speed-of-ai">
+                  <span class="mega-menu_feature-media"><img src="./assets/hero-img-1.svg" alt="" loading="lazy"></span>
+                  <span class="mega-menu_feature-title">Engineering quality at the speed of AI</span>
+                  <span class="mega-menu_feature-text">How autonomous agents are changing the way teams test.</span>
+                  <span class="mega-menu_cta"><span>Read the story</span><svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </a>
+              </div>
+
+              <div class="mega-menu_column has-border is-wide">
+                <p class="mega-menu_eyebrow">Knowledge Hub</p>
+                <div class="mega-menu_hub">
+                  <ul class="mega-menu_list" role="list">
+                    <li><a class="mega-menu_link" href="/blog"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-doc"/></svg><span class="mega-menu_link-title">Blog</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/case-studies"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-briefcase"/></svg><span class="mega-menu_link-title">Case Studies</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/whitepapers"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-book"/></svg><span class="mega-menu_link-title">Whitepapers &amp; eBooks</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/webinars"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-play"/></svg><span class="mega-menu_link-title">Webinars</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/podcasts"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-mic"/></svg><span class="mega-menu_link-title">Podcasts</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                  </ul>
+                  <ul class="mega-menu_list" role="list">
+                    <li><a class="mega-menu_link" href="/docs"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-code"/></svg><span class="mega-menu_link-title">Documentation</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/glossary"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-book"/></svg><span class="mega-menu_link-title">Testing Glossary</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/events"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-calendar"/></svg><span class="mega-menu_link-title">Events</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/newsletter"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-mail"/></svg><span class="mega-menu_link-title">Newsletter</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- ============ COMPANY ============ -->
+          <li class="navbar_item" data-navbar-dropdown>
+            <button class="navbar_link navbar_dropdown-toggle" type="button" aria-expanded="false" aria-controls="mega-company">
+              <span>Company</span><svg class="navbar_caret icon" aria-hidden="true"><use href="#i-caret"/></svg>
+            </button>
+
+            <div class="mega-menu_component is-company" id="mega-company">
+              <!-- col 1 -->
+              <div class="mega-menu_column is-flush">
+                <div class="mega-menu_section">
+                  <p class="mega-menu_eyebrow">Company</p>
+                  <ul class="mega-menu_list" role="list">
+                    <li><a class="mega-menu_link" href="/about"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-building"/></svg><span class="mega-menu_link-title">About Us</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/leadership"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-users"/></svg><span class="mega-menu_link-title">Leadership</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/careers"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-briefcase"/></svg><span class="mega-menu_link-title">Careers</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="#life"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-heart"/></svg><span class="mega-menu_link-title">Life at AlgoShack</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                    <li><a class="mega-menu_link" href="/contact"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-mail"/></svg><span class="mega-menu_link-title">Contact Us</span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret"/></svg></a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu_section">
+                  <ul class="mega-menu_list" role="list">
+                    <li><a class="mega-menu_link has-caption" href="/partners"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-plug"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Partners</span><span class="mega-menu_link-caption">Grow with the algoQA ecosystem</span></span></a></li>
+                    <li><a class="mega-menu_link has-caption" href="/newsroom"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-globe"/></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Newsroom</span><span class="mega-menu_link-caption">Press releases &amp; media coverage</span></span></a></li>
+                  </ul>
+                </div>
+                <div class="mega-menu_section">
+                  <ul class="mega-menu_social" role="list">
+                    <li><a href="https://www.linkedin.com/" aria-label="LinkedIn" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
+                    <li><a href="https://www.instagram.com/" aria-label="Instagram" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+                    <li><a href="https://x.com/" aria-label="X" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></a></li>
+                    <li><a href="https://www.facebook.com/" aria-label="Facebook" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
+                    <li><a href="https://www.youtube.com/" aria-label="YouTube" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
+                    <li><a href="https://open.spotify.com/" aria-label="Spotify" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-spotify"/></svg></a></li>
+                    <li><a href="https://podcasts.apple.com/" aria-label="Apple Podcasts" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-podcast"/></svg></a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- col 2 : life at algoshack -->
+              <div class="mega-menu_column has-border is-aside">
+                <a class="mega-menu_feature" href="#life">
+                  <span class="mega-menu_feature-media"><img src="./assets/hero-img-2.svg" alt="" loading="lazy"></span>
+                  <span class="mega-menu_feature-title">Life at AlgoShack</span>
+                  <span class="mega-menu_feature-text">Meet the people building the future of autonomous quality engineering.</span>
+                  <span class="mega-menu_cta"><span>Explore our culture</span><svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></span>
+                </a>
+              </div>
+
+              <!-- col 3 : reviews + ranking -->
+              <div class="mega-menu_column is-flush is-aside">
+                <div class="mega-menu_section">
+                  <p class="mega-menu_eyebrow">Company Reviews &amp; Ratings</p>
+                  <a class="mega-menu_rating" href="https://www.glassdoor.co.in/" rel="noopener">
+                    <img class="mega-menu_rating-logo" src="./assets/glassdoor.png" alt="" width="40" height="40" loading="lazy">
+                    <span class="mega-menu_rating-text">
+                      <span class="mega-menu_link-title">Glassdoor</span>
+                      <span class="mega-menu_rating-row"><strong>4.4</strong>
+                        <span class="mega-menu_stars" aria-hidden="true"><svg class="icon is-filled"><use href="#i-star"/></svg><svg class="icon is-filled"><use href="#i-star"/></svg><svg class="icon is-filled"><use href="#i-star"/></svg><svg class="icon is-filled"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star-half"/></svg></span>
+                        <span class="mega-menu_rating-count">139 reviews</span></span>
+                    </span>
+                  </a>
+                  <a class="mega-menu_rating" href="https://www.ambitionbox.com/" rel="noopener">
+                    <img class="mega-menu_rating-logo" src="./assets/ambitionbox.png" alt="" width="40" height="40" loading="lazy">
+                    <span class="mega-menu_rating-text">
+                      <span class="mega-menu_link-title">Ambition Box</span>
+                      <span class="mega-menu_rating-row"><strong>4.2</strong>
+                        <span class="mega-menu_stars" aria-hidden="true"><svg class="icon is-filled"><use href="#i-star"/></svg><svg class="icon is-filled"><use href="#i-star"/></svg><svg class="icon is-filled"><use href="#i-star"/></svg><svg class="icon is-filled"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star-half"/></svg></span>
+                        <span class="mega-menu_rating-count">Employee reviews</span></span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mega-menu_section">
+                  <div class="mega-menu_card">
+                    <svg class="mega-menu_card-icon icon" aria-hidden="true"><use href="#i-medal"/></svg>
+                    <h3 class="mega-menu_card-title">Ranked #3 worldwide</h3>
+                    <p class="mega-menu_card-text">algoQA is ranked #3 among 900+ testing companies worldwide.</p>
+                    <a class="mega-menu_cta" href="/why-algoshack"><span>See why</span><svg class="icon" aria-hidden="true"><use href="#i-caret"/></svg></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- ============ PRICING ============ -->
+          <li class="navbar_item">
+            <a class="navbar_link" href="/pricing"><span>Pricing</span></a>
+          </li>
+        </ul>
+
+        <!-- Actions (desktop: right side / mobile: menu na nichhe) -->
+        <div class="navbar_actions">
+          <a class="navbar_link is-signin" href="https://app.algoshack.com/login"><span>Sign in</span></a>
+          <a class="navbar_button is-secondary" href="/book-a-demo">Book a demo</a>
+          <a class="navbar_button is-primary" href="https://app.algoshack.com/signup">
+            <span class="navbar_button-text is-desktop">Start free trial</span>
+            <span class="navbar_button-text is-mobile">Get Started Free</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Search + hamburger -->
+      <div class="navbar_tools">
+        <button class="navbar_search-button" type="button" data-navbar-search aria-label="Search">
+          <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+        </button>
+        <button class="navbar_menu-button" type="button" data-navbar-burger aria-label="Open menu" aria-expanded="false" aria-controls="navbar-menu">
+          <svg class="icon is-open" aria-hidden="true"><use href="#i-menu"/></svg>
+          <svg class="icon is-close" aria-hidden="true"><use href="#i-close"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>

@@ -1,0 +1,258 @@
+---
+import g2Logo from "../assets/ratings-g2.svg";
+import capterraLogo from "../assets/ratings-capterra.svg";
+
+// RatingsCard.astro
+// Figma: "Frame 372" -> heading + 6 "Nav Category tabs" rows.
+// Logo mate: `image` ma URL muko (ex: "/images/ratings/g2.svg"). Khali hoy to niche no SVG fallback dekhase.
+// `hidden: true` = Figma ma display:none (PeerSpot). `reviews` = Figma ma display:none etle default hide.
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+
+type Platform = {
+  name: string;
+  rating: number;
+  image: string;
+  href?: string;
+  reviews?: string;
+  hidden?: boolean;
+};
+
+const platforms: Platform[] = [
+  { name: "G2", rating: 4.9, image: g2Logo.src, reviews: "6 reviews" },
+  { name: "Capterra", rating: 4.4, image: capterraLogo.src, reviews: "5 reviews" },
+  { name: "Source Forge", rating: 4.5, image: "", reviews: "20 reviews" },
+  { name: "Software Suggest", rating: 5.0, image: "", reviews: "31 reviews" },
+  { name: "GetApp", rating: 4.4, image: "", reviews: "5 reviews" },
+  { name: "Tech Jockey", rating: 4.7, image: "", reviews: "2 reviews" },
+  { name: "PeerSpot", rating: 4.3, image: "", reviews: "69 reviews", hidden: true },
+];
+
+const visible = platforms.filter((p) => !p.hidden);
+
+// 4.9 -> 4 full + 1 half, 5.0 -> 5 full (Figma pramane)
+const getStars = (rating: number) => {
+  const full = Math.floor(rating);
+  const half = rating - full > 0 ? 1 : 0;
+  return { full, half };
+};
+---
+
+<div class="ratings_card">
+  <!-- Star ek j vaar define, badha ma <use> thi vaparay -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <path
+        id={`${id}-star`}
+        d="M8 .5l2.2 4.9 5.3.5-4 3.6 1.2 5.2L8 12l-4.7 2.7 1.2-5.2-4-3.6 5.3-.5z"
+      ></path>
+      <clipPath id={`${id}-star-half`}><rect x="0" y="0" width="8" height="16"></rect></clipPath>
+    </defs>
+  </svg>
+
+  <p class="ratings_heading">
+    <span class="ratings_heading-accent">algoQA is #1</span> - AI Augmented Autonomous Quality Engineering Platform
+  </p>
+
+  <ul class="ratings_list">
+    {visible.map((p) => {
+      const { full, half } = getStars(p.rating);
+      const Tag = p.href ? "a" : "div";
+      return (
+        <li>
+          <Tag class="ratings_row" href={p.href} target={p.href ? "_blank" : undefined} rel={p.href ? "noopener noreferrer" : undefined}>
+            <span class="ratings_logo">
+              {p.image ? (
+                <img src={p.image} alt="" width="32" height="32" loading="lazy" decoding="async" />
+              ) : p.name === "G2" ? (
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <circle cx="16" cy="17" r="13" fill="#FF492C"></circle>
+                  <circle cx="16" cy="17" r="5.5" fill="#fff"></circle>
+                  <text x="26" y="9" font-size="9" font-weight="700" fill="#FF492C" font-family="Inter, sans-serif">2</text>
+                </svg>
+              ) : p.name === "Capterra" ? (
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <path d="M2 4l26 8-14 6z" fill="#044D80"></path>
+                  <path d="M14 18l14-6-6 18z" fill="#68C5ED"></path>
+                  <path d="M2 4l12 14-3 9z" fill="#FF9D28"></path>
+                  <path d="M11 27l3-9 8 12z" fill="#FF5722" opacity=".9"></path>
+                </svg>
+              ) : p.name === "Source Forge" ? (
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <path d="M16 1l15 15-15 15L1 16z" fill="none" stroke="#FF6600" stroke-width="3" stroke-linejoin="round"></path>
+                  <path d="M16 8c3 4 5 6 5 9a5 5 0 01-10 0c0-1.5.8-2.5 1.800-3.500.3 1.500 1 2 1.700 2C14 12 15 10 16 8z" fill="#FF6600"></path>
+                </svg>
+              ) : p.name === "Software Suggest" ? (
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <circle cx="16" cy="16" r="16" fill="#0A1F6B"></circle>
+                  <text x="16" y="23" text-anchor="middle" font-size="22" fill="#fff" font-family="Georgia, serif">S</text>
+                </svg>
+              ) : p.name === "GetApp" ? (
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <circle cx="16" cy="16" r="16" fill="#3B3B3B"></circle>
+                  <path d="M9 11l6 5-6 5M15 11l6 5-6 5" fill="none" stroke="#2EE6D0" stroke-width="2.500" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              ) : p.name === "Tech Jockey" ? (
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <defs>
+                    <linearGradient id={`${id}-tj`} x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#FF6B6B"></stop>
+                      <stop offset=".5" stop-color="#7C5CFF"></stop>
+                      <stop offset="1" stop-color="#22D3EE"></stop>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="16" cy="16" r="13" fill="none" stroke={`url(#${id}-tj)`} stroke-width="3"></circle>
+                  <circle cx="16" cy="16" r="5" fill="none" stroke="#FF6B6B" stroke-width="2.500"></circle>
+                </svg>
+              ) : (
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <circle cx="16" cy="16" r="16" fill="#E5E9EC"></circle>
+                  <text x="16" y="21" text-anchor="middle" font-size="14" font-weight="600" fill="#202B34" font-family="Inter, sans-serif">
+                    {p.name.charAt(0)}
+                  </text>
+                </svg>
+              )}
+            </span>
+
+            <span class="ratings_info">
+              <span class="ratings_name">{p.name}</span>
+              <span class="ratings_meta">
+                <span class="ratings_score">{p.rating.toFixed(1)}</span>
+                <span class="ratings_stars" role="img" aria-label={`${p.rating} out of 5 stars`}>
+                  {Array.from({ length: full }).map(() => (
+                    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><use href={`#${id}-star`}></use></svg>
+                  ))}
+                  {half === 1 && (
+                    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                      <use href={`#${id}-star`} clip-path={`url(#${id}-star-half)`}></use>
+                    </svg>
+                  )}
+                </span>
+                {/* Figma ma display:none. Batavvu hoy to `.ratings_reviews { display:inline }` karo */}
+                <span class="ratings_reviews">{p.reviews}</span>
+              </span>
+            </span>
+          </Tag>
+        </li>
+      );
+    })}
+  </ul>
+</div>
+
+<style>
+  .ratings_card {
+    --rc-ink: #202b34;
+    --rc-muted: #74818c;
+    --rc-star: #edba00;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 299px;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+
+  .ratings_heading {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--rc-ink);
+  }
+
+  .ratings_heading-accent {
+    background: linear-gradient(126.58deg, #1b9dd9 3.97%, #00b4a0 92.99%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #1b9dd9; /* fallback */
+  }
+
+  .ratings_list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ratings_row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 4px;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  a.ratings_row:hover,
+  a.ratings_row:focus-visible {
+    background-color: #f4f7f9;
+  }
+
+  .ratings_logo {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+  }
+
+  .ratings_logo img,
+  .ratings_logo svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ratings_info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .ratings_name {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    color: var(--rc-ink);
+  }
+
+  .ratings_meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 17px;
+  }
+
+  .ratings_score {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17px;
+    color: var(--rc-ink);
+  }
+
+  .ratings_stars {
+    display: flex;
+    gap: 3px;
+    fill: var(--rc-star);
+  }
+
+  .ratings_reviews {
+    display: none; /* Figma: display none */
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0.02em;
+    color: var(--rc-muted);
+  }
+</style>

@@ -33,7 +33,7 @@
   --radius-small: 0.75rem;
   --radius-medium: 1.25rem;
   --radius-large: 2rem;
-  --container-large: 72rem;
+  --container-large: 80rem;
   --padding-global: clamp(1rem, 2vw, 2rem);
 }
 

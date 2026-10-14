@@ -1,0 +1,256 @@
+---
+import frameworksIcon from "../assets/framework.svg";
+import languagesIcon from "../assets/languages.svg";
+import operatingSystemsIcon from "../assets/operating-system.svg";
+import uiControlsIcon from "../assets/ui-controls.svg";
+import executionEnginesIcon from "../assets/executive-logo.svg";
+import browsersIcon from "../assets/browsers.svg";
+
+// TechnologiesCard.astro
+// Figma: "Frame 377" -> 2 column grid, darek group ma label + grayscale icon row.
+// Image add karva mate: item ma `image: "/images/tech/xxx.svg"` muko.
+// `image` khali hoy to `abbr` valo SVG badge fallback tarike dekhase.
+
+type Tech = { name: string; abbr: string; image: string };
+type Group = { title: string; icon: string; items: Tech[] };
+
+const left: Group[] = [
+  {
+    title: "Frameworks",
+    icon: frameworksIcon.src,
+    items: [
+      { name: "FlaUI", abbr: "FLA", image: "" },
+      { name: "Playwright", abbr: "Pw", image: "" },
+      { name: "Selenium", abbr: "Se", image: "" },
+      { name: "Appium", abbr: "Ap", image: "" },
+      { name: "WebdriverIO", abbr: "WD", image: "" },
+    ],
+  },
+  {
+    title: "Languages",
+    icon: languagesIcon.src,
+    items: [
+      { name: "Java", abbr: "Jv", image: "" },
+      { name: "TypeScript", abbr: "TS", image: "" },
+      { name: "JavaScript", abbr: "JS", image: "" },
+      { name: "Python", abbr: "Py", image: "" },
+      { name: "C#", abbr: "C#", image: "" },
+    ],
+  },
+  {
+    title: "Operating Systems",
+    icon: operatingSystemsIcon.src,
+    items: [
+      { name: "Windows", abbr: "Win", image: "" },
+      { name: "Linux", abbr: "Lx", image: "" },
+      { name: "macOS", abbr: "Mac", image: "" },
+    ],
+  },
+];
+
+const right: Group[] = [
+  {
+    title: "UI Controls",
+    icon: uiControlsIcon.src,
+    items: [
+      { name: "HTML5", abbr: "H5", image: "" },
+      { name: "Bootstrap", abbr: "B", image: "" },
+      { name: "React", abbr: "Re", image: "" },
+      { name: "Fluent UI", abbr: "Fl", image: "" },
+      { name: "Windows", abbr: "Win", image: "" },
+      { name: "Angular", abbr: "A", image: "" },
+    ],
+  },
+  {
+    title: "Execution Engines",
+    icon: executionEnginesIcon.src,
+    items: [
+      { name: "NUnit", abbr: "nU", image: "" },
+      { name: "xUnit", abbr: "xU", image: "" },
+      { name: "Playwright Test", abbr: "Pt", image: "" },
+      { name: "Mocha", abbr: "Mo", image: "" },
+      { name: "TestNG", abbr: "TestNG", image: "" },
+    ],
+  },
+  {
+    title: "Browsers",
+    icon: browsersIcon.src,
+    items: [
+      { name: "Chrome", abbr: "Ch", image: "" },
+      { name: "Edge", abbr: "Ed", image: "" },
+      { name: "Opera", abbr: "Op", image: "" },
+      { name: "Firefox", abbr: "Ff", image: "" },
+      { name: "Safari", abbr: "Sa", image: "" },
+      { name: "Internet Explorer", abbr: "IE", image: "" },
+    ],
+  },
+];
+
+const columns = [left, right];
+const learnMoreHref = "/technologies";
+---
+
+<section class="tech_card" aria-labelledby="tech-title">
+  <h3 class="tech_title" id="tech-title">Technologies</h3>
+
+  <div class="tech_grid">
+    {columns.map((groups) => (
+      <div class="tech_col">
+        {groups.map((group) => (
+          <div class="tech_group">
+            <p class="tech_label">
+              <span>{group.title}</span>
+              <img src={group.icon} alt="" width="32" height="32" loading="eager" decoding="async" />
+            </p>
+            <ul class="tech_icons">
+              {group.items.map((item) => (
+                <li class="tech_icon" title={item.name}>
+                  {item.image ? (
+                    <img src={item.image} alt={item.name} height="32" loading="lazy" decoding="async" />
+                  ) : (
+                    <span class="tech_icon-name">{item.name}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+
+  <a class="tech_button" href={learnMoreHref}>
+    Learn more
+    <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+      <path d="M4 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.200" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </a>
+</section>
+
+<style>
+  .tech_card {
+    --tc-ink: #202b34;
+    --tc-muted: #74818c;
+    --tc-blue: #1b78b5;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+
+  .tech_title {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tc-muted);
+  }
+
+  .tech_grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 6px;
+    align-items: start;
+  }
+
+  .tech_col {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .tech_group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tech_label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    padding: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0.02em;
+    color: var(--tc-ink);
+  }
+
+  .tech_label img {
+    display: block;
+    flex: none;
+    width: auto;
+    max-width: 100%;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .tech_icons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0 8px;
+    list-style: none;
+  }
+
+  .tech_icon {
+    display: grid;
+    place-items: center;
+    height: 32px;
+    min-width: 32px;
+    color: #8a949c; /* SVG badge nu grayscale */
+    filter: grayscale(1); /* image hoy to pan gray (Figma: luminosity blend) */
+    mix-blend-mode: luminosity;
+  }
+
+  .tech_icon img {
+    display: block;
+    height: 32px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .tech_icon-name {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .tech_button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    color: var(--tc-blue);
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #dfe5e9;
+    border-radius: 4px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .tech_button:hover,
+  .tech_button:focus-visible {
+    border-color: var(--tc-blue);
+    background: #f4f9fc;
+  }
+
+  @media (max-width: 600px) {
+    .tech_grid {
+      grid-template-columns: 1fr;
+      row-gap: 32px;
+    }
+  }
+</style>
