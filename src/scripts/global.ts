@@ -120,3 +120,11 @@ faqLists.forEach((list) => {
     });
   });
 });
+
+const navbar = document.querySelector(".navbar_wrapper");
+
+if (navbar) {
+  window.addEventListener("scroll", () => {
+    navbar.classList.toggle("is-scrolled", window.scrollY > 38);
+  }, { passive: true });
+}

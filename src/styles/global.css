@@ -378,7 +378,7 @@ div {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 5.5rem;
+  min-height: 4.5rem;
 }
 
 .navbar_brand,
@@ -4491,6 +4491,180 @@ p.global-para-xlarge {
     text-align: center;
   }
 }
+.section_home_about {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 582px;
+    background: #f7f9fa;
+    display: flex;
+    justify-content: center;
+  }
+
+  .home_about_mesh {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .home_about_mesh::before,
+  .home_about_mesh::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .home_about_mesh::before {
+    background-image: var(--about-img-2);
+  }
+
+  .home_about_mesh::after {
+    background-image: var(--about-img-1);
+  }
+
+  .home_about_content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 764px;
+    padding: 96px 0px 124px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    box-sizing: border-box;
+  }
+
+  .home_about_copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .section_home_about h1 {
+    margin: 0;
+    font-family: "Source Serif 4", serif;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 67px;
+    letter-spacing: -0.025em;
+    text-align: center;
+    color: #202b34;
+  }
+
+  .section_home_about p {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    text-align: center;
+    color: #54606a;
+  }
+
+  .home_about_actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .home_about_button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    padding: 16px 24px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .home_about_button.is-primary {
+    background: #0e2a3d;
+    color: #fff;
+  }
+
+  .home_about_button.is-primary:hover {
+    background: #163b55;
+  }
+
+  .home_about_button.is-secondary {
+    background: #fff;
+    color: #2979b3;
+    border: 1px solid #d1d9df;
+  }
+
+  .home_about_button.is-secondary:hover {
+    border-color: #2979b3;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .home_about_content {
+      max-width: 740px;
+      padding: 6rem 1rem;
+      gap: 2.5rem;
+    }
+
+    .section_home_about h1 {
+      font-size: 52px;
+      line-height: 56px;
+    }
+
+    .section_home_about p {
+      font-size: 16px;
+      line-height: 26px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .section_home_about {
+      min-height: 0;
+    }
+
+    .home_about_content {
+      padding: 6rem 1rem;
+      gap: 2.5rem;
+    }
+
+    .home_about_copy {
+      gap: 16px;
+    }
+
+    .section_home_about h1 {
+      font-size: 36px;
+      line-height: 40px;
+    }
+
+    .section_home_about p {
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    .home_about_actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .home_about_button {
+      width: 100%;
+    }
+
+  }
+
+
+
 
 @media (max-width: 478px) {
   .cta_buttons {
@@ -4878,11 +5052,21 @@ p.global-para-xlarge {
   align-items: center;
   justify-content: center;
   min-height: 38px;
-  padding: 0 48px 0 16px;
+  padding: 0px 16px;
   background: var(--navbar-announcement);
   color: #FFFFFF;
+    transition: height 0.3s ease, opacity 0.3s ease;
 }
 .navbar_announcement[hidden] { display: none; }
+
+.navbar_wrapper.is-scrolled .navbar_announcement {
+  display: none;
+}
+
+/* Keep navbar visible at the top */
+.navbar_wrapper.is-scrolled .navbar_component {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
 
 .navbar_announcement-inner {
   display: flex;
@@ -4924,7 +5108,7 @@ p.global-para-xlarge {
   transition: background 0.2s ease;
 }
 .navbar_announcement-link .icon { font-size: 12px; color: var(--navbar-navy); }
-.navbar_announcement-link:hover { background: rgba(247, 249, 250, 0.85); }
+.navbar_announcement-link:hover { background: rgba(247, 249, 250, 0.85); color: var(--navbar-blue);}
 
 .navbar_announcement-close {
   position: absolute;
@@ -4948,6 +5132,7 @@ p.global-para-xlarge {
   position: relative;
   background: #FFFFFF;
   box-shadow: 0 2px 8px -8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   justify-content: center;
 }
 
@@ -4957,7 +5142,8 @@ p.global-para-xlarge {
   height: var(--navbar-header-h);
   padding: 16px 32px;
   width: 100%;
-  max-width: 86rem;
+  max-width: 1440px;
+  margin: auto;
 }
 
 .navbar_brand { display: inline-flex; align-items: center; flex: none; }
@@ -4991,7 +5177,7 @@ p.global-para-xlarge {
   transition: background 0.2s ease;
 }
 .navbar_link:hover,
-.navbar_item.is-open > .navbar_dropdown-toggle { background: var(--navbar-soft); }
+.navbar_item.is-open > .navbar_dropdown-toggle { background: var(--navbar-soft); color: var(--navbar-blue);}
 
 .navbar_caret { font-size: 12px; color: var(--navbar-navy); transition: transform 0.2s ease; }
 .navbar_item.is-open > .navbar_dropdown-toggle .navbar_caret { transform: rotate(180deg); }
@@ -5052,7 +5238,7 @@ p.global-para-xlarge {
   z-index: 50;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  width: min(1041px, calc(100vw - 32px));
+  width: min(1200px, calc(100vw - 32px));
   min-height: 517px;
   background: #FFFFFF;
   border-radius: 4px;
@@ -5137,12 +5323,13 @@ p.global-para-xlarge {
 .mega-menu_column {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 6px;
   min-width: 0;
   padding: 24px;
 }
 
- .mega-menu_column.is-tabs{gap:1.25rem;}
+ .mega-menu_column.is-tabs{gap:1.25rem; }
 .mega-menu_column.has-border { border-inline: 1px solid var(--navbar-border); }
 .mega-menu_column.is-aside { padding: 28px 24px; }
 .mega-menu_column.is-flush { padding: 0; gap: 0; }
