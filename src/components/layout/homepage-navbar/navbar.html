@@ -248,6 +248,14 @@
       <path fill="currentColor" stroke="none" d="M12 3v14.3l-5.5 3 1-6.2L3 9.7l6.2-.9L12 3z" />
       <path fill="currentColor" fill-opacity=".25" stroke="none" d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.2-5.5-3V3z" />
     </symbol>
+    <symbol id="i-question" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.500"/>
+      <path d="M9.500 9.500a2.500 2.500 0 114 2c-.9.600-1.500 1-1.500 2M12 16.500v.01" fill="none" stroke="currentColor" stroke-width="1.500" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-video" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.500"/>
+      <path d="M10 9.500v5l4.500-2.500z" fill="currentColor"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -302,61 +310,32 @@
             <div class="mega-menu_component is-platforms" id="mega-platforms" data-mega>
               <!-- col 1 : categories (tabs) -->
               <div class="mega-menu_column is-tabs">
-                <img src="/public/sub-logo.svg" alt="" height="22" loading="lazy">
+                <img class="mega-menu_sublogo" src="/sub-logo.svg" alt="algoQA" width="73" height="22" loading="lazy">
                 <div class="mega-menu_tab-list" role="tablist" aria-orientation="vertical">
                   <button class="mega-menu_tab is-active" type="button" role="tab" aria-selected="true"
                     data-tab="p-workflows">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-workflow" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Workflows</span><span
-                        class="mega-menu_tab-caption">Test design to reporting</span></span>
+                    <span class="mega-menu_tab-title">Quality Lifecycle</span>
                   </button>
                   <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="p-features">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-gear" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Features</span><span
-                        class="mega-menu_tab-caption">Leaner, self-healing test suites</span></span>
+                    <span class="mega-menu_tab-title">Features</span>
                   </button>
                   <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="p-algoai">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-sparkle" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">algoAI <span
-                          class="mega-menu_badge">New</span></span><span class="mega-menu_tab-caption">Autonomous agents
-                        across the lifecycle</span></span>
+                    <span class="mega-menu_tab-title">algoAI</span>
                   </button>
                   <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="p-usecases">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-target" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Use Cases</span><span
-                        class="mega-menu_tab-caption">UI, API to AI testing</span></span>
+                    <span class="mega-menu_tab-title">Use Cases</span>
                   </button>
                   <button class="mega-menu_tab" type="button" role="tab" aria-selected="false"
                     data-tab="p-integrations">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-puzzle" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Integrations</span><span
-                        class="mega-menu_tab-caption">Fits your existing toolchain</span></span>
+                    <span class="mega-menu_tab-title">Integrations</span>
                   </button>
                   <button class="mega-menu_tab" type="button" role="tab" aria-selected="false"
                     data-tab="p-technologies">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-stack" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Technologies</span><span
-                        class="mega-menu_tab-caption">Runs on your stack</span></span>
+                    <span class="mega-menu_tab-title">Technologies</span>
                   </button>
                   <button class="mega-menu_tab" type="button" role="tab" aria-selected="false"
                     data-tab="p-algoscrapers">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-scan" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">algoScrapers</span><span
-                        class="mega-menu_tab-caption">Scrapers and standalone utilities</span></span>
+                    <span class="mega-menu_tab-title">algoScrapers</span>
                   </button>
                 </div>
               </div>
@@ -365,51 +344,20 @@
               <div class="mega-menu_stage">
                 <div class="mega-menu_pane is-split is-active" role="tabpanel" data-pane="p-workflows">
                   <div class="mega-menu_pane-main">
-                    <p class="mega-menu_eyebrow">Workflows</p>
+                    <div class="mega-menu_pane-head">
+                      <p class="mega-menu_eyebrow">Quality Lifecycle</p>
+                      <p class="mega-menu_pane-caption">Design to retest, one continuous loop, not just reporting.</p>
+                    </div>
                     <ul class="mega-menu_list" role="list">
-                      <li><a class="mega-menu_link" href="/platform/test-design"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-pencil" />
-                          </svg><span class="mega-menu_link-title">Test Design</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/platform/test-script-generation"><svg
-                            class="mega-menu_link-icon icon" aria-hidden="true">
-                            <use href="#i-code" />
-                          </svg><span class="mega-menu_link-title">Test Script Generation</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/platform/test-execution"><svg
-                            class="mega-menu_link-icon icon" aria-hidden="true">
-                            <use href="#i-play" />
-                          </svg><span class="mega-menu_link-title">Test Execution</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/platform/test-optimisation"><svg
-                            class="mega-menu_link-icon icon" aria-hidden="true">
-                            <use href="#i-trend" />
-                          </svg><span class="mega-menu_link-title">Test Optimisation</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/platform/test-management"><svg
-                            class="mega-menu_link-icon icon" aria-hidden="true">
-                            <use href="#i-window" />
-                          </svg><span class="mega-menu_link-title">Test Management</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/platform/reporting-analytics"><svg
-                            class="mega-menu_link-icon icon" aria-hidden="true">
-                            <use href="#i-chart" />
-                          </svg><span class="mega-menu_link-title">Reporting &amp; Analytics</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
+                      <li><a class="mega-menu_link has-caption" href="/platform/test-design"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-pencil" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Test Design</span><span class="mega-menu_link-caption">Generate test cases from requirements and flows.</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                      <li><a class="mega-menu_link has-caption" href="/platform/test-script-generation"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-code" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Test Script Generation</span><span class="mega-menu_link-caption">Capture scenarios offline or live, then extend with Code Bot.</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                      <li><a class="mega-menu_link has-caption" href="/platform/test-execution"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-play" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Test Execution</span><span class="mega-menu_link-caption">Run in parallel across browsers and devices.</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                      <li><a class="mega-menu_link has-caption" href="/platform/reporting-analytics"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-chart" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Reporting &amp; Retest</span><span class="mega-menu_link-caption">Trace failures, self-heal and retest in one click.</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
                     </ul>
+                    <div class="mega-menu_pane-foot">
+                      <p class="mega-menu_pane-caption">We have agents for everything across these stages.</p>
+                      <a class="mega-menu_text-button" href="/algoai"><span>See agents</span><svg class="icon" aria-hidden="true"><use href="#i-caret" /></svg></a>
+                    </div>
                   </div>
                   <div class="mega-menu_pane-aside">
                     <!-- ASTRO_RATINGS_CARD -->
@@ -728,190 +676,113 @@
             </button>
 
             <div class="mega-menu_component is-solutions" id="mega-solutions" data-mega>
+              <!-- col 1 : eyebrow + text-only tabs -->
               <div class="mega-menu_column is-tabs">
                 <p class="mega-menu_eyebrow">Solutions</p>
                 <div class="mega-menu_tab-list" role="tablist" aria-orientation="vertical">
-                  <button class="mega-menu_tab is-active" type="button" role="tab" aria-selected="true"
-                    data-tab="s-model">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-cube" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">By Model</span><span
-                        class="mega-menu_tab-caption">Pick how you want to work with us</span></span>
+                  <button class="mega-menu_tab is-active" type="button" role="tab" aria-selected="true" data-tab="s-business-models">
+                    <span class="mega-menu_tab-title">Business Models</span>
                   </button>
-                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="s-usecase">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-grid" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">By Use Case</span><span
-                        class="mega-menu_tab-caption">Solve specific testing challenges</span></span>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="s-industries">
+                    <span class="mega-menu_tab-title">Industries</span>
                   </button>
-                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="s-industry">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-building" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">By Industry</span><span
-                        class="mega-menu_tab-caption">Built for regulated domains</span></span>
-                  </button>
-                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="s-role">
-                    <span class="mega-menu_tab-icon"><svg class="icon" aria-hidden="true">
-                        <use href="#i-user" />
-                      </svg></span>
-                    <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">By Role</span><span
-                        class="mega-menu_tab-caption">For every quality stakeholder</span></span>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="s-teams">
+                    <span class="mega-menu_tab-title">Teams</span>
                   </button>
                 </div>
               </div>
 
-              <div class="mega-menu_column has-border">
-                <div class="mega-menu_pane is-active" role="tabpanel" data-pane="s-model">
-                  <p class="mega-menu_eyebrow">By Model</p>
-                  <ul class="mega-menu_list" role="list">
-                    <li><a class="mega-menu_link has-caption" href="/solutions/saas"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-cube" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">SaaS
-                            Platform</span><span class="mega-menu_link-caption">Self-serve algoQA with a free
-                            trial</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/solutions/managed-services"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-users" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Managed Testing
-                            Services</span><span class="mega-menu_link-caption">Our experts run quality for
-                            you</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/solutions/hybrid"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-workflow" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Hybrid</span><span
-                            class="mega-menu_link-caption">Platform plus embedded engineers</span></span><svg
-                          class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                  </ul>
-                </div>
-                <div class="mega-menu_pane" role="tabpanel" data-pane="s-usecase" hidden>
-                  <p class="mega-menu_eyebrow">By Use Case</p>
-                  <ul class="mega-menu_list" role="list">
-                    <li><a class="mega-menu_link has-caption" href="/use-cases/test-generation"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-doc" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Test Case
-                            Generation</span><span class="mega-menu_link-caption">From requirements to executable
-                            tests</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/use-cases/regression"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-workflow" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Regression
-                            Automation</span><span class="mega-menu_link-caption">Self-healing suites for every
-                            release</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/use-cases/api-testing"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-code" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">API &amp; Integration
-                            Testing</span><span class="mega-menu_link-caption">Contract-aware API
-                            coverage</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/use-cases/test-data"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-stack" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Test Data
-                            Management</span><span class="mega-menu_link-caption">Synthetic, compliant
-                            datasets</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                  </ul>
-                </div>
-                <div class="mega-menu_pane" role="tabpanel" data-pane="s-industry" hidden>
-                  <p class="mega-menu_eyebrow">By Industry</p>
-                  <ul class="mega-menu_list" role="list">
-                    <li><a class="mega-menu_link has-caption" href="/industries/bfsi"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-building" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">BFSI</span><span
-                            class="mega-menu_link-caption">Banking, financial services &amp; insurance</span></span><svg
-                          class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/industries/healthcare"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-heart" />
-                        </svg><span class="mega-menu_link-text"><span
-                            class="mega-menu_link-title">Healthcare</span><span class="mega-menu_link-caption">Quality
-                            for regulated workflows</span></span><svg class="mega-menu_link-arrow icon"
-                          aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/industries/retail"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-grid" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Retail &amp;
-                            eCommerce</span><span class="mega-menu_link-caption">Peak-season ready
-                            releases</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/industries/telecom"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-globe" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Telecom</span><span
-                            class="mega-menu_link-caption">Scale testing across networks</span></span><svg
-                          class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                  </ul>
-                </div>
-                <div class="mega-menu_pane" role="tabpanel" data-pane="s-role" hidden>
-                  <p class="mega-menu_eyebrow">By Role</p>
-                  <ul class="mega-menu_list" role="list">
-                    <li><a class="mega-menu_link has-caption" href="/roles/qa-leaders"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-medal" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">QA
-                            Leaders</span><span class="mega-menu_link-caption">Cut cost, raise
-                            coverage</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/roles/developers"><svg
-                          class="mega-menu_link-icon icon" aria-hidden="true">
-                          <use href="#i-code" />
-                        </svg><span class="mega-menu_link-text"><span
-                            class="mega-menu_link-title">Developers</span><span class="mega-menu_link-caption">Tests
-                            that keep up with your code</span></span><svg class="mega-menu_link-arrow icon"
-                          aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                    <li><a class="mega-menu_link has-caption" href="/roles/devops"><svg class="mega-menu_link-icon icon"
-                          aria-hidden="true">
-                          <use href="#i-workflow" />
-                        </svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">DevOps
-                            Teams</span><span class="mega-menu_link-caption">Quality gates in every
-                            pipeline</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                          <use href="#i-caret" />
-                        </svg></a></li>
-                  </ul>
-                </div>
-              </div>
+              <!-- col 2 + 3 -->
+              <div class="mega-menu_stage">
+                <div class="mega-menu_pane is-split is-active" role="tabpanel" data-pane="s-business-models">
+                  <div class="mega-menu_pane-main">
+                    <div class="mega-menu_pane-head">
+                      <p class="mega-menu_eyebrow">Business Models</p>
+                      <p class="mega-menu_pane-caption">Choose self-serve SaaS or a platform-led service model.</p>
+                    </div>
+                    <ul class="mega-menu_list" role="list">
+                      <li>
+                        <a class="mega-menu_link has-caption" href="/solutions/saas">
+                          <svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-stack" /></svg>
+                          <span class="mega-menu_link-text">
+                            <span class="mega-menu_link-title">SaaS</span>
+                            <span class="mega-menu_link-caption">Self-serve platform you can start using right away.</span>
+                          </span>
+                          <svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="mega-menu_link has-caption" href="/solutions/saso">
+                          <svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-puzzle" /></svg>
+                          <span class="mega-menu_link-text">
+                            <span class="mega-menu_link-title">SaSo</span>
+                            <span class="mega-menu_link-caption">Platform-led service delivered by our experts.</span>
+                          </span>
+                          <svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
 
-              <div class="mega-menu_column is-aside">
-                <div class="mega-menu_card">
-                  <svg class="mega-menu_card-icon icon" aria-hidden="true">
-                    <use href="#i-medal" />
-                  </svg>
-                  <h3 class="mega-menu_card-title">Why AlgoShack?</h3>
-                  <p class="mega-menu_card-text">What sets the autonomous platform apart from coding assistants and
-                    legacy tools.</p>
-                  <a class="mega-menu_cta" href="/book-a-demo"><span>Book a demo</span><svg class="icon"
-                      aria-hidden="true">
-                      <use href="#i-caret" />
-                    </svg></a>
+                  <div class="mega-menu_pane-aside">
+                    <div class="mega-menu_why-card">
+                      <svg class="mega-menu_why-icon icon" aria-hidden="true"><use href="#i-help" /></svg>
+                      <h3 class="mega-menu_why-title">Why AlgoShack?</h3>
+                      <p class="mega-menu_why-text">What sets the autonomous platform apart from coding assistants and legacy tools.</p>
+                      <a class="mega-menu_text-button" href="/why-algoshack">
+                        <span>Learn more</span><svg class="icon" aria-hidden="true"><use href="#i-caret" /></svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mega-menu_pane is-split" role="tabpanel" data-pane="s-industries" hidden>
+                  <div class="mega-menu_pane-main">
+                    <div class="mega-menu_pane-head">
+                      <p class="mega-menu_eyebrow">Industries</p>
+                      <p class="mega-menu_pane-caption">Built for regulated domains</p>
+                    </div>
+                    <ul class="mega-menu_list" role="list">
+                      <li><a class="mega-menu_link has-caption" href="/industries/bfsi"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-building" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">BFSI</span><span class="mega-menu_link-caption">Banking, financial services &amp; insurance</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                      <li><a class="mega-menu_link has-caption" href="/industries/healthcare"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-heart" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Healthcare</span><span class="mega-menu_link-caption">Quality for regulated workflows</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                      <li><a class="mega-menu_link has-caption" href="/industries/retail"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-grid" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Retail &amp; eCommerce</span><span class="mega-menu_link-caption">Peak-season ready releases</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                      <li><a class="mega-menu_link has-caption" href="/industries/telecom"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-globe" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Telecom</span><span class="mega-menu_link-caption">Scale testing across networks</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-menu_pane-aside">
+                    <div class="mega-menu_why-card">
+                      <svg class="mega-menu_why-icon icon" aria-hidden="true"><use href="#i-help" /></svg>
+                      <h3 class="mega-menu_why-title">Why AlgoShack?</h3>
+                      <p class="mega-menu_why-text">What sets the autonomous platform apart from coding assistants and legacy tools.</p>
+                      <a class="mega-menu_text-button" href="/why-algoshack">
+                        <span>Learn more</span><svg class="icon" aria-hidden="true"><use href="#i-caret" /></svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mega-menu_pane is-split" role="tabpanel" data-pane="s-teams" hidden>
+                  <div class="mega-menu_pane-main">
+                    <div class="mega-menu_pane-head">
+                      <p class="mega-menu_eyebrow">Teams</p>
+                      <p class="mega-menu_pane-caption">For every quality stakeholder</p>
+                    </div>
+                    <ul class="mega-menu_list" role="list">
+                      <li><a class="mega-menu_link has-caption" href="/roles/qa-leaders"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-medal" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">QA Leaders</span><span class="mega-menu_link-caption">Cut cost, raise coverage</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                      <li><a class="mega-menu_link has-caption" href="/roles/developers"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-code" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">Developers</span><span class="mega-menu_link-caption">Tests that keep up with your code</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                      <li><a class="mega-menu_link has-caption" href="/roles/devops"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-workflow" /></svg><span class="mega-menu_link-text"><span class="mega-menu_link-title">DevOps Teams</span><span class="mega-menu_link-caption">Quality gates in every pipeline</span></span><svg class="mega-menu_link-arrow icon" aria-hidden="true"><use href="#i-caret" /></svg></a></li>
+                    </ul>
+                  </div>
+                  <div class="mega-menu_pane-aside">
+                    <div class="mega-menu_why-card">
+                      <svg class="mega-menu_why-icon icon" aria-hidden="true"><use href="#i-help" /></svg>
+                      <h3 class="mega-menu_why-title">Why AlgoShack?</h3>
+                      <p class="mega-menu_why-text">What sets the autonomous platform apart from coding assistants and legacy tools.</p>
+                      <a class="mega-menu_text-button" href="/why-algoshack">
+                        <span>Learn more</span><svg class="icon" aria-hidden="true"><use href="#i-caret" /></svg>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -927,267 +798,155 @@
             </button>
 
             <!-- ASTRO_RESOURCES_START -->
-            <div class="mega-menu_component is-resources is-resources-redesign" id="mega-resources" data-mega>
+            <div class="mega-menu_component is-resources" id="mega-resources" data-mega>
+              <!-- col 1 : eyebrow + text-only tabs -->
               <div class="mega-menu_column is-tabs">
                 <p class="mega-menu_eyebrow">Resources</p>
-                <div class="mega-menu_resources-nav">
-                  <div class="mega-menu_tab-list" role="tablist" aria-label="Resource categories">
-                    <button class="mega-menu_tab is-active" type="button" role="tab" id="resource-tab-knowledge"
-                      aria-selected="true" aria-controls="resource-pane-knowledge" data-tab="knowledge">
-                      <svg class="mega-menu_tab-icon icon" aria-hidden="true">
-                        <use href="#i-book" />
-                      </svg>
-                      <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Knowledge Hub</span><span
-                          class="mega-menu_tab-caption">Blogs, guides and learning</span></span>
-                    </button>
-                    <button class="mega-menu_tab" type="button" role="tab" id="resource-tab-events"
-                      aria-selected="false" aria-controls="resource-pane-events" data-tab="events">
-                      <svg class="mega-menu_tab-icon icon" aria-hidden="true">
-                        <use href="#i-calendar" />
-                      </svg>
-                      <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Events</span><span
-                          class="mega-menu_tab-caption">Webinars, podcasts and conferences</span></span>
-                    </button>
-                    <button class="mega-menu_tab" type="button" role="tab" id="resource-tab-support"
-                      aria-selected="false" aria-controls="resource-pane-support" data-tab="support">
-                      <svg class="mega-menu_tab-icon icon" aria-hidden="true">
-                        <use href="#i-users" />
-                      </svg>
-                      <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Support</span><span
-                          class="mega-menu_tab-caption">Help, community and updates</span></span>
-                    </button>
-                    <button class="mega-menu_tab" type="button" role="tab" id="resource-tab-compare"
-                      aria-selected="false" aria-controls="resource-pane-compare" data-tab="compare">
-                      <svg class="mega-menu_tab-icon icon" aria-hidden="true">
-                        <use href="#i-scale" />
-                      </svg>
-                      <span class="mega-menu_tab-text"><span class="mega-menu_tab-title">Compare</span><span
-                          class="mega-menu_tab-caption">algoQA vs the alternatives</span></span>
-                    </button>
-                  </div>
+                <div class="mega-menu_tab-list" role="tablist" aria-orientation="vertical">
+                  <button class="mega-menu_tab is-active" type="button" role="tab" aria-selected="true" data-tab="r-knowledge-hub">
+                    <span class="mega-menu_tab-title">Knowledge Hub</span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="r-events">
+                    <span class="mega-menu_tab-title">Events</span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="r-support">
+                    <span class="mega-menu_tab-title">Support</span>
+                  </button>
+                  <button class="mega-menu_tab" type="button" role="tab" aria-selected="false" data-tab="r-compare">
+                    <span class="mega-menu_tab-title">Compare</span>
+                  </button>
                 </div>
-                <a class="mega-menu_resources-footer" href="/newsroom">
-                  <span class="mega-menu_resources-footer-title">What’s New<svg class="icon" aria-hidden="true">
-                      <use href="#i-arrow-right" />
-                    </svg></span>
-                  <span class="mega-menu_tab-caption">Check what’s latest in algoQA</span>
-                </a>
               </div>
 
-              <div class="mega-menu_resources-content">
-                <section class="mega-menu_pane mega-menu_resources-pane is-active" id="resource-pane-knowledge"
-                  role="tabpanel" aria-labelledby="resource-tab-knowledge" data-pane="knowledge">
-                  <p class="mega-menu_eyebrow">Knowledge Hub</p>
-                  <div class="mega-menu_hub">
-                    <ul class="mega-menu_list" role="list">
-                      <li><a class="mega-menu_link" href="/blog"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-doc" />
-                          </svg><span class="mega-menu_link-title">Blogs</span><svg class="mega-menu_link-arrow icon"
-                            aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/newsletter"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-mail" />
-                          </svg><span class="mega-menu_link-title">Newsletters</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/case-studies"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-briefcase" />
-                          </svg><span class="mega-menu_link-title">Success Stories</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/webinars"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-play" />
-                          </svg><span class="mega-menu_link-title">Videos</span><svg class="mega-menu_link-arrow icon"
-                            aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/whitepapers"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-book" />
-                          </svg><span class="mega-menu_link-title">Analysts Reports</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/#testimonials"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-users" />
-                          </svg><span class="mega-menu_link-title">Testimonials</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/contact"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-pencil" />
-                          </svg><span class="mega-menu_link-title">Write for us</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                    </ul>
-                    <ul class="mega-menu_list" role="list">
-                      <li><a class="mega-menu_link" href="/academy"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-medal" />
-                          </svg><span class="mega-menu_link-title">Academy</span><svg class="mega-menu_link-arrow icon"
-                            aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/certifications"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-medal" />
-                          </svg><span class="mega-menu_link-title">Certifications</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/docs"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-doc" />
-                          </svg><span class="mega-menu_link-title">Documentations</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/book-a-demo"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-play" />
-                          </svg><span class="mega-menu_link-title">Product Demos</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/patents"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-cube" />
-                          </svg><span class="mega-menu_link-title">Patents</span><svg class="mega-menu_link-arrow icon"
-                            aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/#faq"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-help" />
-                          </svg><span class="mega-menu_link-title">FAQs</span><svg class="mega-menu_link-arrow icon"
-                            aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                    </ul>
-                  </div>
-                </section>
-                <section class="mega-menu_pane mega-menu_resources-pane" id="resource-pane-events" role="tabpanel"
-                  aria-labelledby="resource-tab-events" data-pane="events" hidden>
-                  <p class="mega-menu_eyebrow">Events</p>
-                  <div class="mega-menu_hub">
-                    <ul class="mega-menu_list" role="list">
-                      <li><a class="mega-menu_link" href="/events"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-fireside-chat" />
-                          </svg><span class="mega-menu_link-title">Fireside Chat</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/webinars"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-webinar" />
-                          </svg><span class="mega-menu_link-title">Webinars</span><svg class="mega-menu_link-arrow icon"
-                            aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/podcasts"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-podcast-18" />
-                          </svg><span class="mega-menu_link-title">Podcasts</span><svg class="mega-menu_link-arrow icon"
-                            aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/events"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-hackathon" />
-                          </svg><span class="mega-menu_link-title">Hackathons</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/events"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-conference-roundtable" />
-                          </svg><span class="mega-menu_link-title">Conferences</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/events"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-conference-roundtable" />
-                          </svg><span class="mega-menu_link-title">Roundtables</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                    </ul>
+              <!-- right area -->
+              <div class="mega-menu_stage">
+                <div class="mega-menu_pane is-active" role="tabpanel" data-pane="r-knowledge-hub">
+                  <div class="mega-menu_pane-main">
+                    <div class="mega-menu_pane-head">
+                      <p class="mega-menu_eyebrow">Knowledge Hub</p>
+                      <p class="mega-menu_pane-caption">Everything you need to learn, build, and grow with algoQA</p>
+                    </div>
 
-                  </div>
-                </section>
-                <section class="mega-menu_pane mega-menu_resources-pane" id="resource-pane-support" role="tabpanel"
-                  aria-labelledby="resource-tab-support" data-pane="support" hidden>
-                  <p class="mega-menu_eyebrow">Support</p>
-                  <div class="mega-menu_hub">
-                    <ul class="mega-menu_list" role="list">
-                      <li><a class="mega-menu_link" href="/contact"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-customer-support" />
-                          </svg><span class="mega-menu_link-title">Customer Support</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/community"><svg class="mega-menu_link-icon icon"
-                            aria-hidden="true">
-                            <use href="#i-conference-roundtable" />
-                          </svg><span class="mega-menu_link-title">Community</span><svg
-                            class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                    </ul>
+                    <div class="mega-menu_cols">
+                      <!-- column A : 5 links -->
+                      <ul class="mega-menu_list" role="list">
+                        <li><a class="mega-menu_link" href="/docs"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-book" /></svg><span class="mega-menu_link-title">Documentation</span></a></li>
+                        <li><a class="mega-menu_link" href="/tutorials"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-video" /></svg><span class="mega-menu_link-title">Tutorials</span></a></li>
+                        <li><a class="mega-menu_link" href="/blog"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-doc" /></svg><span class="mega-menu_link-title">Blogs</span></a></li>
+                        <li><a class="mega-menu_link" href="/case-studies"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-chart" /></svg><span class="mega-menu_link-title">Case Studies</span></a></li>
+                        <li><a class="mega-menu_link" href="/guides"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-pencil" /></svg><span class="mega-menu_link-title">Guides</span></a></li>
+                      </ul>
 
+                      <!-- column B : 4 links -->
+                      <ul class="mega-menu_list" role="list">
+                        <li><a class="mega-menu_link" href="/whitepapers"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-doc" /></svg><span class="mega-menu_link-title">Whitepapers</span></a></li>
+                        <li><a class="mega-menu_link" href="/release-notes"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-trend" /></svg><span class="mega-menu_link-title">Release Notes</span></a></li>
+                        <li><a class="mega-menu_link" href="/faqs"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-question" /></svg><span class="mega-menu_link-title">FAQs</span></a></li>
+                        <li><a class="mega-menu_link" href="/videos"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-play" /></svg><span class="mega-menu_link-title">Videos</span></a></li>
+                      </ul>
+                    </div>
 
+                    <!-- subscribe box -->
+                    <div class="mega-menu_subscribe">
+                      <svg class="mega-menu_subscribe-icon icon" aria-hidden="true"><use href="#i-mail" /></svg>
+                      <div class="mega-menu_subscribe-text">
+                        <p class="mega-menu_subscribe-title">Subscribe to Updates</p>
+                        <p class="mega-menu_subscribe-caption">Get new guides and product updates in your inbox.</p>
+                      </div>
+                      <a class="mega-menu_outline-button" href="/subscribe">
+                        <span>Subscribe Now</span><svg class="icon" aria-hidden="true"><use href="#i-caret" /></svg>
+                      </a>
+                    </div>
                   </div>
-                </section>
-                <section class="mega-menu_pane mega-menu_resources-pane" id="resource-pane-compare" role="tabpanel"
-                  aria-labelledby="resource-tab-compare" data-pane="compare" hidden>
-                  <p class="mega-menu_eyebrow">Compare</p>
-                  <div class="mega-menu_hub">
-                    <ul class="mega-menu_list" role="list">
-                      <li><a class="mega-menu_link" href="/compare"><span class="mega-menu_link-title">algoQA vs
-                            alternatives</span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/case-studies"><span class="mega-menu_link-title">algoQA vs
-                            Katalon</span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/book-a-demo"><span class="mega-menu_link-title">algoQA vs
-                            Functionize</span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/case-studies"><span class="mega-menu_link-title">algoQA vs
-                            Applitools</span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/book-a-demo"><span class="mega-menu_link-title">algoQA vs
-                            AccelQ</span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/case-studies"><span class="mega-menu_link-title">algoQA vs
-                            TestMu AI</span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                      <li><a class="mega-menu_link" href="/book-a-demo"><span class="mega-menu_link-title">algoQA vs
-                            Tricentis</span><svg class="mega-menu_link-arrow icon" aria-hidden="true">
-                            <use href="#i-caret" />
-                          </svg></a></li>
-                    </ul>
+                </div>
 
+                <div class="mega-menu_pane" role="tabpanel" data-pane="r-events" hidden>
+                  <div class="mega-menu_pane-main">
+                    <div class="mega-menu_pane-head">
+                      <p class="mega-menu_eyebrow">Events</p>
+                      <p class="mega-menu_pane-caption">Webinars, podcasts and conferences</p>
+                    </div>
+                    <div class="mega-menu_cols">
+                      <ul class="mega-menu_list" role="list">
+                        <li><a class="mega-menu_link" href="/events"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-fireside-chat" /></svg><span class="mega-menu_link-title">Fireside Chat</span></a></li>
+                        <li><a class="mega-menu_link" href="/webinars"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-webinar" /></svg><span class="mega-menu_link-title">Webinars</span></a></li>
+                        <li><a class="mega-menu_link" href="/podcasts"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-podcast-18" /></svg><span class="mega-menu_link-title">Podcasts</span></a></li>
+                      </ul>
+                      <ul class="mega-menu_list" role="list">
+                        <li><a class="mega-menu_link" href="/events"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-hackathon" /></svg><span class="mega-menu_link-title">Hackathons</span></a></li>
+                        <li><a class="mega-menu_link" href="/events"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-conference-roundtable" /></svg><span class="mega-menu_link-title">Conferences</span></a></li>
+                        <li><a class="mega-menu_link" href="/events"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-conference-roundtable" /></svg><span class="mega-menu_link-title">Roundtables</span></a></li>
+                      </ul>
+                    </div>
+                    <div class="mega-menu_subscribe">
+                      <svg class="mega-menu_subscribe-icon icon" aria-hidden="true"><use href="#i-mail" /></svg>
+                      <div class="mega-menu_subscribe-text">
+                        <p class="mega-menu_subscribe-title">Subscribe to Updates</p>
+                        <p class="mega-menu_subscribe-caption">Get new guides and product updates in your inbox.</p>
+                      </div>
+                      <a class="mega-menu_outline-button" href="/subscribe">
+                        <span>Subscribe Now</span><svg class="icon" aria-hidden="true"><use href="#i-caret" /></svg>
+                      </a>
+                    </div>
                   </div>
-                </section>
+                </div>
+
+                <div class="mega-menu_pane" role="tabpanel" data-pane="r-support" hidden>
+                  <div class="mega-menu_pane-main">
+                    <div class="mega-menu_pane-head">
+                      <p class="mega-menu_eyebrow">Support</p>
+                      <p class="mega-menu_pane-caption">Help, community and updates</p>
+                    </div>
+                    <div class="mega-menu_cols">
+                      <ul class="mega-menu_list" role="list">
+                        <li><a class="mega-menu_link" href="/contact"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-customer-support" /></svg><span class="mega-menu_link-title">Customer Support</span></a></li>
+                        <li><a class="mega-menu_link" href="/community"><svg class="mega-menu_link-icon icon" aria-hidden="true"><use href="#i-conference-roundtable" /></svg><span class="mega-menu_link-title">Community</span></a></li>
+                      </ul>
+                    </div>
+                    <div class="mega-menu_subscribe">
+                      <svg class="mega-menu_subscribe-icon icon" aria-hidden="true"><use href="#i-mail" /></svg>
+                      <div class="mega-menu_subscribe-text">
+                        <p class="mega-menu_subscribe-title">Subscribe to Updates</p>
+                        <p class="mega-menu_subscribe-caption">Get new guides and product updates in your inbox.</p>
+                      </div>
+                      <a class="mega-menu_outline-button" href="/subscribe">
+                        <span>Subscribe Now</span><svg class="icon" aria-hidden="true"><use href="#i-caret" /></svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mega-menu_pane" role="tabpanel" data-pane="r-compare" hidden>
+                  <div class="mega-menu_pane-main">
+                    <div class="mega-menu_pane-head">
+                      <p class="mega-menu_eyebrow">Compare</p>
+                      <p class="mega-menu_pane-caption">algoQA vs the alternatives</p>
+                    </div>
+                    <div class="mega-menu_cols">
+                      <ul class="mega-menu_list" role="list">
+                        <li><a class="mega-menu_link" href="/compare"><span class="mega-menu_link-title">algoQA vs alternatives</span></a></li>
+                        <li><a class="mega-menu_link" href="/case-studies"><span class="mega-menu_link-title">algoQA vs Katalon</span></a></li>
+                        <li><a class="mega-menu_link" href="/book-a-demo"><span class="mega-menu_link-title">algoQA vs Functionize</span></a></li>
+                        <li><a class="mega-menu_link" href="/case-studies"><span class="mega-menu_link-title">algoQA vs Applitools</span></a></li>
+                      </ul>
+                      <ul class="mega-menu_list" role="list">
+                        <li><a class="mega-menu_link" href="/book-a-demo"><span class="mega-menu_link-title">algoQA vs AccelQ</span></a></li>
+                        <li><a class="mega-menu_link" href="/case-studies"><span class="mega-menu_link-title">algoQA vs TestMu AI</span></a></li>
+                        <li><a class="mega-menu_link" href="/book-a-demo"><span class="mega-menu_link-title">algoQA vs Tricentis</span></a></li>
+                      </ul>
+                    </div>
+                    <div class="mega-menu_subscribe">
+                      <svg class="mega-menu_subscribe-icon icon" aria-hidden="true"><use href="#i-mail" /></svg>
+                      <div class="mega-menu_subscribe-text">
+                        <p class="mega-menu_subscribe-title">Subscribe to Updates</p>
+                        <p class="mega-menu_subscribe-caption">Get new guides and product updates in your inbox.</p>
+                      </div>
+                      <a class="mega-menu_outline-button" href="/subscribe">
+                        <span>Subscribe Now</span><svg class="icon" aria-hidden="true"><use href="#i-caret" /></svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <!-- ASTRO_RESOURCES_END -->

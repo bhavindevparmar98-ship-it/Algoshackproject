@@ -5960,4 +5960,214 @@ a:hover > .mega-menu_cta .icon { transform: rotate(-90deg) translateY(3px); }
   height: 44px;
 }
 
+/* =========================================================
+   PLATFORMS mega menu  (Figma "Platforms 3": 1200 x 600)
+   col 1 = 347 (logo + text-only tabs) | col 2 = 506 (links) | col 3 = 347 (ratings)
+   ========================================================= */
+.mega-menu_component.is-platforms { min-height: 600px; align-items: stretch; }
+
+.is-platforms .mega-menu_column.is-tabs { gap: 28px; padding: 24px; }
+.is-platforms .mega-menu_sublogo { display: block; width: 73px; height: 22px; }
+.is-platforms .mega-menu_tab-list { width: 100%; gap: 6px; }
+.is-platforms .mega-menu_tab { min-height: 48px; height: 48px; padding: 8px; gap: 10px; }
+.is-platforms .mega-menu_tab-title { font-size: 16px; line-height: 19px; font-weight: 500; }
+
+/* split pane: 506 (links) + 347 (aside) */
+.is-platforms .mega-menu_pane.is-split.is-active { grid-template-columns: 506px minmax(0, 1fr); }
+.is-platforms .mega-menu_pane-main { gap: 20px; padding: 24px; }
+.is-platforms .mega-menu_pane-main > .mega-menu_list,
+.is-platforms .mega-menu_pane-main > .mega-menu_pane-foot { width: 100%; max-width: 431px; }
+.is-platforms .mega-menu_pane-aside { padding: 28px 24px; }
+
+/* pane header: eyebrow + caption */
+.is-platforms .mega-menu_pane-head { display: flex; flex-direction: column; gap: 5px; padding: 8px; }
+.is-platforms .mega-menu_pane-head .mega-menu_eyebrow { padding: 0; }
+.mega-menu_pane-caption {
+  font-size: 12px;
+  line-height: 17px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--navbar-muted);
 }
+
+/* nav link with icon tile: 431 x 62 */
+.is-platforms .mega-menu_link { gap: 8px; padding: 12px 8px; min-height: 62px; align-items: center; }
+.is-platforms .mega-menu_link-icon {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 24px;
+  color: var(--navbar-navy);
+}
+.is-platforms .mega-menu_link.has-caption .mega-menu_link-icon { margin-top: 0; }
+.is-platforms .mega-menu_link-arrow { display: none; } /* Figma: CaretDown display:none */
+
+/* footer: caption + "See agents >" text button */
+.is-platforms .mega-menu_pane-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-top: auto; padding: 0 8px; }
+.mega-menu_text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 600;
+  color: var(--navbar-blue);
+}
+.mega-menu_text-button .icon { width: 12px; height: 12px; transform: rotate(-90deg); transition: transform 0.2s ease; }
+.mega-menu_text-button:hover .icon { transform: rotate(-90deg) translateY(3px); }
+
+@media (max-width: 1100px) {
+  .is-platforms .mega-menu_pane-main > .mega-menu_list,
+  .is-platforms .mega-menu_pane-main > .mega-menu_pane-foot { max-width: none; }
+  .is-platforms .mega-menu_pane-main { gap: 8px; }
+  .is-platforms .mega-menu_pane-head { padding: 0; }
+  .is-platforms .mega-menu_link { padding: 10px 0; min-height: 0; }
+  .is-platforms .mega-menu_link-icon { width: 24px; height: 24px; padding: 0; font-size: 20px; }
+  .is-platforms .mega-menu_pane-foot { padding: 8px 0 0; margin-top: 0; }
+}
+
+/* =========================================================
+   SOLUTIONS + RESOURCES mega menus
+   Platforms wala rules ni jem j (tokens: --navbar-muted / -navy / -blue).
+   ========================================================= */
+
+/* ---------- shared (Platforms jevu j) ---------- */
+:is(.is-solutions, .is-resources) { align-items: stretch; }
+
+:is(.is-solutions, .is-resources) .mega-menu_column.is-tabs { gap: 6px; padding: 24px; }
+:is(.is-solutions, .is-resources) .mega-menu_column.is-tabs > .mega-menu_eyebrow { padding: 8px; margin: 0; }
+:is(.is-solutions, .is-resources) .mega-menu_tab-list { width: 100%; gap: 6px; }
+:is(.is-solutions, .is-resources) .mega-menu_tab { min-height: 48px; height: 48px; padding: 8px; gap: 10px; border-radius: 4px; }
+:is(.is-solutions, .is-resources) .mega-menu_tab-title { font-size: 16px; line-height: 19px; font-weight: 500; color: var(--navbar-muted); }
+:is(.is-solutions, .is-resources) .mega-menu_tab.is-active { background: #f1f2f3; }
+:is(.is-solutions, .is-resources) .mega-menu_tab.is-active .mega-menu_tab-title { color: #202b34; }
+
+:is(.is-solutions, .is-resources) .mega-menu_pane-main { display: flex; flex-direction: column; gap: 20px; padding: 24px; }
+:is(.is-solutions, .is-resources) .mega-menu_pane-head { display: flex; flex-direction: column; gap: 5px; padding: 8px; }
+:is(.is-solutions, .is-resources) .mega-menu_pane-head .mega-menu_eyebrow { padding: 0; margin: 0; }
+
+:is(.is-solutions, .is-resources) .mega-menu_list { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+:is(.is-solutions, .is-resources) .mega-menu_link { display: flex; align-items: center; gap: 8px; padding: 12px 8px; min-height: 62px; border-radius: 4px; }
+:is(.is-solutions, .is-resources) .mega-menu_link-icon {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 24px;
+  color: var(--navbar-navy);
+}
+:is(.is-solutions, .is-resources) .mega-menu_link-title { font-size: 16px; line-height: 19px; font-weight: 500; color: #202b34; }
+:is(.is-solutions, .is-resources) .mega-menu_link-arrow { display: none; } /* Figma: CaretDown display:none */
+
+/* "Learn more >" / outline button */
+:is(.is-solutions, .is-resources) .mega-menu_text-button .icon { width: 12px; height: 12px; }
+
+/* ---------- SOLUTIONS (1200 x 465) ---------- */
+.mega-menu_component.is-solutions { min-height: 465px; }
+
+/* col2 = 506 (+ border L/R), col3 = 347 */
+.is-solutions .mega-menu_pane.is-split.is-active { grid-template-columns: 506px minmax(0, 1fr); }
+.is-solutions .mega-menu_pane-main { border-inline: 1px solid var(--navbar-border, #e4e9ed); }
+.is-solutions .mega-menu_pane-aside { padding: 28px 24px; }
+
+/* "Why AlgoShack?" card: 299 x 234 */
+.mega-menu_why-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  max-width: 299px;
+  padding: 20px;
+  background: #f7f9fa;
+  border: 1px solid var(--navbar-border, #e4e9ed);
+  border-radius: 4px;
+}
+.mega-menu_why-icon {
+  width: 32px;
+  height: 32px;
+  color: #1b9dd9; /* gradient fallback */
+}
+@supports (color: color-mix(in srgb, red, blue)) {
+  .mega-menu_why-icon { color: color-mix(in srgb, #1b9dd9 55%, #00b4a0); }
+}
+.mega-menu_why-title { margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; color: #202b34; }
+.mega-menu_why-text { margin: 0; font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--navbar-muted); }
+
+/* ---------- RESOURCES (1200 x 600) ---------- */
+.mega-menu_component.is-resources { min-height: 600px; }
+.is-resources .mega-menu_stage { border-left: 1px solid var(--navbar-border, #e4e9ed); }
+.is-resources .mega-menu_pane.is-active { display: flex; flex-direction: column; min-height: 100%; }
+.is-resources .mega-menu_pane-main { flex: 1; }
+
+/* 2 link columns: 392 + 392, gap 20 */
+.mega-menu_cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+/* subscribe box: 778 x 81, bottom ma chikelu */
+.mega-menu_subscribe {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding: 16px;
+  background: #f7f9fa;
+  border: 1px solid var(--navbar-border, #e4e9ed);
+  border-radius: 4px;
+}
+.mega-menu_subscribe-icon { flex: none; width: 32px; height: 32px; color: #1b9dd9; }
+.mega-menu_subscribe-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.mega-menu_subscribe-title { margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; color: #202b34; }
+.mega-menu_subscribe-caption { margin: 0; font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--navbar-muted); }
+
+.mega-menu_outline-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: none;
+  height: 40px;
+  padding: 13px 10px 13px 16px;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 600;
+  color: var(--navbar-blue);
+  background: transparent;
+  border: 1px solid #d1d9df;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.mega-menu_outline-button .icon { width: 12px; height: 12px; transform: rotate(-90deg); transition: transform 0.2s ease; }
+.mega-menu_outline-button:hover,
+.mega-menu_outline-button:focus-visible { border-color: var(--navbar-blue); background: #f4f9fc; }
+.mega-menu_outline-button:hover .icon { transform: rotate(-90deg) translateY(3px); }
+
+/* ---------- tablet / mobile ---------- */
+@media (max-width: 1100px) {
+  .is-solutions .mega-menu_pane.is-split.is-active { grid-template-columns: 1fr; }
+  .is-solutions .mega-menu_pane-main { border-inline: 0; }
+  .mega-menu_why-card { max-width: none; }
+
+  .mega-menu_cols { grid-template-columns: 1fr; gap: 6px; }
+  .mega-menu_subscribe { flex-wrap: wrap; }
+  .mega-menu_outline-button { width: 100%; }
+
+  :is(.is-solutions, .is-resources) .mega-menu_pane-main { gap: 8px; padding: 16px 0; }
+  :is(.is-solutions, .is-resources) .mega-menu_pane-head { padding: 0; }
+  :is(.is-solutions, .is-resources) .mega-menu_link { padding: 10px 0; min-height: 0; }
+  :is(.is-solutions, .is-resources) .mega-menu_link-icon { width: 24px; height: 24px; padding: 0; font-size: 20px; }
+}
+}
+
