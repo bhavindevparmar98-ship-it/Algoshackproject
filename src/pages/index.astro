@@ -25,6 +25,7 @@ import CtaSection from "../components/sections/CtaSection.astro";
       <HomeAboutSection />
       <HomeStatsSection />
       <HomeJourneySection />
+       <LeadershipSection />
       <HomeValuesSection />
       <HomePlatformSection />
       <UseCasesSection />
@@ -33,10 +34,24 @@ import CtaSection from "../components/sections/CtaSection.astro";
       <Life />
       <LocationsSection />
       <Knowledgehub />
-      <LeadershipSection />
+
       <FaqSection />
       <CtaSection />
     </div>
   </main>
   <Footer />
 </BaseLayout>
+
+<style>
+  :global(.page-home .home_values_header) {
+    position: sticky;
+    top: 7.5rem;
+    align-self: flex-start;
+  }
+
+  @media (max-width: 64rem) {
+    :global(.page-home .home_values_header) {
+      position: static;
+    }
+  }
+</style>
