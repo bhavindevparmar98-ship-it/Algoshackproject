@@ -41,6 +41,12 @@ import CtaSection  from "../components/sections/CtaSection.astro";
   <Footer />
 </BaseLayout>
 
+<script>
+  import { applyKnowledgeIcons } from "../scripts/knowledge-icons";
+
+  applyKnowledgeIcons(".page-about");
+</script>
+
 <style>
   :global(.page-about .home_values_header) {
     position: sticky;
