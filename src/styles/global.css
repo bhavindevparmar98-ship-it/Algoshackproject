@@ -5745,6 +5745,8 @@ a.mega-menu_company-item:focus-visible{box-shadow:0 0 0 2px #00B4A0 inset}
   .mega-menu_company-block,.mega-menu_company-block.is-lg{padding:16px}
   .mega-menu_member.is-wide{max-width:220px}
   .company-menu_item{padding-left:0px;}
+  .is-platforms .mega-menu_pane-main{padding-left:0px;}
+  .is-platforms .mega-menu_pane-aside{padding-left:0px;}
 }
 /*company css end */
 /* panes */
@@ -6179,7 +6181,6 @@ a:hover > .mega-menu_cta .icon { transform: rotate(-90deg) translateY(3px); }
   .navbar_wrapper { --navbar-header-h: 64px; }
   .navbar_container { height: var(--navbar-header-h); padding: 16px; }
   .navbar_logo { width: 99px; height: 32px; }
-
   .navbar_announcement {
     min-height: 54px;
     padding: 6px 40px 6px 16px;
@@ -6195,6 +6196,9 @@ a:hover > .mega-menu_cta .icon { transform: rotate(-90deg) translateY(3px); }
   } */
   .navbar_announcement-close { right: 16px; }
   .navbar_tools { gap: 24px; }
+   .company-menu_item{padding-left:0px;}
+    .is-platforms .mega-menu_pane-main{padding-left:0px;}
+  .is-platforms .mega-menu_pane-aside{padding-left:0px;}
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6217,6 +6221,7 @@ a:hover > .mega-menu_cta .icon { transform: rotate(-90deg) translateY(3px); }
     padding: 0;
   }
   .navbar_wrapper .navbar_logo { width: 99px; height: 32px; }
+
 }
 
 /* =========================================================
