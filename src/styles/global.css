@@ -6365,7 +6365,7 @@ a:hover > .mega-menu_cta .icon { transform: rotate(-90deg) translateY(3px); }
 
 /* ---------- RESOURCES (1200 x 600) ---------- */
 .mega-menu_component.is-resources { min-height: 600px; }
-.is-resources .mega-menu_stage { border-left: 1px solid var(--navbar-border, #e4e9ed); }
+.is-resources .mega-menu_stage { border-left: 0px solid var(--navbar-border, #e4e9ed); }
 .is-resources .mega-menu_pane.is-active { display: flex; flex-direction: column; min-height: 100%; }
 .is-resources .mega-menu_pane-main { flex: 1; }
 
