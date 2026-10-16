@@ -34,7 +34,6 @@ All commands are run from the root of the project, from a terminal:
 | `npm install`             | Installs dependencies                            |
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
@@ -51,7 +50,14 @@ the configured webhook. For local development, copy `.env.example` to `.env` and
 environment. The site key and secret are optional and must both be configured to enable
 reCAPTCHA.
 
-The project uses Astro's standalone Node adapter for this server endpoint. Build with
-`npm run build`, then start the production server with
-`node --env-file=.env ./dist/server/entry.mjs` (or provide environment variables through
-your process manager).
+## Deploy to Vercel
+
+The site uses Astro's Vercel adapter so page routes and the contact API are deployed as
+Vercel serverless functions. In the Vercel project, use the repository root as the
+project root and `npm run build` as the build command. Set `CONTACT_WEBHOOK_URL` in the
+project's environment variables for each deployment environment that should accept
+contact enquiries. Vercel's Astro integration handles the output directory and route
+configuration.
+
+Deploy the latest commit to make route changes live. The production site should expose
+`/`, `/about`, `/contact`, and `/help`.
