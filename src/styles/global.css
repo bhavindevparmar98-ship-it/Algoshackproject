@@ -5740,10 +5740,11 @@ a.mega-menu_company-item:focus-visible{box-shadow:0 0 0 2px #00B4A0 inset}
   .company-menu_layout{grid-template-columns:1fr;min-height:0}
   .company-menu_column{border-right:0;border-bottom:1px solid #E4E9ED}
   .company-menu_column:last-child{border-bottom:0}
-  .company-menu_section{padding:1rem}
+  .company-menu_section{padding:1rem; padding-left:0;}
   .mega-menu_company-main + .mega-menu_company-main{border-left:0;border-top:1px solid #E4E9ED}
   .mega-menu_company-block,.mega-menu_company-block.is-lg{padding:16px}
   .mega-menu_member.is-wide{max-width:220px}
+  .company-menu_item{padding-left:0px;}
 }
 /*company css end */
 /* panes */
