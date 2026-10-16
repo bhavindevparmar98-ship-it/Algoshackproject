@@ -1,21 +1,29 @@
+---
+const links = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+---
+
 <header class="site_header">
   <div class="padding-global">
     <div class="container-large">
-      <nav class="navbar_component" aria-label="Main navigation">
-        <a href="/" class="navbar_brand" aria-label="Algoshack home">
+      <nav class="navbar_component" aria-label="Main">
+        <a href="/" class="navbar_brand" aria-label="AlgoShack home">
           <span class="brand_mark">A</span>
-          <span class="brand_text">Algoshack</span>
+          <span class="brand_text">AlgoShack</span>
         </a>
 
-        <div class="navbar_links" aria-label="Navigation links">
-          <a href="/about">About</a>
-          <a href="#services">Services</a>
-          <a href="#process">Process</a>
-          <a href="#insights">Insights</a>
-          <a href="#contact">Contact</a>
+        <div class="navbar_links">
+          {links.map(({ label, href }) => (
+            <a href={href} aria-current={Astro.url.pathname === href ? "page" : undefined}>
+              {label}
+            </a>
+          ))}
         </div>
 
-        <a class="button is-primary" href="#contact">Book a Call</a>
+        <a class="button is-primary" href="/contact">Get in touch</a>
       </nav>
     </div>
   </div>

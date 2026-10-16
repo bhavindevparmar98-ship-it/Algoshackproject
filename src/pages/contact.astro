@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/layout/Footer.astro";
+import HomepageNavbar from "../components/layout/HomepageNavbar.astro";
+import ContactSection from "../components/sections/ContactSection.astro";
+import ContactChannelsSection from "../components/sections/ContactChannelsSection.astro";
+import ContactTrustSection from "../components/sections/ContactTrustSection.astro";
+import LocationsSection from "../components/sections/LocationsSection.astro";
+import FaqHub from "../components/sections/FaqHub.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import HelpOptions from "../components/sections/HelpOptions.astro";
+import CtaSection from "../components/sections/CtaSection.astro";
+import "../styles/help-faq.css";
+---
+
+<BaseLayout
+  title="Contact AlgoShack | Talk to a quality engineer"
+  description="Tell AlgoShack where testing is slowing you down and we'll show you how algoQA fits your stack, framework, and compliance requirements."
+>
+  <HomepageNavbar />
+  <main class="page-wrapper page-contact">
+    <ContactSection />
+    <ContactChannelsSection />
+    <ContactTrustSection />
+    <Testimonials />
+    <HelpOptions />
+    <LocationsSection />
+    <FaqHub />
+    <CtaSection
+      primaryLabel="Explore algoQA"
+      primaryHref="/#platform"
+      secondaryLabel="Contact us"
+      secondaryHref="/contact"
+    />
+  </main>
+  <Footer />
+</BaseLayout>

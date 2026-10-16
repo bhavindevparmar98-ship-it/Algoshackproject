@@ -1,7 +1,15 @@
 ---
 import "../styles/global.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-const { title = "Algoshack | About Us" } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "AlgoShack | Engineering quality at the speed of AI",
+  description = "Discover how AlgoShack helps teams move faster with strategy, design, and product execution.",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -9,7 +17,7 @@ const { title = "Algoshack | About Us" } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Discover how Algoshack helps teams move faster with strategy, design, and product execution." />
+    <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

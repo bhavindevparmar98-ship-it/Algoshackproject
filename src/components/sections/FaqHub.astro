@@ -1,0 +1,256 @@
+---
+// FaqHub.astro
+// Figma: "FAQ" (1440 x 965, bg #F7F9FA, padding 96 / 80, gap 80)
+// Left: 240px category tabs | Right: accordion (gap 48)
+// Naming: Finsweet Client-First  ->  section_faq-hub / faq-hub_element / is- combo
+// Juna .section_faq / .faq_* / [data-faq] thi alag che, etle conflict nathi.
+// CSS: help-faq.css (global.css ma add karo)
+
+type IconKey = "product" | "security" | "deployment" | "compliance";
+type FaqItem = { question: string; answer: string };
+type FaqGroup = { id: string; label: string; icon: IconKey; items: FaqItem[] };
+
+// 24 x 24 stroke icons (stroke-width 2, currentColor)
+const icons: Record<IconKey, string[]> = {
+  product: [
+    "M12 2.5l8.5 4.75v9.5L12 21.5l-8.5-4.75v-9.5z",
+    "M12 12L3.75 7.25",
+    "M12 12l8.25-4.75",
+    "M12 12v9.5",
+  ],
+  security: [
+    "M5 10h14a1 1 0 011 1v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9a1 1 0 011-1z",
+    "M8 10V7a4 4 0 018 0v3",
+    "M12 14.5v3",
+  ],
+  deployment: [
+    "M7 19a4.5 4.5 0 01-.7-8.95A6 6 0 0118 10.5 4.25 4.25 0 0117.5 19H7z",
+    "M9.5 13.5l2 2 3.5-3.5",
+  ],
+  compliance: [
+    "M4 4h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z",
+    "M7 8h10",
+    "M7 11.5h5",
+    "M8 16v5l4-2 4 2v-5",
+  ],
+};
+
+// TODO: placeholder content badlo. Figma ma fakt pehlo Q&A real hato, baki badha ma same placeholder question hato.
+const placeholderQuestion = "Do we have to abandon our existing Selenium suite?";
+const placeholderAnswer = "TODO: answer lakho.";
+
+const faqGroups: FaqGroup[] = [
+  {
+    id: "product",
+    label: "Product",
+    icon: "product",
+    items: [
+      {
+        question: "Do we have to abandon our existing Selenium suite?",
+        answer:
+          "No. Existing test cases, scripts and partial suites are onboarded and extended. Generated scripts land in the framework you already use, in your own repository. Brownfield adoption is the assumed path, not the exception.",
+      },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+    ],
+  },
+  {
+    id: "security",
+    label: "Security",
+    icon: "security",
+    items: [
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+    ],
+  },
+  {
+    id: "deployment",
+    label: "Deployment",
+    icon: "deployment",
+    items: [
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+    ],
+  },
+  {
+    id: "compliance",
+    label: "Compliance",
+    icon: "compliance",
+    items: [
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+      { question: placeholderQuestion, answer: placeholderAnswer },
+    ],
+  },
+];
+---
+
+<section class="section_faq-hub" aria-labelledby="faq-hub-title">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="faq-hub_component" data-faq-hub>
+          <div class="faq-hub_header">
+            <p class="faq-hub_eyebrow text-style-allcaps text-color-blue">FAQs</p>
+            <div class="faq-hub_header-text">
+              <h2 id="faq-hub-title" class="faq-hub_title heading-style-h2 text-align-center">Frequently Asked Questions</h2>
+              <p class="faq-hub_subtitle text-size-large text-align-center">Everything you need to know about algoShack.</p>
+            </div>
+          </div>
+
+          <div class="faq-hub_layout">
+            <!-- left: category tabs (240px) -->
+            <div class="faq-hub_tabs" role="tablist" aria-label="FAQ categories" aria-orientation="vertical">
+              {faqGroups.map((group, groupIndex) => (
+                <button
+                  class:list={["faq-hub_tab", { "is-active": groupIndex === 0 }]}
+                  type="button"
+                  role="tab"
+                  id={`faq-hub-tab-${group.id}`}
+                  aria-selected={groupIndex === 0 ? "true" : "false"}
+                  aria-controls={`faq-hub-panel-${group.id}`}
+                  tabindex={groupIndex === 0 ? 0 : -1}
+                  data-faq-hub-tab
+                >
+                  <svg
+                    class="faq-hub_tab-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    {icons[group.icon].map((d) => <path d={d} />)}
+                  </svg>
+                  <span class="faq-hub_tab-label">{group.label}</span>
+                </button>
+              ))}
+            </div>
+
+            <!-- right: accordion panels -->
+            <div class="faq-hub_panels">
+              {faqGroups.map((group, groupIndex) => (
+                <div
+                  class="faq-hub_panel"
+                  role="tabpanel"
+                  id={`faq-hub-panel-${group.id}`}
+                  aria-labelledby={`faq-hub-tab-${group.id}`}
+                  hidden={groupIndex !== 0}
+                >
+                  <div class="faq-hub_list" data-faq-hub-list>
+                    {group.items.map((item, itemIndex) => {
+                      const isOpen = itemIndex === 0;
+                      const answerId = `faq-hub-${group.id}-${itemIndex}-answer`;
+                      const questionId = `faq-hub-${group.id}-${itemIndex}-question`;
+                      return (
+                        <div class:list={["faq-hub_item", { "is-open": isOpen }]} data-faq-hub-item>
+                          <svg class="faq-hub_icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                            <path d="M6 3l5 5-5 5" />
+                          </svg>
+                          <h3 class="faq-hub_question-wrap">
+                            <button class="faq-hub_question" type="button" id={questionId} aria-expanded={isOpen ? "true" : "false"} aria-controls={answerId} data-faq-hub-trigger>
+                              {item.question}
+                            </button>
+                          </h3>
+                          <div class="faq-hub_answer-wrap" id={answerId} role="region" aria-labelledby={questionId} inert={!isOpen} data-faq-hub-answer>
+                            <div class="faq-hub_answer-inner">
+                              <p class="faq-hub_answer">{item.answer}</p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // FAQ hub: category tabs + accordion. Juna [data-faq] script thi alag data-attributes.
+  const hubs = document.querySelectorAll<HTMLElement>("[data-faq-hub]");
+
+  hubs.forEach((hub) => {
+    const tabs = Array.from(hub.querySelectorAll<HTMLButtonElement>("[data-faq-hub-tab]"));
+    const panels = Array.from(hub.querySelectorAll<HTMLElement>(".faq-hub_panel"));
+
+    const selectTab = (tab: HTMLButtonElement, moveFocus = false) => {
+      tabs.forEach((other) => {
+        const active = other === tab;
+        other.classList.toggle("is-active", active);
+        other.setAttribute("aria-selected", String(active));
+        other.tabIndex = active ? 0 : -1;
+      });
+
+      panels.forEach((panel) => {
+        panel.hidden = panel.id !== tab.getAttribute("aria-controls");
+      });
+
+      if (moveFocus) tab.focus();
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => selectTab(tab));
+
+      // Arrow keys / Home / End (roving tabindex)
+      tab.addEventListener("keydown", (event) => {
+        let nextIndex = -1;
+
+        if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+        if (event.key === "ArrowUp" || event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === "Home") nextIndex = 0;
+        if (event.key === "End") nextIndex = tabs.length - 1;
+
+        if (nextIndex === -1) return;
+
+        event.preventDefault();
+        selectTab(tabs[nextIndex], true);
+      });
+    });
+
+    // Accordion: darek panel ma ek time e ek j item khule
+    hub.querySelectorAll<HTMLElement>("[data-faq-hub-list]").forEach((list) => {
+      const items = Array.from(list.querySelectorAll<HTMLElement>("[data-faq-hub-item]"));
+
+      const setOpen = (item: HTMLElement, open: boolean) => {
+        const trigger = item.querySelector<HTMLButtonElement>("[data-faq-hub-trigger]");
+        const answer = item.querySelector<HTMLElement>("[data-faq-hub-answer]");
+        if (!trigger || !answer) return;
+
+        item.classList.toggle("is-open", open);
+        trigger.setAttribute("aria-expanded", String(open));
+        answer.inert = !open;
+      };
+
+      items.forEach((item) => {
+        const trigger = item.querySelector<HTMLButtonElement>("[data-faq-hub-trigger]");
+        if (!trigger) return;
+
+        trigger.addEventListener("click", () => {
+          const willOpen = !item.classList.contains("is-open");
+
+          if (willOpen) {
+            items.forEach((other) => {
+              if (other !== item) setOpen(other, false);
+            });
+          }
+
+          setOpen(item, willOpen);
+        });
+      });
+    });
+  });
+</script>

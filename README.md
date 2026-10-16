@@ -42,3 +42,16 @@ All commands are run from the root of the project, from a terminal:
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 # Algoshackproject
+
+## Contact form
+
+The contact page posts enquiries to `src/pages/api/contact.ts`, which forwards them to
+the configured webhook. For local development, copy `.env.example` to `.env` and set
+`CONTACT_WEBHOOK_URL`. In production, provide the variables through the server's
+environment. The site key and secret are optional and must both be configured to enable
+reCAPTCHA.
+
+The project uses Astro's standalone Node adapter for this server endpoint. Build with
+`npm run build`, then start the production server with
+`node --env-file=.env ./dist/server/entry.mjs` (or provide environment variables through
+your process manager).

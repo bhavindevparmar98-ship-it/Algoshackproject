@@ -1,0 +1,122 @@
+---
+// HelpOptions.astro
+// Figma: "04 Product tour"  (1440 x 824, bg #0E2A3D, padding 96 / 80, gap 80)
+// Naming: Finsweet Client-First  ->  section_help-options / help-options_element / is- combo
+// CSS: help-faq.css (global.css ma add karo)
+
+type IconKey = "chat" | "docs" | "ticket" | "community" | "copilot" | "academy";
+
+type HelpOption = {
+  title: string;
+  text: string;
+  href: string;
+  icon: IconKey;
+  hidden?: boolean; // Figma ma display:none (Ask algoQA Copilot)
+};
+
+// 32 x 32 stroke icons (Carbon style). Streamline Carbon ni real SVG hoy to path badli nakho.
+const icons: Record<IconKey, string[]> = {
+  chat: [
+    "M6 4h20a2 2 0 012 2v14a2 2 0 01-2 2H17l-5 5v-5H6a2 2 0 01-2-2V6a2 2 0 012-2z",
+    "M9 10h14",
+    "M9 16h8",
+  ],
+  docs: [
+    "M12 3h11l6 6v18a2 2 0 01-2 2H12a2 2 0 01-2-2V5a2 2 0 012-2z",
+    "M22 3v7h7",
+    "M14 17h11",
+    "M14 22h8",
+    "M6 7v20a2 2 0 002 2h1",
+    "M2 11v16a2 2 0 002 2",
+  ],
+  ticket: ["M3 8h26v5a3 3 0 000 6v5H3v-5a3 3 0 000-6V8z", "M20 13v6"],
+  community: [
+    "M16 14a4 4 0 100-8 4 4 0 000 8z",
+    "M8 26v-2a5 5 0 015-5h6a5 5 0 015 5v2",
+    "M8 13a3 3 0 110-6",
+    "M3 22a4 4 0 014-4",
+    "M24 13a3 3 0 100-6",
+    "M29 22a4 4 0 00-4-4",
+  ],
+  copilot: [
+    "M16 4v4",
+    "M16 24v4",
+    "M4 16h4",
+    "M24 16h4",
+    "M10 10h12v12H10z",
+    "M14 14h4v4h-4z",
+  ],
+  academy: [
+    "M9 3h12l6 6v20H9z",
+    "M21 3v6h6",
+    "M13 15h10",
+    "M13 19h6",
+    "M20 25l2.5 2.5L28 22",
+  ],
+};
+
+// TODO: href / copy tamara real pages mujab badlo
+const options: HelpOption[] = [
+  { title: "Chat with us", text: "Live chat with a solutions engineer during business hours.", href: "/contact", icon: "chat" },
+  { title: "Visit documentation", text: "Setup guides, framework integration and API reference.", href: "/docs", icon: "docs" },
+  { title: "Raise a ticket", text: "Track an issue through to resolution with your success team.", href: "/support", icon: "ticket" },
+  { title: "Visit the community", text: "Ask other QA leads how they run algoQA in production.", href: "/community", icon: "community" },
+  { title: "Ask algoQA Copilot", text: "Plain-language answers about runs, failures and coverage.", href: "/copilot", icon: "copilot", hidden: true },
+  { title: "algoQA Academy", text: "Free courses and certification for your whole team.", href: "/academy", icon: "academy" },
+];
+
+const visibleOptions = options.filter((option) => !option.hidden);
+---
+
+<section class="section_help-options" aria-labelledby="help-options-title">
+  <!-- gradient ek j vaar define, badha icon ma stroke="url(#help-options-gradient)" -->
+  <svg class="help-options_gradients" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="help-options-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="4" x2="32" y2="28">
+        <stop offset="0.0397" stop-color="#1B9DD9"></stop>
+        <stop offset="0.9299" stop-color="#00B4A0"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="help-options_component">
+          <div class="help-options_header">
+            <p class="help-options_eyebrow text-style-allcaps">Have questions?</p>
+            <h2 id="help-options-title" class="help-options_title heading-style-h2 is-white text-align-center">
+              Five ways to get an answer faster.
+            </h2>
+          </div>
+
+          <div class="help-options_grid">
+            {visibleOptions.map((option) => (
+              <a class="help-options_card" href={option.href}>
+                <span class="help-options_icon-wrap">
+                  <svg
+                    class="help-options_icon"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    stroke="url(#help-options-gradient)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    {icons[option.icon].map((d) => <path d={d} />)}
+                  </svg>
+                </span>
+                <div class="help-options_card-content">
+                  <h3 class="help-options_card-title">{option.title}</h3>
+                  <p class="help-options_card-text">{option.text}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

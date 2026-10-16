@@ -18,7 +18,10 @@ import Knowledgehub from "../components/sections/Knowledgehub.astro";
 import CtaSection from "../components/sections/CtaSection.astro";
 ---
 
-<BaseLayout title="AlgoShack – Engineering quality at the speed of AI">
+<BaseLayout
+  title="AlgoShack – Engineering quality at the speed of AI"
+  description="AlgoShack's AI-augmented autonomous testing and quality engineering platform helps teams deliver software faster."
+>
   <HomepageNavbar />
   <main class="page-wrapper page-home">
     <div class="main-wrapper">
@@ -36,7 +39,12 @@ import CtaSection from "../components/sections/CtaSection.astro";
       <Knowledgehub />
 
       <FaqSection />
-      <CtaSection />
+      <CtaSection
+        primaryLabel="Explore algoQA"
+        primaryHref="#platform"
+        secondaryLabel="Contact us"
+        secondaryHref="/contact"
+      />
     </div>
   </main>
   <Footer />

@@ -56,14 +56,14 @@ const columns = [
     {
       title: "Company",
       links: [
-        "About us",
+        link("About us", "/about"),
         "Careers",
         "Leadership",
         "Press",
         "Partners",
-        "Contact us",
+        link("Contact us", "/contact"),
         "Support",
-      ].map((n) => link(n)),
+      ].map((item) => typeof item === "string" ? link(item) : item),
     },
     {
       title: "Legal",

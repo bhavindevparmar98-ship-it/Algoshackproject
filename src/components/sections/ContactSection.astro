@@ -1,0 +1,925 @@
+---
+import recaptchaPlaceholder from "../../assets/contact-recaptcha-placeholder.svg";
+
+interface Props {
+  heading?: string;
+  text?: string;
+  action?: string;
+  privacyHref?: string;
+  demoHref?: string;
+  supportHref?: string;
+}
+
+const {
+  heading = "Let's talk about your quality bottleneck.",
+  text = "Tell us where testing is slowing you down and we'll show you exactly how algoQA fits your stack, your framework and your compliance requirements. Every enquiry reaches a real engineer, not a queue.",
+  action = "/api/contact",
+  privacyHref = "/privacy-policy",
+  demoHref = "#",
+  supportHref = "#",
+} = Astro.props;
+const initiallySubmitted = Astro.url.searchParams.get("sent") === "1";
+
+const checks = [
+  "Response within one business day",
+  "No obligation, no sales script",
+  "Live product walkthrough available",
+];
+
+const countryCodes = [
+  { flag: "🇮🇳", code: "+91", name: "India" },
+  { flag: "🇺🇸", code: "+1", name: "United States" },
+  { flag: "🇬🇧", code: "+44", name: "United Kingdom" },
+  { flag: "🇨🇦", code: "+1", name: "Canada" },
+  { flag: "🇦🇺", code: "+61", name: "Australia" },
+  { flag: "🇩🇪", code: "+49", name: "Germany" },
+  { flag: "🇸🇬", code: "+65", name: "Singapore" },
+  { flag: "🇦🇪", code: "+971", name: "United Arab Emirates" },
+];
+
+const selects = {
+  revenue: ["Under $1M", "$1M – $10M", "$10M – $50M", "$50M – $250M", "$250M – $1B", "Over $1B"],
+  role: ["QA / Test Engineer", "QA Lead / Manager", "Engineering Manager", "Director / VP", "CTO / CIO", "Founder / CEO", "Other"],
+  businessType: ["Enterprise", "Mid-market", "Startup", "Consulting / Services", "Government", "Other"],
+  reason: ["Evaluating test automation", "Replacing current tooling", "Saw a demo or event", "Partner referral", "Other"],
+  help: ["Product demo", "Pricing", "Technical question", "Partnership", "Support", "Careers", "Other"],
+  source: ["Search engine", "LinkedIn", "Referral", "Event / conference", "Analyst report", "Other"],
+};
+
+let seed = 7;
+const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const width = 1440;
+const height = 900;
+const nodes = Array.from({ length: 70 }, () => ({
+  x: Math.round(random() * width),
+  y: Math.round(random() * height),
+}));
+const edgeSet = new Set<string>();
+const edges: [number, number][] = [];
+
+nodes.forEach((node, index) => {
+  nodes
+    .map((other, otherIndex) => ({
+      otherIndex,
+      distance: (node.x - other.x) ** 2 + (node.y - other.y) ** 2,
+    }))
+    .filter(({ otherIndex }) => otherIndex !== index)
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 2)
+    .forEach(({ otherIndex }) => {
+      const key = index < otherIndex ? `${index}-${otherIndex}` : `${otherIndex}-${index}`;
+      if (!edgeSet.has(key)) {
+        edgeSet.add(key);
+        edges.push([index, otherIndex]);
+      }
+    });
+});
+---
+
+<section class="section_contact" id="contact">
+  <div class="contact_bg" aria-hidden="true">
+    <div class="contact_bg-canvas">
+      <span class="contact_blob is-cyan"></span>
+      <span class="contact_blob is-blue"></span>
+      <span class="contact_blob is-lavender"></span>
+      <span class="contact_blob is-pink"></span>
+      <span class="contact_blob is-streak"></span>
+      <span class="contact_blob is-warm"></span>
+    </div>
+    <svg class="contact_network" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid slice">
+      <g stroke="#fff" stroke-opacity=".6" stroke-width=".8" fill="none">
+        {edges.map(([start, end]) => (
+          <line x1={nodes[start].x} y1={nodes[start].y} x2={nodes[end].x} y2={nodes[end].y} />
+        ))}
+      </g>
+      <g fill="#fff" fill-opacity=".65">
+        {nodes.map((node) => <circle cx={node.x} cy={node.y} r="3" />)}
+      </g>
+    </svg>
+  </div>
+
+  <div class="padding-global is-padding">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="contact_component">
+          <div class="contact_intro-wrapper">
+            <div class="contact_intro">
+              <div class="contact_intro-text">
+                <!-- <span class="eyebrow">Contact AlgoShack</span> -->
+                <h1 class="heading-style-h1 is-medium">{heading}</h1>
+                <p class="text-size-large">{text}</p>
+              </div>
+              <ul class="contact_checklist">
+                {checks.map((item) => (
+                  <li class="contact_check">
+                    <span class="contact_check-icon" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 0.160004C1.96477 0.160004 -1.80725 6.69334 1.21037 11.92C4.22798 17.1467 11.772 17.1467 14.7896 11.92C15.4777 10.7282 15.84 9.37621 15.84 8C15.8354 3.67199 12.328 0.164579 8 0.160004ZM11.4421 6.61745L7.22053 10.839C6.98495 11.0748 6.60274 11.0748 6.36717 10.839L4.55794 9.02976C4.22949 8.7013 4.37977 8.14045 4.82844 8.02023C5.03668 7.96443 5.25886 8.02397 5.4113 8.1764L6.79385 9.55971L10.5887 5.7641C10.9172 5.43564 11.478 5.58592 11.5982 6.0346C11.654 6.24283 11.5945 6.46501 11.4421 6.61745Z" fill="#00B4A0" />
+                      </svg>
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="contact_aside">
+              <article class="contact_card is-dark">
+                <div class="contact_card-content">
+                  <h2 class="heading-style-h5">Book a demo</h2>
+                  <p>Spend 45 minutes with a solutions engineer. We'll profile part of your application and show the agents working live.</p>
+                </div>
+                <div class="contact_card-action">
+                  <a class="contact_button" href={demoHref}>Book a demo</a>
+                </div>
+              </article>
+              <article class="contact_card">
+                <div class="contact_card-content">
+                  <h2 class="heading-style-h5">Already a user of algoQA?</h2>
+                  <p>Support tickets are answered by the engineering team that ships the product.</p>
+                </div>
+                <div class="contact_card-action">
+                  <a class="contact_button is-blue" href={supportHref}>Raise a support ticket</a>
+                </div>
+              </article>
+            </div>
+          </div>        
+
+          <div class="contact_form-card">
+            <div class="contact_form-header">
+              <h2 class="heading-style-h4">Tell us about yourself</h2>
+              <p class="text-size-regular text-color-secondary">
+                Fields marked with an asterisk are required. We route your enquiry to the right team automatically.
+              </p>
+            </div>
+
+            <form
+              class="contact_form"
+              data-contact-form
+              data-action={action}
+              action={action}
+              method="post"
+              hidden={initiallySubmitted}
+            >
+              <div class="contact_hp" aria-hidden="true">
+                <label for="cf-website">Website</label>
+                <input id="cf-website" type="text" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <div class="contact_row">
+                <div class="contact_field">
+                  <label for="cf-first">First name <span>*</span></label>
+                  <input class="contact_input" id="cf-first" name="firstName" type="text" placeholder="Eg. John" autocomplete="given-name" required />
+                </div>
+                <div class="contact_field">
+                  <label for="cf-last">Last name <span>*</span></label>
+                  <input class="contact_input" id="cf-last" name="lastName" type="text" placeholder="Eg. Doe" autocomplete="family-name" required />
+                </div>
+              </div>
+
+              <div class="contact_row">
+                <div class="contact_field">
+                  <label for="cf-email">Work email <span>*</span></label>
+                  <input class="contact_input" id="cf-email" name="email" type="email" placeholder="mail@company.com" autocomplete="email" required />
+                </div>
+                <div class="contact_field">
+                  <label for="cf-phone">Phone number <span>*</span></label>
+                  <div class="contact_phone">
+                    <select class="contact_select contact_code" name="countryCode" aria-label="Country code">
+                      {countryCodes.map((country, index) => (
+                        <option value={country.code} selected={index === 0}>{country.flag} {country.code} · {country.name}</option>
+                      ))}
+                    </select>
+                    <input class="contact_input" id="cf-phone" name="phone" type="tel" inputmode="tel" placeholder="98765 43210" autocomplete="tel-national" required />
+                  </div>
+                </div>
+              </div>
+
+              <div class="contact_row">
+                <div class="contact_field">
+                  <label for="cf-company">Company name <span>*</span></label>
+                  <input class="contact_input" id="cf-company" name="company" type="text" placeholder="Company name" autocomplete="organization" required />
+                </div>
+                <div class="contact_field">
+                  <label for="cf-revenue">Annual revenue</label>
+                  <select class="contact_select" id="cf-revenue" name="revenue">
+                    <option value="">Select revenue band</option>
+                    {selects.revenue.map((option) => <option value={option}>{option}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <div class="contact_row">
+                <div class="contact_field">
+                  <label for="cf-role">Job role <span>*</span></label>
+                  <select class="contact_select" id="cf-role" name="role" required>
+                    <option value="">Select your role</option>
+                    {selects.role.map((option) => <option value={option}>{option}</option>)}
+                  </select>
+                </div>
+                <div class="contact_field">
+                  <label for="cf-type">Type of business</label>
+                  <select class="contact_select" id="cf-type" name="businessType">
+                    <option value="">Select business type</option>
+                    {selects.businessType.map((option) => <option value={option}>{option}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <div class="contact_row">
+                <div class="contact_field">
+                  <label for="cf-reason">What brought you here? <span>*</span></label>
+                  <select class="contact_select" id="cf-reason" name="reason" required>
+                    <option value="">Select an option</option>
+                    {selects.reason.map((option) => <option value={option}>{option}</option>)}
+                  </select>
+                </div>
+                <div class="contact_field">
+                  <label for="cf-help">What do you need help with? <span>*</span></label>
+                  <select class="contact_select" id="cf-help" name="help" required>
+                    <option value="">Select a topic</option>
+                    {selects.help.map((option) => <option value={option}>{option}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <div class="contact_field">
+                <label for="cf-source">How did you first hear about algoQA?</label>
+                <select class="contact_select" id="cf-source" name="source">
+                  <option value="">Select a source</option>
+                  {selects.source.map((option) => <option value={option}>{option}</option>)}
+                </select>
+              </div>
+
+              <div class="contact_field">
+                <label for="cf-message">Tell us what you're interested in</label>
+                <textarea class="contact_textarea" id="cf-message" name="message" rows="4" placeholder="Which applications are in scope, which frameworks you use today, and what a good outcome looks like for your team."></textarea>
+              </div>
+
+              <label class="contact_consent">
+                <input class="contact_checkbox" type="checkbox" name="marketingConsent" value="yes" />
+                <span>
+                  I agree to receive marketing communications from AlgoShack. You can unsubscribe at any time.
+                  See our <a href={privacyHref}>privacy policy</a> for details.
+                </span>
+              </label>
+
+              <p class="contact_status" data-status role="alert" hidden></p>
+
+              <div class="contact_captcha">
+                <img
+                  class="contact_captcha-placeholder"
+                  src={recaptchaPlaceholder.src}
+                  alt=""
+                  width="309"
+                  height="80"
+                />
+              </div>
+
+              <button class="contact_submit" type="submit" data-submit>
+                <span data-submit-label>Submit enquiry</span>
+              </button>
+            </form>
+
+            <div class="contact_success" data-success hidden={!initiallySubmitted} tabindex="-1" role="status">
+              <span class="contact_success-icon" aria-hidden="true">✓</span>
+              <h3 class="heading-style-h4">Thanks, we've got your enquiry.</h3>
+              <p class="text-size-regular text-color-secondary">
+                A real engineer will get back to you within one business day.
+              </p>
+              <button class="contact_submit is-outline" type="button" data-reset>Send another enquiry</button>
+            </div>
+          </div>
+
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+
+  h1.heading-style-h1.is-medium {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 3.25rem;
+    color: var(--color-text-primary);
+    line-height: 3.5625rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section_contact .padding-global.is-padding {
+    padding-inline: 2.5rem;
+  }
+
+  .section_contact {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #f7f9fa;
+  }
+
+  .section_contact .padding-global {
+    padding-inline: 5rem;
+  }
+
+  .contact_bg {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .contact_bg-canvas {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .contact_blob {
+    position: absolute;
+    width: 65rem;
+    height: 35rem;
+    border-radius: 50%;
+    filter: blur(1rem);
+    opacity: 0.55;
+  }
+
+  .contact_blob.is-cyan {
+    top: -15rem;
+    right: -12rem;
+    background: radial-gradient(closest-side, #9bd9ed, transparent);
+  }
+
+  .contact_blob.is-blue {
+    top: 10rem;
+    right: 5%;
+    background: radial-gradient(closest-side, #b5d4f4, transparent);
+  }
+
+  .contact_blob.is-lavender {
+    top: 25rem;
+    left: 5%;
+    background: radial-gradient(closest-side, #d6c9ef, transparent);
+  }
+
+  .contact_blob.is-pink {
+    top: 30rem;
+    right: 8%;
+    background: radial-gradient(closest-side, #efc9dd, transparent);
+  }
+
+  .contact_blob.is-streak {
+    top: 22rem;
+    left: 25%;
+    transform: rotate(25deg);
+    background: radial-gradient(closest-side, #a5d8f0, transparent);
+  }
+
+  .contact_blob.is-warm {
+    top: 50rem;
+    left: -18rem;
+    background: radial-gradient(closest-side, #d3c5e9, transparent);
+  }
+
+  .contact_network {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: max(100%, 90rem);
+    height: 56rem;
+    transform: translateX(-50%);
+  }
+
+  .contact_component {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 666px);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: stretch;
+  }
+
+  .contact_intro-wrapper {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    min-height: 100%;
+  }
+
+  .contact_intro {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+
+  .contact_intro-text {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  /* .contact_intro h1 {
+    max-width: 12ch;
+  } */
+
+  .contact_checklist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+  }
+
+  .contact_check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .contact_check-icon,
+  .contact_success-icon {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--color-brand-teal);
+    color: white;
+    font-weight: 700;
+  }
+
+  .contact_check-icon {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .contact_check-icon svg {
+    display: block;
+  }
+
+  .contact_form-card {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    border: 0;
+    border-radius: 0.5rem;
+    background: white;
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
+  }
+
+  .contact_form-header {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .contact_form-header .heading-style-h4 {
+    font-size: 1.75rem;
+    line-height: 2.125rem;
+    letter-spacing: -0.005em;
+  }
+
+  .contact_form-header .text-size-regular {
+    font-size: 1.125rem;
+    line-height: 1.8125rem;
+  }
+
+  .contact_form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact_captcha {
+    display: flex;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    overflow-x: auto;
+  }
+  .contact_captcha-placeholder {
+    display: block;
+    width: 309px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 309 / 80;
+  }
+
+  .contact_row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .contact_field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact_field > label {
+    color: var(--color-text-primary);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .contact_field > label span {
+    color: #c53030;
+  }
+
+  .contact_input,
+  .contact_select,
+  .contact_textarea {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    background: #f7f9fa;
+    padding: 0.5rem 1rem;
+    color: var(--color-text-primary);
+    font: inherit;
+    font-size: 0.875rem;
+    line-height: 1.625rem;
+  }
+
+  .contact_input,
+  .contact_select {
+    height: 2.75rem;
+  }
+
+  .contact_select {
+    appearance: none;
+    padding-right: 2.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='m2.25 4.5 3.75 3.75L9.75 4.5' stroke='%2396A3AD' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+  }
+
+  .contact_input:focus,
+  .contact_select:focus,
+  .contact_textarea:focus {
+    border-color: var(--color-brand-blue);
+    outline: 3px solid rgba(41, 121, 179, 0.16);
+  }
+
+  .contact_input[aria-invalid="true"],
+  .contact_select[aria-invalid="true"] {
+    border-color: #c53030;
+  }
+
+  .contact_phone {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .contact_code {
+    flex: 0 0 6.5rem;
+  }
+
+  .contact_textarea {
+    min-height: 7.0625rem;
+    padding: 1rem;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    resize: vertical;
+  }
+
+  .contact_consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+
+  .contact_checkbox {
+    flex: none;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin: 0.5rem 0 0;
+    accent-color: var(--color-brand-teal);
+  }
+
+  .contact_consent a {
+    color: var(--color-brand-blue);
+    text-decoration: underline;
+  }
+
+  .contact_status {
+    padding: 0.75rem 1rem;
+    border: 1px solid #f5c2bd;
+    border-radius: 0.375rem;
+    background: #fdecea;
+    color: #a1241b;
+    font-size: 0.875rem;
+  }
+
+  .contact_status[hidden],
+  .contact_form[hidden],
+  .contact_success[hidden] {
+    display: none;
+  }
+
+  .contact_submit,
+  .contact_button {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #0e2a3d;
+    border-radius: 0.25rem;
+    background: #0e2a3d;
+    padding: 1rem 1.5rem;
+    color: white;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .contact_submit:hover {
+    background: #163d57;
+  }
+
+  .contact_submit {
+    width: auto;
+    height: 3rem;
+    min-height: 3rem;
+    line-height: 1.0625rem;
+    align-self: flex-start;
+  }
+
+  .contact_submit:disabled {
+    cursor: progress;
+    opacity: 0.65;
+  }
+
+  .contact_submit.is-outline {
+    background: transparent;
+    color: #0e2a3d;
+  }
+
+  .contact_success {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-block: 1rem;
+  }
+
+  .contact_success-icon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .contact_aside {
+    grid-column: 1;
+    display: grid;
+    gap: 2rem;
+  }
+
+  .contact_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2aarem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-medium);
+    background: white;
+    color: var(--color-text-secondary);
+  }
+
+  .contact_card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .contact_card-action {
+    margin-top: auto;
+  }
+
+  .contact_card h2 {
+    font-size: 1.25rem;
+  }
+
+  .contact_card p {
+    font-size: 0.9375rem;
+  }
+
+  .contact_card.is-dark {
+    border-color: #0e2a3d;
+    background: #0e2a3d;
+    color: #b4c0c8;
+  }
+
+  .contact_card.is-dark h2 {
+    color: white;
+  }
+
+  .contact_button {
+    border-color: var(--color-brand-teal);
+    background: var(--color-brand-teal);
+  }
+
+  .contact_button:hover {
+    background: #009b8a;
+  }
+
+  .contact_button.is-blue {
+    border-color: var(--color-brand-blue-light);
+    background: var(--color-brand-blue-light);
+  }
+
+  .contact_button.is-blue:hover {
+    background: var(--color-brand-blue);
+  }
+
+  .contact_hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 1024px) {
+
+    h1.heading-style-h1.is-medium {
+      font-size: 2.75rem;
+      line-height: 3.063rem;
+    }
+    .section_contact .padding-global.is-padding {
+    padding-inline: 2.5rem;
+  }
+
+    .contact_component {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 3.75rem;
+    }
+
+    .contact_intro,
+    .contact_intro-wrapper,
+    .contact_form-card,
+    .contact_aside {
+      grid-column: 1;
+      grid-row: auto;
+    }
+
+    .contact_intro-wrapper {
+      min-height: 0;
+      gap: 2.5rem;
+    }
+
+    .contact_aside {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* @media (max-width: 64rem) {
+    .section_contact .padding-global.is-padding {
+    padding-inline: 2.5rem;
+  }
+
+  } */
+
+  @media (max-width: 767px) {     
+
+    .contact_intro-wrapper {
+      min-height: 0;
+      gap: 2rem;
+    }
+    .contact_component {
+      gap: 2.5rem;
+    }
+    .section_contact .padding-global.is-padding {
+    padding-inline: 1rem;
+  }
+    .contact_row,
+    .contact_aside {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .contact_checklist {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .contact_form-card {
+      padding: 1rem;
+    }
+
+    .contact_form-header .heading-style-h4 {
+      font-size: 1.5rem;
+      line-height: 1.75rem;
+    }
+
+    .contact_form-header .text-size-regular {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact_submit,
+    .contact_button {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+
+  if (form) {
+    const status = form.querySelector<HTMLElement>("[data-status]");
+    const success = form.parentElement?.querySelector<HTMLElement>("[data-success]");
+    const submit = form.querySelector<HTMLButtonElement>("[data-submit]");
+    const submitLabel = form.querySelector<HTMLElement>("[data-submit-label]");
+    const reset = success?.querySelector<HTMLButtonElement>("[data-reset]");
+    const action = form.dataset.action ?? "/api/contact";
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!status || !success || !submit || !submitLabel) return;
+      status.textContent = "";
+      status.hidden = true;
+
+      const honeypot = form.elements.namedItem("website");
+      if (honeypot instanceof HTMLInputElement && honeypot.value) return;
+
+      if (!form.reportValidity()) return;
+
+      const values = new FormData(form);
+      const payload = Object.fromEntries(values.entries());
+      payload.marketingConsent = values.get("marketingConsent") === "yes" ? "true" : "false";
+      payload.phone = `${values.get("countryCode") ?? ""} ${values.get("phone") ?? ""}`.trim();
+      payload.pageUrl = window.location.href;
+      payload.submittedAt = new Date().toISOString();
+
+      submit.disabled = true;
+      submit.setAttribute("aria-busy", "true");
+      submitLabel.textContent = "Submitting…";
+
+      try {
+        const response = await fetch(action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const result: unknown = await response.json();
+        if (!response.ok) {
+          const message = typeof result === "object" && result !== null && "error" in result
+            && typeof result.error === "string"
+            ? result.error
+            : "Could not send your enquiry. Please try again.";
+          throw new Error(message);
+        }
+
+        form.hidden = true;
+        const header = form.parentElement?.querySelector<HTMLElement>(".contact_form-header");
+        if (header) header.hidden = true;
+        success.hidden = false;
+        success.focus();
+        success.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (error) {
+        status.textContent = error instanceof Error
+          ? error.message
+          : "Could not send your enquiry. Please try again.";
+        status.hidden = false;
+      } finally {
+        submit.disabled = false;
+        submit.removeAttribute("aria-busy");
+        submitLabel.textContent = "Submit enquiry";
+      }
+    });
+
+    reset?.addEventListener("click", () => {
+      form.reset();
+      status!.textContent = "";
+      status!.hidden = true;
+      success.hidden = true;
+      form.hidden = false;
+      const header = form.parentElement?.querySelector<HTMLElement>(".contact_form-header");
+      if (header) header.hidden = false;
+      form.querySelector<HTMLInputElement>("#cf-first")?.focus();
+    });
+  }
+</script>

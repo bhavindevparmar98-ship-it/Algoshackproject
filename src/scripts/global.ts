@@ -1,5 +1,5 @@
 // ---------- Homepage stats ----------
-const cards = document.querySelectorAll<HTMLElement>(".home_stats_card");
+const statNumbers = document.querySelectorAll<HTMLElement>(".home_stats_number");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const DEFAULT_POSITION = 50; // screenshot jevo default look. Aa value 0-100 ma tune kari shako
@@ -48,10 +48,7 @@ const start = () => {
   requestAnimationFrame(tick);
 };
 
-cards.forEach((card) => {
-  const number = card.querySelector<HTMLElement>(".home_stats_number");
-  if (!number) return;
-
+statNumbers.forEach((number) => {
   const item: StatItem = {
     number,
     position: DEFAULT_POSITION,
@@ -60,8 +57,8 @@ cards.forEach((card) => {
 
   render(item); // default look set karo
 
-  card.addEventListener("mousemove", (event) => {
-    const bounds = card.getBoundingClientRect();
+  number.addEventListener("mousemove", (event) => {
+    const bounds = number.getBoundingClientRect();
     item.target = Math.min(100, Math.max(0, ((event.clientX - bounds.left) / bounds.width) * 100));
 
     if (reduceMotion) {
@@ -72,7 +69,7 @@ cards.forEach((card) => {
     }
   });
 
-  card.addEventListener("mouseleave", () => {
+  number.addEventListener("mouseleave", () => {
     item.target = DEFAULT_POSITION;
 
     if (reduceMotion) {

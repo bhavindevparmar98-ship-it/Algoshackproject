@@ -1,0 +1,225 @@
+---
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  text?: string;
+}
+
+const {
+  eyebrow = "Direct lines",
+  heading = "Four inboxes, four teams, no runaround.",
+  text = "Every address below is monitored during business hours in India and the United States.",
+} = Astro.props;
+
+const channels = [
+  {
+    title: "Sales",
+    text: "Pricing, licensing, proof of concept and procurement paperwork.",
+    email: "sales@algoshack.com",
+  },
+  {
+    title: "General enquiries",
+    text: "Anything that doesn't fit a box, plus press and analyst requests.",
+    email: "info@algoshack.com",
+  },
+  {
+    title: "People & HR",
+    text: "Current employees, contractors, benefits and policy questions.",
+    email: "hr@algoshack.com",
+  },
+  {
+    title: "Recruitment",
+    text: "Open roles, applications and campus hiring across both offices.",
+    email: "recruitment@algoshack.com",
+  },
+];
+---
+
+<section class="section_channels" id="direct-lines" aria-labelledby="channels-heading">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-large">
+        <div class="channels_component">
+          <header class="channels_header">
+            <span class="channels_eyebrow">{eyebrow}</span>
+            <div class="channels_header-text">
+              <h2 class="heading-style-h2" id="channels-heading">{heading}</h2>
+              <p class="text-size-large">{text}</p>
+            </div>
+          </header>
+
+          <ul class="channels_grid" role="list">
+            {channels.map((channel) => (
+              <li class="channels_item">
+                <article class="channels_card">
+                  <div class="channels_card-content">
+                    <h3 class="channels_card-title heading-style-h4">{channel.title}</h3>
+                    <p class="channels_card-text">{channel.text}</p>
+                  </div>
+                  <a class="channels_card-link" href={`mailto:${channel.email}`}>{channel.email}</a>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section_channels {
+    background: #f7f9fa;
+  }
+
+  .channels_component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+  }
+
+  .channels_header {
+    display: flex;
+    width: 100%;
+    max-width: 50rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .channels_eyebrow {
+    color: var(--color-brand-blue);
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.0625rem;
+    text-transform: uppercase;
+  }
+
+  .channels_header-text {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .channels_header .heading-style-h2 {
+    max-width: none;
+    text-align: center;
+  }
+
+  .channels_header .text-size-large {
+    max-width: none;
+    text-align: center;
+  }
+
+  .channels_grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .channels_item {
+    display: flex;
+    min-width: 0;
+  }
+
+  .channels_card {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background: #fff;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .channels_card:hover {
+    transform: translateY(-0.25rem);
+    border-color: var(--color-brand-blue);
+    box-shadow: 0 0.5rem 1.5rem rgba(14, 42, 61, 0.08);
+  }
+
+  .channels_card-content {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .channels_card-title {
+    font-size: 1.5rem;
+  }
+
+  .channels_card-text {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.625rem;
+  }
+
+  .channels_card-link {
+    color: var(--color-brand-blue);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    overflow-wrap: anywhere;
+  }
+
+  .channels_card-link:hover {
+    color: var(--color-brand-teal);
+    text-decoration: underline;
+    text-underline-offset: 0.1875rem;
+  }
+
+  .channels_card-link:focus-visible {
+    border-radius: 0.125rem;
+    outline: 0.125rem solid var(--color-brand-blue);
+    outline-offset: 0.25rem;
+  }
+
+  @media (max-width: 62rem) {
+    .channels_component {
+      gap: 3.5rem;
+    }
+
+    .channels_grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 47.999375rem) {
+    .channels_component {
+      gap: 2.5rem;
+    }
+
+    .channels_grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    .channels_card {
+      padding: 1.5rem;
+    }
+
+    .channels_card-title {
+      font-size: 1.375rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .channels_card {
+      transition: none;
+    }
+
+    .channels_card:hover {
+      transform: none;
+    }
+  }
+</style>

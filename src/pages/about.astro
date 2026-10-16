@@ -2,50 +2,38 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/layout/Footer.astro";
 import HomepageNavbar from "../components/layout/HomepageNavbar.astro";
-import HomeAboutSection from "../components/sections/HomeAboutSection.astro";
-import HomeStatsSection from "../components/sections/HomeStatsSection.astro";
+import AboutHeroSection from "../components/sections/AboutHeroSection.astro";
 import HomeJourneySection from "../components/sections/HomeJourneySection.astro";
 import HomeTimelineSection from "../components/sections/HomeTimelineSection.astro";
 import HomeValuesSection from "../components/sections/HomeValuesSection.astro";
-import HomePlatformSection from "../components/sections/HomePlatformSection.astro";
-import UseCasesSection from "../components/sections/UseCasesSection.astro";
 import LeadershipSection from "../components/sections/LeadershipSection.astro";
-import Testimonials from "../components/sections/Testimonials.astro";
-import Life from "../components/sections/Life.astro";
-import LocationsSection from "../components/sections/LocationsSection.astro";
-import FaqSection from "../components/sections/FaqSection.astro";
-import Knowledgehub from "../components/sections/Knowledgehub.astro";
-import CtaSection  from "../components/sections/CtaSection.astro";
+import CtaSection from "../components/sections/CtaSection.astro";
 ---
 
-<BaseLayout title="AlgoShack – Engineering quality at the speed of AI">
+<BaseLayout
+  title="About AlgoShack | Quality engineering for the age of AI"
+  description="Learn about AlgoShack's mission, journey, leadership, and values in autonomous testing and quality engineering."
+>
   <HomepageNavbar />
   <main class="page-wrapper page-about">
     <div class="main-wrapper">
-      <HomeAboutSection />
-      <HomeStatsSection />
+      <AboutHeroSection />
       <HomeJourneySection />
-      <HomeValuesSection />
-      <HomePlatformSection />
-      <LeadershipSection />
-      <UseCasesSection />
       <HomeTimelineSection />
-      <Testimonials />
-      <Life />
-      <LocationsSection />
-      <Knowledgehub />
-       <FaqSection />
-      <CtaSection />
+      <LeadershipSection />
+      <HomeValuesSection />
+      <CtaSection
+        heading="Ready to make software quality autonomous?"
+        text="See how AlgoShack helps teams improve testing across the software development lifecycle."
+        primaryLabel="Explore algoQA"
+        primaryHref="/"
+        secondaryLabel="Contact us"
+        secondaryHref="/contact"
+      />
     </div>
   </main>
   <Footer />
 </BaseLayout>
-
-<script>
-  import { applyKnowledgeIcons } from "../scripts/knowledge-icons";
-
-  applyKnowledgeIcons(".page-about");
-</script>
 
 <style>
   :global(.page-about .home_values_header) {

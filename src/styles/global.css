@@ -161,6 +161,12 @@ div {
   padding-inline: var(--padding-global);
 }
 
+@media (max-width: 64rem) {
+  .padding-global {
+    padding-inline: 1rem;
+  }
+}
+
 .container-large {
   width: min(100%, var(--container-large));
   margin-inline: auto;
@@ -426,6 +432,15 @@ div {
   gap: 2rem;
   color: var(--color-text-secondary);
   font-size: 0.96rem;
+}
+
+.navbar_links a {
+  transition: color 0.2s ease;
+}
+
+.navbar_links a:hover,
+.navbar_links a[aria-current="page"] {
+  color: var(--color-brand-blue);
 }
 
 .site_footer {
@@ -716,22 +731,15 @@ div {
 } */
 
 .home_stats_number {
-  background-image: linear-gradient(
-    90deg,
-    #818cf8 0%,    /* indigo (left ma jata dekhase) */
-    #a5b4fc 25%,   /* lavender */
-    #bfdbfe 50%,
-    #5eead4 75%,   /* mint */
-    #34d399 100%   /* green (right ma jata dekhase) */
-  );
-  background-size: 300% 100%;
-  background-repeat: no-repeat;
-  background-position: var(--mx, 50%) 50%;
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+    background-image: linear-gradient(
+139deg, #818cf8 0%, #a5b4fc 20%, #c5a7ee 33%, #a8c9f4 44%, #a6e5e7 55%, #91ecd8 66%, #5eead4 80%, #34d399 100%);
+    background-size: 100% 400%;
+    background-repeat: no-repeat;
+    background-position: var(--mx, 50%) 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 .home_stats_label {
@@ -1715,6 +1723,12 @@ p.global-para-xlarge {
   margin: 0;
 }
 
+.locations_header .text-size-large,
+.locations_content-top .text-size-large {
+  font-size: 1.125rem;
+  line-height: 1.8125rem;
+}
+
 .locations_list {
   display: flex;
   align-items: stretch;
@@ -1812,6 +1826,12 @@ p.global-para-xlarge {
   margin: 0;
 }
 
+.locations_content-top .heading-style-h4 {
+  font-size: 1.75rem;
+  line-height: 2.125rem;
+  letter-spacing: -0.005em;
+}
+
 .locations_link {
   align-self: flex-start;
   display: inline-flex;
@@ -1859,10 +1879,30 @@ p.global-para-xlarge {
 
   .locations_list {
     flex-wrap: wrap;
+    gap: 1.5rem;
   }
 
   .locations_card {
-    flex: 1 1 calc(50% - 1rem);
+    flex: 1 1 calc(50% - 0.75rem);
+  }
+
+  .locations_card--desktop-extra {
+    display: none;
+  }
+
+  .locations_header .heading-style-h2 {
+    font-size: 2.25rem;
+    line-height: 2.5625rem;
+    letter-spacing: -0.01em;
+  }
+
+  .locations_content {
+    padding: 1.5rem;
+  }
+
+  .locations_content-top .heading-style-h4 {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
   }
 }
 
@@ -1881,6 +1921,7 @@ p.global-para-xlarge {
 
   .locations_list {
     flex-direction: column;
+    gap: 1.5rem;
   }
 
   .locations_card {
@@ -1894,6 +1935,11 @@ p.global-para-xlarge {
 
   .locations_content {
     padding: 1.5rem;
+  }
+
+  .locations_header .heading-style-h2 {
+    font-size: 2.25rem;
+    line-height: 2.5625rem;
   }
 }
 

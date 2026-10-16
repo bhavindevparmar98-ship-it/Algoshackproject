@@ -12,6 +12,7 @@ interface Office {
   image: ImageMetadata;
   directions?: string; // optional: custom Google Maps link
   visible?: boolean; // false = card hide (default: visible)
+  desktopOnly?: boolean;
 }
 
 const allOffices: Office[] = [
@@ -31,12 +32,13 @@ const allOffices: Office[] = [
     image: bengaluruImage,
   },
   {
-    id: "office-3",
+    id: "bengaluru-second",
     tag: "Headquarters",
     city: "Bengaluru, India",
     address:
       "AlgoShack Technologies Pvt. Ltd. Outer Ring Road, Bellandur Bengaluru, Karnataka 560103",
     image: bengaluruImage,
+    desktopOnly: true,
   },
 ];
 
@@ -66,7 +68,11 @@ const mapsUrl = (query: string) =>
           <div class="locations_list" role="list">
             {
               offices.map((office) => (
-                <article class="locations_card" id={office.id} role="listitem">
+                <article
+                  class:list={["locations_card", { "locations_card--desktop-extra": office.desktopOnly }]}
+                  id={office.id}
+                  role="listitem"
+                >
                   <div class="locations_image-wrapper">
                     <Image
                       class="locations_image"
