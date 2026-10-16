@@ -6200,8 +6200,8 @@ a:hover > .mega-menu_cta .icon { transform: rotate(-90deg) translateY(3px); }
   .navbar_announcement-close { right: 16px; }
   .navbar_tools { gap: 24px; }
    .company-menu_item{padding-left:0px;}
-    .is-platforms .mega-menu_pane-main{padding-left:0px;}
-  .is-platforms .mega-menu_pane-aside{padding-left:0px;}
+    .is-platforms .mega-menu_pane-main{padding-left:0px !important;}
+  .is-platforms .mega-menu_pane-aside{padding-left:0px !important;}
 }
 
 @media (prefers-reduced-motion: reduce) {
