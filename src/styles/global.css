@@ -75,6 +75,20 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Lenis handles smooth scrolling; native smooth scroll would fight it. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis:not(.lenis-autoToggle) {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -690,6 +704,9 @@ div {
 }
 
 .home_stats_card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -697,6 +714,29 @@ div {
   padding: 1.75rem;
   background: var(--stats-card);
   cursor: default;
+}
+
+/* Cursor spotlight: only its opacity changes on hover, which keeps repaints cheap. */
+.home_stats_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    circle at var(--sx, 50%) var(--sy, 50%),
+    rgba(129, 140, 248, 0.22),
+    rgba(94, 234, 212, 0.08) 45%,
+    transparent 70%
+  );
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .home_stats_card:hover::before {
+    opacity: 1;
+  }
 }
 
 .home_stats_content {
@@ -2766,6 +2806,41 @@ p.global-para-xlarge {
 .platform_card-text {
   margin: 0;
   color: #e4e9ed;
+}
+
+/* GSAP drives the tilt/lift transform, so CSS must not transition it.
+   The glow lives on a pseudo-element and only fades in, which keeps hover repaints cheap. */
+.section_platform .platform_card,
+.section_knowledge .knowledge_card {
+  position: relative;
+  isolation: isolate;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+  backface-visibility: hidden;
+}
+
+.section_platform .platform_card::before,
+.section_knowledge .knowledge_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0, 180, 160, 0.22),
+    rgba(27, 157, 217, 0.08) 40%,
+    transparent 70%
+  );
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .section_platform .platform_card:hover::before,
+  .section_knowledge .knowledge_card:hover::before {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 991px) {
