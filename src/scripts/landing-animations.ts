@@ -15,7 +15,7 @@ if (!reduceMotion) {
       ".channels_header",
       ".trust_header",
       ".home_values_header",
-      "main section[aria-labelledby]:not(.platform_tour):not(.section_knowledge) > .padding-global > .container-large > .padding-section-large > :first-child",
+      "main section[aria-labelledby]:not(.platform_tour):not(.section_knowledge):not(.section_journey) > .padding-global > .container-large > .padding-section-large > :first-child",
     ].join(",")
   );
 
@@ -52,21 +52,9 @@ if (!reduceMotion) {
     });
   });
 
-  // Journey cards (bento layout) reveal individually
-  gsap.utils.toArray<HTMLElement>(".home_journey_card, .home_journey_stat").forEach((card) => {
-    gsap.from(card, {
-      y: 30,
-      autoAlpha: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      clearProps: clear,
-      scrollTrigger: { trigger: card, start: "top 90%", once: true },
-    });
-  });
-
   // Images (phone/device mockups, illustrations) fade in and rise slowly
   gsap.utils
-    .toArray<HTMLElement>(".platform_card img, .home_journey_image, .section_locations img")
+    .toArray<HTMLElement>(".platform_card img, .section_locations img")
     .forEach((img) => {
       gsap.from(img, {
         y: 24,
