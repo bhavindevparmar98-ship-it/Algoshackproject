@@ -1,0 +1,54 @@
+---
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import FieldInputs from "../../../components/admin/FieldInputs.astro";
+import { getModuleDef, type Row } from "../../../cms/modules";
+import { can } from "../../../cms/auth";
+import { collectUploads } from "../../../cms/upload";
+import { createItem, getItem, readFields, updateItem } from "../../../cms/content";
+
+const user = Astro.locals.user!;
+const key = Astro.params.module!;
+const moduleDef = getModuleDef(key);
+if (!moduleDef || moduleDef.kind !== "list") return new Response("Module not found", { status: 404 });
+
+const isNew = Astro.params.id === "new";
+const id = Number(Astro.params.id);
+if (!isNew && !Number.isInteger(id)) return new Response("Not found", { status: 404 });
+if (!can.view(user, key)) return new Response("Forbidden", { status: 403 });
+if (isNew ? !can.add(user, key) : !can.edit(user, key)) return new Response("Forbidden", { status: 403 });
+
+const existing = isNew ? null : await getItem(key, id);
+if (!isNew && !existing) return new Response("Not found", { status: 404 });
+
+let errors: string[] = [];
+let values: Row = existing?.data ?? Object.fromEntries(moduleDef.fields.map((field) => [field.name, field.type === "checkbox" ? true : ""]));
+
+if (Astro.request.method === "POST") {
+  try {
+    const form = await Astro.request.formData();
+    const result = readFields(moduleDef.fields, form, existing?.data, await collectUploads(moduleDef.fields, form));
+    values = result.data;
+    errors = result.errors;
+    if (!errors.length) {
+      if (isNew) await createItem(key, result.data, user.email);
+      else await updateItem(key, id, result.data, user.email);
+      return Astro.redirect(`/admin/${key}?saved=${isNew ? "Item+added" : "Item+updated"}`);
+    }
+  } catch (error) {
+    console.error("[cms] save failed", error);
+    errors = [error instanceof Error ? error.message : "Something went wrong."];
+  }
+}
+---
+
+<AdminLayout title={`${isNew ? "Add" : "Edit"} · ${moduleDef.label}`} flash={errors.length ? { type: "error", messages: errors } : undefined}>
+  <h1>{isNew ? "Add new" : "Edit"} — {moduleDef.label}</h1>
+  <p class="cms-sub"><a href={`/admin/${key}`}>← Back to list</a></p>
+  <form class="card" method="post" enctype="multipart/form-data">
+    <FieldInputs fields={moduleDef.fields} values={values} />
+    <div class="actions">
+      <button class="btn" type="submit">{isNew ? "Create" : "Save changes"}</button>
+      <a class="btn ghost" href={`/admin/${key}`}>Cancel</a>
+    </div>
+  </form>
+</AdminLayout>

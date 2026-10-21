@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Footer from "../../components/layout/Footer.astro";
+import HomepageNavbar from "../../components/layout/HomepageNavbar.astro";
+import { authenticate, createSessionToken, sessionMaxAge, SESSION_COOKIE, isLocked, recordFailure, clearFailures } from "../../cms/auth";
+
+if (Astro.locals.user) return Astro.redirect("/admin");
+
+let error = "";
+if (Astro.request.method === "POST") {
+  const form = await Astro.request.formData();
+  const email = String(form.get("email") ?? "").trim().toLowerCase();
+  const password = String(form.get("password") ?? "");
+  const key = `${email}|${Astro.clientAddress}`;
+
+  if (isLocked(key)) {
+    error = "Too many attempts. Try again in 15 minutes.";
+  } else {
+    try {
+      const user = await authenticate(email, password);
+      if (user) {
+        clearFailures(key);
+        Astro.cookies.set(SESSION_COOKIE, createSessionToken(user.id), {
+          httpOnly: true,
+          secure: !import.meta.env.DEV,
+          sameSite: "lax",
+          path: "/",
+          maxAge: sessionMaxAge,
+        });
+        return Astro.redirect("/admin");
+      }
+      recordFailure(key);
+      error = "Invalid email or password.";
+    } catch (cause) {
+      console.error("[cms] login failed", cause);
+      error = "Login is unavailable right now. Check the database and SESSION_SECRET settings.";
+    }
+  }
+}
+---
+
+<BaseLayout title="CMS Login | AlgoShack" description="AlgoShack CMS login.">
+  <HomepageNavbar />
+  <main class="page-wrapper">
+    <div class="main-wrapper">
+      <section class="cms-login">
+        <div class="cms-login__card">
+          <h1>CMS Login</h1>
+          <p class="cms-login__sub">Master Admin, Admin or User account.</p>
+          {error && <p class="cms-login__error" role="alert">{error}</p>}
+          <form method="post">
+            <div class="cms-login__field"><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="username" /></div>
+            <div class="cms-login__field"><label for="password">Password</label><input id="password" name="password" type="password" required autocomplete="current-password" /></div>
+            <button class="cms-login__btn" type="submit">Log in</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .cms-login { display: flex; justify-content: center; padding: 9rem 1.25rem 6rem; background: #f4f7fb; }
+  .cms-login__card { width: 100%; max-width: 26rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem; box-shadow: 0px 12px 2rem -1.25rem rgba(47, 139, 204, 0.25); }
+  .cms-login__card h1 { margin: 0 0 0.35rem; font-size: 1.75rem; color: #0e2a3d; }
+  .cms-login__sub { margin: 0 0 1.25rem; color: #64748b; }
+  .cms-login__error { margin: 0 0 1rem; padding: 0.7rem 0.9rem; border-radius: 8px; background: #fdecea; color: #b03a2e; font-size: 0.9rem; }
+  .cms-login__field { margin-bottom: 1rem; }
+  .cms-login__field label { display: block; margin-bottom: 0.3rem; font-weight: 600; font-size: 0.88rem; }
+  .cms-login__field input { width: 100%; padding: 0.65rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; }
+  .cms-login__field input:focus { outline: 2px solid rgba(47, 139, 204, 0.35); border-color: #2f8bcc; }
+  .cms-login__btn { width: 100%; padding: 0.7rem 1rem; border: 0; border-radius: 8px; background: #2f8bcc; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+  .cms-login__btn:hover { background: #2979b3; }
+</style>

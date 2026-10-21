@@ -1,11 +1,7 @@
 ---
-const stats = [
-  { number: "8+", label: "Years of quality engineering" },
-  { number: "250+", label: "Enterprise engagements" },
-  { number: "300+", label: "People on the team" },
-  { number: "37%+", label: "Women in workspace" },
-  { number: "96 / 94", label: "SaaS / SaSo NPS" }
-];
+import { loadList } from "../../cms/content";
+
+const { items: stats } = await loadList("stats");
 ---
 
 <section class="section_home_stats" aria-label="AlgoShack at a glance">

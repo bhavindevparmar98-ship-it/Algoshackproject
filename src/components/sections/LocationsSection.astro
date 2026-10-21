@@ -1,48 +1,19 @@
 ---
-import { Image } from "astro:assets";
 import SectionHeader from "../common/SectionHeader.astro";
-import newJerseyImage from "../../assets/location-img-1.png";
-import bengaluruImage from "../../assets/location-img-2.png";
+import { loadList } from "../../cms/content";
 
-interface Office {
-  id: string;
-  tag: string;
-  city: string;
-  address: string;
-  image: ImageMetadata;
-  directions?: string; // optional: custom Google Maps link
-  visible?: boolean; // false = card hide (default: visible)
-  desktopOnly?: boolean;
-}
-
-const allOffices: Office[] = [
-  {
-    id: "new-jersey",
-    tag: "Americas",
-    city: "New Jersey, United States",
-    address: "131 Continental Dr Ste 301, Newark, DE 19713, USA",
-    image: newJerseyImage,
-  },
-  {
-    id: "bengaluru",
-    tag: "Headquarters",
-    city: "Bengaluru, India",
-    address:
-      "AlgoShack Technologies Pvt. Ltd. Outer Ring Road, Bellandur Bengaluru, Karnataka 560103",
-    image: bengaluruImage,
-  },
-  {
-    id: "bengaluru-second",
-    tag: "Headquarters",
-    city: "Bengaluru, India",
-    address:
-      "AlgoShack Technologies Pvt. Ltd. Outer Ring Road, Bellandur Bengaluru, Karnataka 560103",
-    image: bengaluruImage,
-    desktopOnly: true,
-  },
-];
-
-const offices = allOffices.filter((office) => office.visible !== false);
+const { items, header } = await loadList("locations");
+const offices = items
+  .filter((item) => item.visible !== false)
+  .map((item, index) => ({
+    id: `office-${index}`,
+    tag: String(item.tag ?? ""),
+    city: String(item.city),
+    address: String(item.address),
+    image: String(item.image),
+    directions: item.directions ? String(item.directions) : undefined,
+    desktopOnly: false,
+  }));
 
 const mapsUrl = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
@@ -54,9 +25,9 @@ const mapsUrl = (query: string) =>
       <div class="padding-section-large">
         <div class="locations_component">
           <SectionHeader
-            eyebrow="Locations"
-            title="Two offices, one team."
-            description="300+ professionals across India and the United States, with delivery coverage in both time zones."
+            eyebrow={String(header.eyebrow)}
+            title={String(header.title)}
+            description={String(header.description ?? "")}
             titleId="locations-heading"
             className="locations_header"
             eyebrowClass="text-style-allcaps text-color-blue"
@@ -74,12 +45,12 @@ const mapsUrl = (query: string) =>
                   role="listitem"
                 >
                   <div class="locations_image-wrapper">
-                    <Image
+                    <img
                       class="locations_image"
                       src={office.image}
                       alt={`${office.city} office`}
-                      width={406}
-                      height={282}
+                      width="406"
+                      height="282"
                       loading="lazy"
                     />
                     <div class="locations_tag">
@@ -131,3 +102,7 @@ const mapsUrl = (query: string) =>
     </div>
   </div>
 </section>
+
+<script>
+  import "../../scripts/locations-animations";
+</script>

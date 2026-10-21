@@ -1,53 +1,17 @@
 ---
 import SectionHeader from "../common/SectionHeader.astro";
+import { loadList } from "../../cms/content";
 
-const industries = [
-  {
-    id: "medtech",
-    icon: "heartbeat",
-    title: "MedTech & Radiology Informatics",
-    text: "Regulated, safety-critical, IEC 62304 and ISO 14971 territory. Traceability isn't optional.",
-    image: "/images/slider-img-1.jpg",
-    href: "#",
-    visible: true,
-  },
-  {
-    id: "retail",
-    icon: "bag",
-    title: "Retail & digital commerce",
-    text: "Add a short description for Retail & digital commerce here.",
-    image: "/images/slider-img-2.jpg",
-    href: "#",
-    visible: true,
-  },
-  {
-    id: "banking",
-    icon: "bank",
-    title: "Banking & fintech",
-    text: "Add a short description for Banking & fintech here.",
-    image: "/images/slider-img-3.jpg",
-    href: "#",
-    visible: true,
-  },
-  {
-    id: "logistics",
-    icon: "truck",
-    title: "Logistics",
-    text: "Add a short description for Logistics here.",
-    image: "/images/slider-img-2.jpg",
-    href: "#",
-    visible: false,
-  },
-  {
-    id: "it",
-    icon: "monitor",
-    title: "Information & Technology",
-    text: "Add a short description for Information & Technology here.",
-    image: "/images/slider-img-3.jpg",
-    href: "#",
-    visible: false,
-  },
-];
+const { items, header } = await loadList("usecases");
+const industries = items.map((item, index) => ({
+  id: `panel-${index}`,
+  icon: String(item.icon),
+  title: String(item.title),
+  text: String(item.text),
+  image: String(item.image).replace(/['"()\\\s]/g, (char) => encodeURIComponent(char)),
+  href: String(item.href || "#"),
+  visible: item.visible !== false,
+}));
 
 const icons: Record<string, string> = {
   heartbeat:
@@ -65,9 +29,9 @@ const firstVisible = industries.findIndex((industry) => industry.visible);
 <section class="usecases" id="use-cases">
   <div class="usecases__inner">
     <SectionHeader
-      eyebrow="Industries"
-      title="Proven where the cost of a bug is highest."
-      description="algoQA is built for regulated environments. Governance and traceability are in the platform, not bolted on. Your data is never used to train anyone else's model."
+      eyebrow={String(header.eyebrow)}
+      title={String(header.title)}
+      description={String(header.description ?? "")}
       className="usecases__header"
       eyebrowClass="usecases__eyebrow"
       titleWrapClass="usecases__titles"
@@ -151,21 +115,61 @@ const firstVisible = industries.findIndex((industry) => industry.visible);
 </section>
 
 <script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
   const root = document.querySelector<HTMLElement>(".usecases__panels");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (root) {
     const panels = Array.from(root.querySelectorAll<HTMLElement>(".uc-panel:not([hidden])"));
 
+    // Reveals the text of the opened panel: title, description, then button
+    const revealContent = (panel: HTMLElement) => {
+      if (reduceMotion) return;
+      const parts = panel.querySelectorAll(".uc-panel__title-row, .uc-panel__desc, .uc-btn");
+      gsap.fromTo(
+        parts,
+        { y: 24, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 0.7, ease: "power3.out", stagger: 0.12, delay: 0.3, overwrite: true, clearProps: "transform,opacity,visibility" }
+      );
+    };
+
     const setActive = (index: number) => {
+      if (panels[index].classList.contains("is-active")) return;
       panels.forEach((panel, panelIndex) => {
         const active = panelIndex === index;
         panel.classList.toggle("is-active", active);
         panel.querySelector(".uc-panel__tab")?.setAttribute("aria-expanded", String(active));
       });
+      revealContent(panels[index]);
     };
 
     panels.forEach((panel, index) => {
       panel.querySelector(".uc-panel__tab")?.addEventListener("click", () => setActive(index));
     });
+
+    // Entrance on scroll: panels rise in one by one, labels follow, then the open panel's text
+    if (!reduceMotion) {
+      const labels = panels.map((panel) => panel.querySelector(".uc-panel__tab"));
+      const active = panels.find((panel) => panel.classList.contains("is-active"));
+
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: root, start: "top 80%", once: true },
+      });
+
+      tl.from(panels, {
+        y: 70,
+        autoAlpha: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.12,
+        clearProps: "transform,opacity,visibility",
+      });
+      tl.from(labels, { autoAlpha: 0, duration: 0.6, stagger: 0.08, clearProps: "opacity,visibility" }, "-=0.6");
+      if (active) tl.add(() => revealContent(active), "-=0.5");
+    }
   }
 </script>

@@ -18,6 +18,25 @@ export function initTimelines(root: ParentNode = document): void {
       return year;
     });
 
+    // One-time reveal as each item enters the viewport
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      list.classList.add("is-ready");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-in");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+      items.forEach((item) => observer.observe(item));
+    }
+
     let ticking = false;
 
     const update = () => {

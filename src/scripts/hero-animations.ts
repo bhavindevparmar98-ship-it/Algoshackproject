@@ -7,31 +7,24 @@ const hero = document.querySelector<HTMLElement>(".section_home_about");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-// Splits text into words (kept unbroken) and characters for per-letter motion.
-const splitChars = (el: HTMLElement) => {
+// Splits text into word spans for a simple word-by-word reveal.
+const splitWords = (el: HTMLElement) => {
   const label = el.textContent?.trim() ?? "";
   el.setAttribute("aria-label", label);
   el.textContent = "";
-  const chars: HTMLElement[] = [];
+  const words: HTMLElement[] = [];
 
   label.split(/\s+/).forEach((word, index, all) => {
     const wordEl = document.createElement("span");
     wordEl.setAttribute("aria-hidden", "true");
-    wordEl.style.cssText = "display:inline-block;white-space:nowrap;";
-
-    Array.from(word).forEach((letter) => {
-      const char = document.createElement("span");
-      char.style.cssText = "display:inline-block;will-change:transform;";
-      char.textContent = letter;
-      wordEl.appendChild(char);
-      chars.push(char);
-    });
-
+    wordEl.style.cssText = "display:inline-block;will-change:transform,opacity;";
+    wordEl.textContent = word;
     el.appendChild(wordEl);
+    words.push(wordEl);
     if (index < all.length - 1) el.appendChild(document.createTextNode(" "));
   });
 
-  return chars;
+  return words;
 };
 
 // Soft glowing orbs that drift behind the content.
@@ -68,40 +61,24 @@ if (hero && !reduceMotion) {
     intro.from(mesh, { autoAlpha: 0, scale: 1.12, duration: 2, ease: "power2.out" }, 0);
   }
 
-  let chars: HTMLElement[] = [];
+  // Heading: words glide up and fade in one after another
+  let headingWords: HTMLElement[] = [];
 
   if (heading) {
-    chars = splitChars(heading);
+    headingWords = splitWords(heading);
     intro.from(
-      chars,
+      headingWords,
       {
-        y: 70,
-        rotationX: -100,
-        rotationZ: () => gsap.utils.random(-12, 12),
-        scale: 0.6,
+        y: 36,
         autoAlpha: 0,
-        transformPerspective: 700,
-        transformOrigin: "50% 100%",
+        filter: "blur(6px)",
         duration: 1.1,
-        ease: "back.out(1.7)",
-        stagger: { each: 0.028, from: "center" },
+        ease: "power3.out",
+        stagger: 0.12,
+        clearProps: "filter",
       },
       0.2
     );
-
-    // Letters spring up when the cursor passes over them
-    if (canHover) {
-      chars.forEach((char) => {
-        char.addEventListener("pointerenter", () => {
-          if (intro.isActive()) return;
-          gsap.fromTo(
-            char,
-            { y: 0 },
-            { y: -10, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1, overwrite: "auto" }
-          );
-        });
-      });
-    }
   }
 
   if (paragraph) {
@@ -189,20 +166,8 @@ if (hero && !reduceMotion) {
     });
   }
 
-  // Scroll: heading letters break apart and drift away; the rest of the content fades up
+  // Scroll: heading and content fade up gently
   const startScroll = () => {
-    if (chars.length) {
-      gsap.to(chars, {
-        x: () => gsap.utils.random(-160, 160),
-        y: () => gsap.utils.random(-120, 80),
-        rotation: () => gsap.utils.random(-50, 50),
-        scale: () => gsap.utils.random(0.5, 1.3),
-        autoAlpha: 0,
-        ease: "none",
-        scrollTrigger: { trigger: hero, start: "top top", end: "70% top", scrub: 0.8, invalidateOnRefresh: true },
-      });
-    }
-
     const rest = [paragraph, ...buttons].filter(Boolean);
     if (rest.length) {
       gsap.to(rest, {

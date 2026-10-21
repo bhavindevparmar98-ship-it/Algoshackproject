@@ -1,0 +1,54 @@
+---
+import type { Field, Row } from "../../cms/modules";
+
+interface Props {
+  fields: Field[];
+  values?: Row;
+}
+const { fields, values = {} } = Astro.props;
+---
+
+{
+  fields.map((field) => {
+    const value = values[field.name];
+    const id = `f-${field.name}`;
+    return (
+      <div class="field">
+        {field.type === "checkbox" ? (
+          <label class="check">
+            <input type="checkbox" name={field.name} checked={value === true} />
+            {field.label}
+          </label>
+        ) : (
+          <label for={id}>
+            {field.label}
+            {field.required && " *"}
+          </label>
+        )}
+        {field.type === "textarea" && <textarea id={id} name={field.name} required={field.required}>{String(value ?? "")}</textarea>}
+        {field.type === "select" && (
+          <select id={id} name={field.name}>
+            {field.options?.map((option) => <option value={option} selected={option === value}>{option}</option>)}
+          </select>
+        )}
+        {field.type === "image" && (
+          <>
+            {value && <img class="thumb" src={String(value)} alt="" />}
+            <input type="text" id={id} name={field.name} value={String(value ?? "")} placeholder="Image URL (or upload below)" />
+            <input type="file" name={`${field.name}__file`} accept="image/*" style="margin-top:0.4rem" />
+          </>
+        )}
+        {["text", "url", "number"].includes(field.type) && (
+          <input
+            type={field.type === "number" ? "number" : "text"}
+            id={id}
+            name={field.name}
+            value={String(value ?? "")}
+            required={field.required}
+          />
+        )}
+        {field.help && <div class="help">{field.help}</div>}
+      </div>
+    );
+  })
+}

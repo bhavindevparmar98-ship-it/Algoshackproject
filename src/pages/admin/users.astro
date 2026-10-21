@@ -1,0 +1,140 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { modules } from "../../cms/modules";
+import { can, hashPassword, listUsers, passwordError, roleLabel } from "../../cms/auth";
+import { db, ROLES, type Role } from "../../cms/db";
+
+const me = Astro.locals.user!;
+if (!can.viewUsers(me)) return new Response("Forbidden", { status: 403 });
+const manage = can.manageUsers(me);
+
+let errors: string[] = [];
+let ok = "";
+
+const pickModules = (form: FormData) =>
+  form.getAll("modules").map(String).filter((value) => modules.some((item) => item.key === value)).join(",");
+
+if (Astro.request.method === "POST") {
+  if (!manage) return new Response("Forbidden", { status: 403 });
+  const form = await Astro.request.formData();
+  const action = String(form.get("_action") ?? "");
+  const connection = await db();
+  const id = Number(form.get("id"));
+  const role = String(form.get("role") ?? "user") as Role;
+
+  try {
+    if (action === "create") {
+      const email = String(form.get("email") ?? "").trim().toLowerCase();
+      const name = String(form.get("name") ?? "").trim().slice(0, 100);
+      const password = String(form.get("password") ?? "");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("Enter a valid email.");
+      if (!name) errors.push("Name is required.");
+      if (!ROLES.includes(role)) errors.push("Invalid role.");
+      const weak = passwordError(password);
+      if (weak) errors.push(weak);
+      if (!errors.length) {
+        const exists = await connection.execute({ sql: "SELECT 1 FROM users WHERE email = ?", args: [email] });
+        if (exists.rows.length) errors.push("A user with this email already exists.");
+        else {
+          await connection.execute({
+            sql: "INSERT INTO users (email, name, password_hash, role, modules) VALUES (?, ?, ?, ?, ?)",
+            args: [email, name, await hashPassword(password), role, role === "user" ? pickModules(form) : ""],
+          });
+          ok = "User created.";
+        }
+      }
+    } else if (action === "update") {
+      if (!ROLES.includes(role)) errors.push("Invalid role.");
+      const target = (await listUsers()).find((entry) => entry.id === id);
+      if (!target) errors.push("User not found.");
+      else if (target.id === me.id && role !== "master_admin") errors.push("You cannot change your own role.");
+      const newPassword = String(form.get("password") ?? "");
+      if (newPassword && passwordError(newPassword)) errors.push(passwordError(newPassword)!);
+      if (!errors.length) {
+        await connection.execute({
+          sql: "UPDATE users SET role = ?, modules = ? WHERE id = ?",
+          args: [role, role === "user" ? pickModules(form) : "", id],
+        });
+        if (newPassword) {
+          await connection.execute({ sql: "UPDATE users SET password_hash = ? WHERE id = ?", args: [await hashPassword(newPassword), id] });
+        }
+        ok = "User updated.";
+      }
+    } else if (action === "delete") {
+      if (id === me.id) errors.push("You cannot delete your own account.");
+      else {
+        await connection.execute({ sql: "DELETE FROM users WHERE id = ?", args: [id] });
+        ok = "User deleted.";
+      }
+    }
+  } catch (error) {
+    console.error("[cms] users action failed", error);
+    errors = ["Something went wrong."];
+  }
+}
+
+const users = await listUsers();
+const flash = errors.length ? { type: "error" as const, messages: errors } : ok ? { type: "ok" as const, messages: [ok] } : undefined;
+---
+
+<AdminLayout title="Users" flash={flash}>
+  <h1>Users</h1>
+  <p class="cms-sub">
+    Master Admin: everything. Admin: add / edit / delete all content. User: edit only the modules assigned below (no add / delete).
+  </p>
+
+  {
+    manage && (
+      <form class="card" method="post">
+        <h3 style="margin-top:0">Create user</h3>
+        <input type="hidden" name="_action" value="create" />
+        <div class="field"><label for="n-name">Name</label><input id="n-name" type="text" name="name" required /></div>
+        <div class="field"><label for="n-email">Email</label><input id="n-email" type="email" name="email" required autocomplete="off" /></div>
+        <div class="field"><label for="n-pass">Password (min 8)</label><input id="n-pass" type="password" name="password" required autocomplete="new-password" /></div>
+        <div class="field">
+          <label for="n-role">Role</label>
+          <select id="n-role" name="role">{ROLES.map((value) => <option value={value} selected={value === "user"}>{roleLabel[value]}</option>)}</select>
+        </div>
+        <div class="field">
+          <label>Modules (used for role "User")</label>
+          {modules.map((item) => <label class="check"><input type="checkbox" name="modules" value={item.key} />{item.label}</label>)}
+        </div>
+        <button class="btn" type="submit">Create user</button>
+      </form>
+    )
+  }
+
+  {
+    users.map((entry) => (
+      <div class="card">
+        <div class="actions" style="justify-content:space-between">
+          <div><strong>{entry.name}</strong> <span class="badge">{roleLabel[entry.role]}</span><div class="help">{entry.email}</div></div>
+          {entry.role === "user" && !manage && <span class="help">{entry.modules.length} module(s)</span>}
+        </div>
+        {manage && (
+          <form method="post" style="margin-top:0.75rem">
+            <input type="hidden" name="id" value={entry.id} />
+            <div class="field">
+              <label>Role</label>
+              <select name="role" disabled={entry.id === me.id}>{ROLES.map((value) => <option value={value} selected={value === entry.role}>{roleLabel[value]}</option>)}</select>
+              {entry.id === me.id && <input type="hidden" name="role" value={entry.role} />}
+            </div>
+            <div class="field">
+              <label>Modules (role "User" only)</label>
+              {modules.map((item) => (
+                <label class="check"><input type="checkbox" name="modules" value={item.key} checked={entry.modules.includes(item.key)} />{item.label}</label>
+              ))}
+            </div>
+            <div class="field"><label>New password (optional)</label><input type="password" name="password" autocomplete="new-password" /></div>
+            <div class="actions">
+              <button class="btn small" type="submit" name="_action" value="update">Save</button>
+              {entry.id !== me.id && (
+                <button class="btn danger small" type="submit" name="_action" value="delete" formnovalidate onclick="return confirm('Delete this user?')">Delete</button>
+              )}
+            </div>
+          </form>
+        )}
+      </div>
+    ))
+  }
+</AdminLayout>

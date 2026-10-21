@@ -42,7 +42,7 @@ if (section && !reduceMotion) {
     scrollTrigger: { trigger: heading ?? section, start: "top 85%", once: true },
   });
 
-  if (eyebrow) header.from(eyebrow, { y: 16, autoAlpha: 0, letterSpacing: "0.3em", duration: 0.7 });
+  if (eyebrow) header.from(eyebrow, { y: 20, autoAlpha: 0, duration: 0.9, clearProps: "transform,opacity,visibility" });
   if (heading) {
     const words = splitWords(heading);
     header.from(words, { yPercent: 115, duration: 0.9, stagger: 0.08 }, eyebrow ? "-=0.4" : 0);

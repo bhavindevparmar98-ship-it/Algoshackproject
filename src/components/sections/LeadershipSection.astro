@@ -1,17 +1,18 @@
 ---
-import teamImg1 from "../../assets/team-img-1.jpg";
-import teamImg2 from "../../assets/team-img-2.jpg";
-import teamImg3 from "../../assets/team-img-3.jpg";
-import teamImg4 from "../../assets/team-img-4.jpg";
 import LeaderCard from "./LeaderCard.astro";
 import SectionHeader from "../common/SectionHeader.astro";
+import { loadList } from "../../cms/content";
+
+const { items: leaders, header } = await loadList("leadership");
+const paragraphs = (bio: unknown) =>
+  String(bio ?? "").split(/\n\s*\n/).map((part) => part.trim()).filter(Boolean);
 ---
 
 <section class="leadership" id="leadership">
   <SectionHeader
-    eyebrow="Leadership"
-    title="The people accountable for it."
-    description="A leadership team drawn from enterprise quality engineering, product and delivery, with decades of shipping software into regulated environments."
+    eyebrow={String(header.eyebrow)}
+    title={String(header.title)}
+    description={String(header.description ?? "")}
     className="leadership__header"
     eyebrowClass="leadership__eyebrow"
     titleWrapClass="leadership__titles"
@@ -20,68 +21,23 @@ import SectionHeader from "../common/SectionHeader.astro";
   />
 
   <div class="leadership__grid">
-    <LeaderCard
-      name="Lina Zhao"
-      role="Chief Marketing Officer"
-      image={teamImg1.src}
-      linkedin="https://www.linkedin.com/"
-    >
-      <p>
-        Lina brings over 12 years of experience in strategic marketing and brand
-        management. She previously worked as Marketing Director at Innovate Media,
-        where she led campaigns that increased brand visibility and market share.
-      </p>
-      <p>
-        Her focus includes digital marketing, consumer insights, and content
-        strategy. Lina has successfully launched several high-profile marketing
-        initiatives, which resulted in increased engagement and customer loyalty
-        across various sectors.
-      </p>
-    </LeaderCard>
-
-    <LeaderCard
-      name="Lina Zhao"
-      role="Chief Innovation Officer"
-      image={teamImg2.src}
-      linkedin="https://www.linkedin.com/"
-    >
-      <p>
-        Placeholder bio. Ahiya Chief Innovation Officer nu background, pehla na roles
-        ane e company ma shu focus kare che e short ma lakho.
-      </p>
-      <p>
-        Biju paragraph: achievements, domains ane experience.
-      </p>
-    </LeaderCard>
-
-    <LeaderCard
-      name="Rajiv Kumar"
-      role="Co-founder"
-      image={teamImg3.src}
-      linkedin="https://www.linkedin.com/"
-    >
-      <p>
-        Placeholder bio. Ahiya Rajiv Kumar nu background, pehla na roles ane
-        company ma shu focus kare che e short ma lakho.
-      </p>
-      <p>
-        Biju paragraph: achievements, domains ane experience.
-      </p>
-    </LeaderCard>
-
-    <LeaderCard
-      name="Maya Patel"
-      role="Designer"
-      image={teamImg4.src}
-      linkedin="https://www.linkedin.com/"
-    >
-      <p>
-        Placeholder bio. Ahiya Maya Patel nu background, pehla na roles ane
-        company ma shu focus kare che e short ma lakho.
-      </p>
-      <p>
-        Biju paragraph: achievements, domains ane experience.
-      </p>
-    </LeaderCard>
+    {
+      leaders.map((leader) => {
+        const bio = paragraphs(leader.bio);
+        const props = {
+          name: String(leader.name),
+          role: String(leader.role),
+          image: String(leader.image),
+          linkedin: leader.linkedin ? String(leader.linkedin) : undefined,
+        };
+        return bio.length ? (
+          <LeaderCard {...props}>
+            {bio.map((text) => <p>{text}</p>)}
+          </LeaderCard>
+        ) : (
+          <LeaderCard {...props} />
+        );
+      })
+    }
   </div>
 </section>

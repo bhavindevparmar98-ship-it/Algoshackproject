@@ -1,9 +1,6 @@
 ---
-import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
-
 interface Props {
-  image: ImageMetadata;
+  image: string;
   quote: string;
   name: string;
   role: string;
@@ -14,7 +11,7 @@ const { image, quote, name, role, alt = "" } = Astro.props;
 ---
 
 <article class="life_card">
-  <Image class="life_card_image" src={image} alt={alt} loading="lazy" />
+  <img class="life_card_image" src={image} alt={alt} loading="lazy" />
   <div class="life_card_content">
     <svg class="life_card_icon" viewBox="0 0 32 28" fill="currentColor" aria-hidden="true">
       <path d="M0 28V15.5C0 6.7 5.1 1.4 13.4 0l1.6 3.2C10.5 4.7 8.3 7.4 8 11.3H14V28H0Zm17 0V15.5C17 6.7 22.1 1.4 30.4 0L32 3.2c-4.5 1.5-6.7 4.2-7 8.1h6V28H17Z" />
@@ -27,3 +24,7 @@ const { image, quote, name, role, alt = "" } = Astro.props;
     </div>
   </div>
 </article>
+
+<script>
+  import "../../../scripts/life-animations";
+</script>

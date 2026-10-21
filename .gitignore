@@ -25,3 +25,6 @@ pnpm-debug.log*
 .idea/
 .vercel
 .env*
+!.env.example
+local.db*
+public/uploads/

@@ -32,24 +32,5 @@ if (!reduceMotion) {
     scrollTrigger: { trigger: document.documentElement, start: "top top", end: "bottom bottom", scrub: 0.3 },
   });
 
-  // Sections ease in from a slightly smaller, rounded card to full size
-  const sections = gsap.utils.toArray<HTMLElement>(
-    ".main-wrapper > section:not(.section_home_about):not(.section_home_stats)"
-  );
-
-  sections.forEach((section) => {
-    gsap.fromTo(
-      section,
-      { scale: 0.94, borderRadius: 32, transformOrigin: "50% 0%" },
-      {
-        scale: 1,
-        borderRadius: 0,
-        ease: "none",
-        immediateRender: false,
-        scrollTrigger: { trigger: section, start: "top 100%", end: "top 45%", scrub: 0.6 },
-      }
-    );
-  });
-
   window.addEventListener("load", () => ScrollTrigger.refresh());
 }

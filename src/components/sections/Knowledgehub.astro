@@ -1,66 +1,23 @@
 ---
+import { loadList, sanitizeSvgShapes } from "../../cms/content";
+
 interface Props {
   eyebrow?: string;
   heading?: string;
   text?: string;
 }
 
-const {
-  eyebrow = "Knowledge hub",
-  heading = "See the platform in action.",
-  text = "An AI-augmented autonomous testing platform for intelligent automation of software testing, leveraging GenAI and agentic AI. Six stages, continuously. Each one feeds the next, and the whole loop learns the application as it runs.",
-} = Astro.props;
+const { items, header } = await loadList("knowledge");
+const eyebrow = Astro.props.eyebrow ?? String(header.eyebrow);
+const heading = Astro.props.heading ?? String(header.heading);
+const text = Astro.props.text ?? String(header.text);
 
-const cards = [
-  {
-    title: "AlgoShack in the news",
-    text: "Press releases, coverage and where to find us next.",
-    href: "#",
-    icon: `<path d="M9 6h22a2 2 0 0 1 2 2v26H9a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3z"/><path d="M33 14h3a1 1 0 0 1 1 1v16a3 3 0 0 1-3 3h-1"/><path d="M12 13h14"/><path d="M12 19h14"/><path d="M12 25h8"/>`,
-  },
-  {
-    title: "Analyst reports",
-    text: "Independent evaluations of the platform and the category.",
-    href: "#",
-    icon: `<path d="M23 4H10a2 2 0 0 0-2 2v28a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V13z"/><path d="M23 4v9h9"/><path d="M14 29v-4"/><path d="M20 29v-8"/><path d="M26 29v-6"/>`,
-  },
-  {
-    title: "algoQA for enterprise",
-    text: "Deployment models, governance and Service-as-Software.",
-    href: "#",
-    icon: `<rect x="8" y="5" width="16" height="30" rx="2"/><path d="M24 15h6a2 2 0 0 1 2 2v18"/><path d="M13 12h6"/><path d="M13 18h6"/><path d="M13 24h6"/><path d="M15 35v-5h2v5"/><path d="M4 35h32"/>`,
-  },
-  {
-    title: "Integrations",
-    text: "Frameworks, CI/CD, ALM, execution cloud and AI models.",
-    href: "#",
-    icon: `<path d="M14 5v8"/><path d="M26 5v8"/><path d="M10 13h20v6a10 10 0 0 1-20 0z"/><path d="M20 29v6"/>`,
-  },
-  {
-    title: "Success stories",
-    text: "What changed for customers, with the numbers attached.",
-    href: "#",
-    icon: `<path d="M12 5h16v10a8 8 0 0 1-16 0z"/><path d="M12 9H6v3a6 6 0 0 0 6 6"/><path d="M28 9h6v3a6 6 0 0 1-6 6"/><path d="M20 23v7"/><path d="M13 35h14"/><path d="M15 35v-5h10v5"/>`,
-  },
-  {
-    title: "Patents",
-    text: "Six published applications behind the autonomous loop.",
-    href: "#",
-    icon: `<rect x="4" y="6" width="32" height="22" rx="2.5"/><path d="M10 13h20"/><path d="M10 19h10"/><circle cx="28" cy="22" r="3.5"/><path d="m26 25-1.5 9 3.5-2 3.5 2-1.5-9"/>`,
-  },
-  {
-    title: "Partners",
-    text: "Consulting, services and technology partnerships.",
-    href: "#",
-    icon: `<circle cx="12" cy="14" r="6"/><circle cx="28" cy="14" r="6"/><path d="M4 34v-2a7 7 0 0 1 7-7h2"/><path d="M36 34v-2a7 7 0 0 0-7-7h-2"/><path d="M14 33l6-5 6 5"/>`,
-  },
-  {
-    title: "Contact us",
-    text: "Sales, support, HR, recruitment and both offices.",
-    href: "#",
-    icon: `<rect x="4" y="8" width="32" height="24" rx="3"/><path d="m5 11 15 12L35 11"/>`,
-  },
-];
+const cards = items.map((item) => ({
+  title: String(item.title),
+  text: String(item.text),
+  href: String(item.href || "#"),
+  icon: sanitizeSvgShapes(String(item.icon ?? "")),
+}));
 ---
 
 <section class="section_knowledge" id="knowledge-hub" aria-labelledby="knowledge-heading">

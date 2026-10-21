@@ -1,0 +1,33 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { modules } from "../../cms/modules";
+import { can, roleLabel } from "../../cms/auth";
+
+const user = Astro.locals.user!;
+const visible = modules.filter((item) => can.view(user, item.key));
+---
+
+<AdminLayout title="Dashboard">
+  <h1>Welcome, {user.name}</h1>
+  <p class="cms-sub">
+    Signed in as {roleLabel[user.role]}.
+    {user.role === "user" && " You can edit the modules assigned to you."}
+    {user.role === "admin" && " You can add, edit and delete content in every module."}
+    {user.role === "master_admin" && " You have full access, including user management."}
+  </p>
+  <div class="grid">
+    {visible.map((item) => (
+      <a class="card tile" href={`/admin/${item.key}`}>
+        <strong>{item.label}</strong>
+        <span>{item.description}</span>
+      </a>
+    ))}
+    {can.viewUsers(user) && (
+      <a class="card tile" href="/admin/users">
+        <strong>Users</strong>
+        <span>{can.manageUsers(user) ? "Create users, set roles and module access." : "View team members."}</span>
+      </a>
+    )}
+  </div>
+  {visible.length === 0 && <p>No modules are assigned to you yet. Ask the Master Admin for access.</p>}
+</AdminLayout>

@@ -1,0 +1,141 @@
+---
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+import FieldInputs from "../../../components/admin/FieldInputs.astro";
+import { getModuleDef } from "../../../cms/modules";
+import { can } from "../../../cms/auth";
+import { collectUploads } from "../../../cms/upload";
+import { deleteItem, getHeader, getItems, getSingle, moveItem, readFields, saveHeader, saveSingle } from "../../../cms/content";
+
+const user = Astro.locals.user!;
+const key = Astro.params.module!;
+const moduleDef = getModuleDef(key);
+if (!moduleDef) return new Response("Module not found", { status: 404 });
+if (!can.view(user, key)) return new Response("Forbidden", { status: 403 });
+
+let errors: string[] = [];
+let posted: FormData | undefined;
+
+if (Astro.request.method === "POST") {
+  const form = await Astro.request.formData();
+  const action = String(form.get("_action") ?? "");
+  const id = Number(form.get("id"));
+  try {
+    if (action === "delete") {
+      if (!can.remove(user, key)) return new Response("Forbidden", { status: 403 });
+      await deleteItem(key, id);
+      return Astro.redirect(`/admin/${key}?saved=Item+deleted`);
+    }
+    if (action === "move") {
+      if (!can.edit(user, key)) return new Response("Forbidden", { status: 403 });
+      await moveItem(key, id, form.get("direction") === "up" ? "up" : "down");
+      return Astro.redirect(`/admin/${key}`);
+    }
+    if (action === "header" && moduleDef.headerFields) {
+      if (!can.edit(user, key)) return new Response("Forbidden", { status: 403 });
+      const result = readFields(moduleDef.headerFields, form);
+      if (result.errors.length) errors = result.errors;
+      else {
+        await saveHeader(key, result.data, user.email);
+        return Astro.redirect(`/admin/${key}?saved=Section+heading+saved`);
+      }
+      posted = form;
+    }
+    if (action === "single" && moduleDef.kind === "single") {
+      if (!can.edit(user, key)) return new Response("Forbidden", { status: 403 });
+      const result = readFields(moduleDef.fields, form, {}, await collectUploads(moduleDef.fields, form));
+      if (result.errors.length) errors = result.errors;
+      else {
+        await saveSingle(key, result.data, user.email);
+        return Astro.redirect(`/admin/${key}?saved=Saved`);
+      }
+      posted = form;
+    }
+  } catch (error) {
+    console.error("[cms] action failed", error);
+    errors = [error instanceof Error ? error.message : "Something went wrong."];
+  }
+}
+
+const saved = Astro.url.searchParams.get("saved");
+const flash = errors.length
+  ? { type: "error" as const, messages: errors }
+  : saved
+    ? { type: "ok" as const, messages: [saved.slice(0, 80)] }
+    : undefined;
+
+const canAdd = can.add(user, key);
+const canRemove = can.remove(user, key);
+const items = moduleDef.kind === "list" ? await getItems(key) : [];
+const single = moduleDef.kind === "single" ? await getSingle(key) : {};
+const header = moduleDef.headerFields ? await getHeader(key) : {};
+const label = (data: Record<string, string | number | boolean>) =>
+  moduleDef.itemLabel?.(data) ?? String(data[moduleDef.fields[0].name] ?? "(untitled)");
+---
+
+<AdminLayout title={moduleDef.label} flash={flash}>
+  <h1>{moduleDef.label}</h1>
+  <p class="cms-sub">{moduleDef.description}</p>
+
+  {
+    moduleDef.kind === "single" && (
+      <form class="card" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_action" value="single" />
+        <FieldInputs fields={moduleDef.fields} values={single} />
+        <button class="btn" type="submit">Save changes</button>
+      </form>
+    )
+  }
+
+  {
+    moduleDef.headerFields && (
+      <form class="card" method="post">
+        <h3 style="margin-top:0">Section heading</h3>
+        <input type="hidden" name="_action" value="header" />
+        <FieldInputs fields={moduleDef.headerFields} values={header} />
+        <button class="btn" type="submit">Save heading</button>
+      </form>
+    )
+  }
+
+  {
+    moduleDef.kind === "list" && (
+      <div class="card">
+        <div class="actions" style="justify-content:space-between;margin-bottom:0.75rem">
+          <h3 style="margin:0">Items ({items.length})</h3>
+          {canAdd && <a class="btn" href={`/admin/${key}/new`}>+ Add new</a>}
+        </div>
+        <table>
+          <thead><tr><th>#</th><th>Item</th><th></th></tr></thead>
+          <tbody>
+            {items.map((item, index) => (
+              <tr>
+                <td>{index + 1}</td>
+                <td>
+                  {label(item.data)}
+                  {item.data.visible === false && <span class="badge">hidden</span>}
+                </td>
+                <td>
+                  <div class="actions" style="justify-content:flex-end">
+                    <form method="post">
+                      <input type="hidden" name="_action" value="move" /><input type="hidden" name="id" value={item.id} />
+                      <button class="btn ghost small" name="direction" value="up" disabled={index === 0} title="Move up">↑</button>
+                      <button class="btn ghost small" name="direction" value="down" disabled={index === items.length - 1} title="Move down">↓</button>
+                    </form>
+                    <a class="btn ghost small" href={`/admin/${key}/${item.id}`}>Edit</a>
+                    {canRemove && (
+                      <form method="post" onsubmit="return confirm('Delete this item?')">
+                        <input type="hidden" name="_action" value="delete" /><input type="hidden" name="id" value={item.id} />
+                        <button class="btn danger small" type="submit">Delete</button>
+                      </form>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            ))}
+            {items.length === 0 && <tr><td colspan="3">No items yet.</td></tr>}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+</AdminLayout>

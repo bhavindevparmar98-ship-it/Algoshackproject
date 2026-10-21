@@ -16,46 +16,15 @@ const headings = Array.from(
 );
 
 if (!reduceMotion) {
+  // Simple one-time fade-up when the heading first scrolls into view
   headings.forEach((heading) => {
-    const label = heading.textContent!.trim();
-    heading.setAttribute("aria-label", label);
-    heading.textContent = "";
-
-    const chars: HTMLElement[] = [];
-
-    label.split(/\s+/).forEach((word, index, all) => {
-      const wordEl = document.createElement("span");
-      wordEl.setAttribute("aria-hidden", "true");
-      wordEl.style.cssText = "display:inline-block;white-space:nowrap;";
-
-      Array.from(word).forEach((letter) => {
-        const char = document.createElement("span");
-        char.style.cssText = "display:inline-block;will-change:transform;";
-        char.textContent = letter;
-        wordEl.appendChild(char);
-        chars.push(char);
-      });
-
-      heading.appendChild(wordEl);
-      if (index < all.length - 1) heading.appendChild(document.createTextNode(" "));
-    });
-
-    // Letters start scattered and assemble as the heading scrolls into view
-    gsap.from(chars, {
-      x: () => gsap.utils.random(-120, 120),
-      y: () => gsap.utils.random(-80, 80),
-      rotation: () => gsap.utils.random(-45, 45),
-      scale: () => gsap.utils.random(0.5, 1.4),
+    gsap.from(heading, {
+      y: 20,
       autoAlpha: 0,
-      ease: "power3.out",
-      stagger: { each: 0.01, from: "random" },
-      scrollTrigger: {
-        trigger: heading,
-        start: "top 92%",
-        end: "top 55%",
-        scrub: 0.7,
-        invalidateOnRefresh: true,
-      },
+      duration: 0.9,
+      ease: "power2.out",
+      clearProps: "transform,opacity,visibility",
+      scrollTrigger: { trigger: heading, start: "top 90%", once: true },
     });
   });
 

@@ -1,16 +1,13 @@
 ---
-import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
-
 interface Props {
   quote: string;
   logo: {
-    src: ImageMetadata;
+    src: string;
     alt?: string;
     width?: number;
   };
   author: {
-    image: ImageMetadata;
+    image: string;
     name: string;
     role: string;
     alt?: string;
@@ -22,27 +19,35 @@ const { quote, logo, author } = Astro.props;
 
 <article class="testimonial_card">
   <div class="testimonial_main">
-    <Image
-      class="testimonial_logo"
-      src={logo.src}
-      alt={logo.alt ?? ""}
-      width={logo.width}
-      loading="lazy"
-    />
+    {logo.src && (
+      <img
+        class="testimonial_logo"
+        src={logo.src}
+        alt={logo.alt ?? ""}
+        width={logo.width}
+        loading="lazy"
+      />
+    )}
     <blockquote class="testimonial_quote">"{quote}"</blockquote>
   </div>
   <div class="testimonial_author">
-    <Image
-      class="testimonial_avatar"
-      src={author.image}
-      alt={author.alt ?? ""}
-      width={60}
-      height={60}
-      loading="lazy"
-    />
+    {author.image && (
+      <img
+        class="testimonial_avatar"
+        src={author.image}
+        alt={author.alt ?? ""}
+        width="60"
+        height="60"
+        loading="lazy"
+      />
+    )}
     <div class="testimonial_author_text">
       <p class="testimonial_name">{author.name}</p>
       <p class="testimonial_role">{author.role}</p>
     </div>
   </div>
 </article>
+
+<script>
+  import "../../../scripts/testimonial-animations";
+</script>

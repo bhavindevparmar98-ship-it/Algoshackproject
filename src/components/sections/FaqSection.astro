@@ -1,47 +1,18 @@
 ---
 import SectionHeader from "../common/SectionHeader.astro";
+import { loadList } from "../../cms/content";
 
-const faqs = [
-  {
-    question: "What is AlgoShack?",
-    answer:
-      "A digital-native platform company established in January 2018, specialising in AI-augmented autonomous testing and quality engineering. 300+ people across India and the United States, 2,000+ person-years of testing expertise, six published patents, and 250+ enterprise engagements.",
-  },
-  {
-    question: "What is algoQA?",
-    answer:
-      "algoQA is AlgoShack's AI-augmented autonomous testing platform. Its agents plan, generate, run and maintain tests across web, mobile and API layers, so quality engineering keeps pace with every release.",
-  },
-  {
-    question: "Where is AlgoShack based?",
-    answer:
-      "We operate from offices across India and the United States, with teams working closely with customers across time zones.",
-  },
-  {
-    question: "Who do you work with?",
-    answer:
-      "We partner with 250+ enterprises across industries, from fast-moving digital businesses to large regulated organisations that need dependable, scalable quality engineering.",
-  },
-  {
-    question: "What certifications do you hold?",
-    answer:
-      "Our teams hold leading industry testing and cloud certifications, and our delivery follows established quality and information-security standards.",
-  },
-  {
-    question: "Are you hiring?",
-    answer:
-      "Yes. We are always looking for engineers, testers and AI specialists who care about quality. Get in touch and tell us about yourself.",
-  },
-];
+const { items, header } = await loadList("faqs");
+const faqs = items.map((item) => ({ question: String(item.question), answer: String(item.answer) }));
 ---
 
 <section class="section_faq" id="faq" aria-labelledby="faq-heading">
   <div class="padding-global">
     <div class="faq_component">
       <SectionHeader
-        eyebrow="FAQs"
-        title="About the company"
-        description="The questions people ask before they get in touch."
+        eyebrow={String(header.eyebrow)}
+        title={String(header.title)}
+        description={String(header.description ?? "")}
         titleId="faq-heading"
         className="faq_header"
         eyebrowClass="faq_eyebrow"
@@ -102,3 +73,7 @@ const faqs = [
     </div>
   </div>
 </section>
+
+<script>
+  import "../../scripts/faq-animations";
+</script>

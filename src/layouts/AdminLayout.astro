@@ -1,0 +1,129 @@
+---
+import { modules } from "../cms/modules";
+import { can, roleLabel } from "../cms/auth";
+import navbarLogo from "../assets/algoshack-navbar-logo.svg";
+
+interface Props {
+  title: string;
+  flash?: { type: "ok" | "error"; messages: string[] };
+}
+const { title, flash } = Astro.props;
+const user = Astro.locals.user;
+const visible = user ? modules.filter((item) => can.view(user, item.key)) : [];
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title} · AlgoShack CMS</title>
+    <style is:global>
+      :root { --blue: #2f8bcc; --ink: #14213d; --muted: #64748b; --line: #e2e8f0; --bg: #f4f7fb; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: var(--bg); }
+      a { color: var(--blue); text-decoration: none; }
+      .cms-shell { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+      .cms-side { background: #fff; border-right: 1px solid var(--line); padding: 1.25rem 1rem; position: sticky; top: 0; height: 100vh; overflow: auto; }
+      .cms-brand { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.25rem; color: var(--ink); font-weight: 700; }
+      .cms-brand img { display: block; height: 36px; width: auto; }
+      .cms-brand span { font-size: 0.7rem; letter-spacing: 0.08em; padding: 0.15rem 0.5rem; border-radius: 99px; background: rgba(47, 139, 204, 0.12); color: var(--blue); }
+      .cms-nav a { display: block; padding: 0.55rem 0.75rem; border-radius: 8px; color: var(--ink); font-size: 0.92rem; }
+      .cms-nav a:hover { background: var(--bg); }
+      .cms-nav a.active { background: rgba(47, 139, 204, 0.12); color: var(--blue); font-weight: 600; }
+      .cms-nav h4 { margin: 1rem 0.75rem 0.35rem; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+      .cms-who { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+      .cms-main { padding: 2rem 2.5rem; max-width: none; width: 100%; min-width: 0; }
+      .cms-main > .card, .cms-main > form.card { max-width: none; }
+      .cms-main h1 { margin: 0 0 0.35rem; font-size: 1.6rem; }
+      .cms-sub { color: var(--muted); margin: 0 0 1.5rem; }
+      .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; box-shadow: 0 12px 2rem -1.25rem rgba(47, 139, 204, 0.25); }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; }
+      .tile { display: block; color: var(--ink); }
+      .tile strong { display: block; margin-bottom: 0.25rem; }
+      .tile span { color: var(--muted); font-size: 0.85rem; }
+      label { display: block; font-weight: 600; font-size: 0.88rem; margin: 0 0 0.3rem; }
+      .field { margin-bottom: 1rem; }
+      .help { color: var(--muted); font-size: 0.78rem; margin-top: 0.25rem; }
+      input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="url"], textarea, select {
+        width: 100%; padding: 0.6rem 0.75rem; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; background: #fff;
+      }
+      textarea { min-height: 110px; resize: vertical; }
+      input:focus, textarea:focus, select:focus { outline: 2px solid rgba(47, 139, 204, 0.35); border-color: var(--blue); }
+      .btn { display: inline-block; padding: 0.55rem 1rem; border-radius: 8px; border: 1px solid var(--blue); background: var(--blue); color: #fff; font: inherit; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+      .btn.ghost { background: #fff; color: var(--blue); }
+      .btn.danger { background: #fff; color: #c0392b; border-color: #e6b0aa; }
+      .btn.small { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+      table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+      th, td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
+      th { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; }
+      .actions { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
+      .actions form { margin: 0; }
+      .flash { padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1.25rem; font-size: 0.9rem; }
+      .flash.ok { background: #e8f6ee; color: #1e7a46; }
+      .flash.error { background: #fdecea; color: #b03a2e; }
+      .flash ul { margin: 0; padding-left: 1.1rem; }
+      .thumb { width: 72px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); display: block; margin-bottom: 0.4rem; }
+      .badge { display: inline-block; padding: 0.1rem 0.5rem; border-radius: 99px; background: var(--bg); font-size: 0.75rem; color: var(--muted); }
+      .check { display: flex; gap: 0.5rem; align-items: center; font-weight: 500; }
+      .check input { width: auto; }
+      @media (max-width: 800px) {
+        .cms-shell { grid-template-columns: 1fr; }
+        .cms-side { position: static; height: auto; }
+        .cms-main { padding: 1.25rem; }
+      }
+    </style>
+  </head>
+  <body>
+    {
+      user ? (
+        <div class="cms-shell">
+          <aside class="cms-side">
+            <a class="cms-brand" href="/admin"><img src={navbarLogo.src} width="124" height="44" alt="AlgoShack" /><span>CMS</span></a>
+            <nav class="cms-nav">
+              <a href="/admin" class:list={{ active: path === "/admin" }}>Dashboard</a>
+              <h4>Modules</h4>
+              {visible.map((item) => (
+                <a href={`/admin/${item.key}`} class:list={{ active: path.startsWith(`/admin/${item.key}`) }}>{item.label}</a>
+              ))}
+              {can.viewUsers(user) && (
+                <>
+                  <h4>Access</h4>
+                  <a href="/admin/users" class:list={{ active: path === "/admin/users" }}>Users</a>
+                </>
+              )}
+              <h4>Site</h4>
+              <a href="/" target="_blank" rel="noopener">View website ↗</a>
+            </nav>
+            <div class="cms-who">
+              <div><strong>{user.name}</strong></div>
+              <div>{roleLabel[user.role]}</div>
+              <form method="post" action="/admin/logout" style="margin-top:0.6rem">
+                <button class="btn ghost small" type="submit">Log out</button>
+              </form>
+            </div>
+          </aside>
+          <main class="cms-main">
+            {flash && (
+              <div class={`flash ${flash.type}`}>
+                <ul>{flash.messages.map((message) => <li>{message}</li>)}</ul>
+              </div>
+            )}
+            <slot />
+          </main>
+        </div>
+      ) : (
+        <main class="cms-main" style="margin:0 auto;padding-top:8vh;max-width:420px">
+          {flash && (
+            <div class={`flash ${flash.type}`}>
+              <ul>{flash.messages.map((message) => <li>{message}</li>)}</ul>
+            </div>
+          )}
+          <slot />
+        </main>
+      )
+    }
+  </body>
+</html>
