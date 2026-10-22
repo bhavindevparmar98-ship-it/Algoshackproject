@@ -10,7 +10,7 @@ const headings = Array.from(
   document.querySelectorAll<HTMLElement>("main h2")
 ).filter(
   (el) =>
-    !el.closest(".section_home_about, .platform_tour, .section_knowledge, .section_journey") &&
+    !el.closest(".section_home_about, .platform_tour, .section_knowledge, .section_journey, .section_testimonials") &&
     el.children.length === 0 &&
     (el.textContent ?? "").trim().length > 0
 );

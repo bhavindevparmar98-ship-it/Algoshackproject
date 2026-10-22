@@ -1,5 +1,6 @@
 import { db } from "./db";
 import { getModuleDef, type Field, type ModuleDef, type Row } from "./modules";
+import { isPayloadEnabled, payloadList, payloadSingle } from "./payload";
 
 export interface Item {
   id: number;
@@ -82,6 +83,13 @@ export const getHeader = async (key: string): Promise<Row> => {
 
 export const loadList = async (key: string) => {
   const moduleDef = requireDef(key);
+  if (isPayloadEnabled()) {
+    try {
+      return await payloadList(key);
+    } catch (error) {
+      console.error(`[cms] Payload unavailable for "${key}", using local CMS`, error);
+    }
+  }
   try {
     const [items, header] = await Promise.all([getItems(key), moduleDef.headerFields ? getHeader(key) : Promise.resolve({})]);
     return { items: items.map((item) => item.data), header: { ...moduleDef.headerDefaults, ...header } as Row };
@@ -93,6 +101,13 @@ export const loadList = async (key: string) => {
 
 export const loadSingle = async (key: string): Promise<Row> => {
   const moduleDef = requireDef(key);
+  if (isPayloadEnabled()) {
+    try {
+      return await payloadSingle(key);
+    } catch (error) {
+      console.error(`[cms] Payload unavailable for "${key}", using local CMS`, error);
+    }
+  }
   try {
     return { ...(moduleDef.defaults as Row), ...(await getSingle(key)) };
   } catch (error) {

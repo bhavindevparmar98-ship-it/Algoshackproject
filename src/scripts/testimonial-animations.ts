@@ -7,18 +7,52 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 if (!reduceMotion) {
-  // One-time entrance: the slider rises in as it scrolls into view
-  document.querySelectorAll<HTMLElement>(".marquee_slider").forEach((slider) => {
-    if (!slider.querySelector(".testimonial_card")) return;
-    gsap.from(slider, {
-      y: 50,
-      autoAlpha: 0,
-      duration: 1.1,
-      ease: "power3.out",
-      clearProps: "transform,opacity,visibility",
-      scrollTrigger: { trigger: slider, start: "top 88%", once: true },
+  // Scroll-scrubbed intro: the section pins while the heading types out,
+  // then the slider rises in and the page continues scrolling.
+  const section = document.querySelector<HTMLElement>(".section_testimonials");
+  const eyebrow = section?.querySelector<HTMLElement>(".testimonial_eyebrow");
+  const heading = section?.querySelector<HTMLElement>(".testimonial_header h2");
+  const slider = section?.querySelector<HTMLElement>(".marquee_slider");
+
+  if (section && heading && slider) {
+    const text = (heading.textContent ?? "").trim();
+    heading.setAttribute("aria-label", text);
+    heading.textContent = "";
+
+    const chars: HTMLElement[] = [];
+    text.split(/\s+/).forEach((word, i, words) => {
+      const wordEl = document.createElement("span");
+      wordEl.setAttribute("aria-hidden", "true");
+      wordEl.style.display = "inline-block";
+      wordEl.style.whiteSpace = "nowrap";
+      for (const ch of word) {
+        const c = document.createElement("span");
+        c.textContent = ch;
+        c.style.opacity = "0";
+        wordEl.appendChild(c);
+        chars.push(c);
+      }
+      heading.appendChild(wordEl);
+      if (i < words.length - 1) heading.appendChild(document.createTextNode(" "));
     });
-  });
+
+    const tl = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "+=120%",
+        pin: true,
+        scrub: 0.6,
+        anticipatePin: 1,
+      },
+    });
+
+    if (eyebrow) tl.from(eyebrow, { autoAlpha: 0, y: 16, duration: 0.15, ease: "power2.out" });
+    tl.to(chars, { opacity: 1, duration: 0.01, stagger: 0.6 / chars.length }, eyebrow ? ">" : 0);
+    tl.from(slider, { y: 60, autoAlpha: 0, duration: 0.25, ease: "power2.out" }, ">+0.05");
+    tl.to({}, { duration: 0.1 });
+  }
 
   // Hover is delegated, so the cloned marquee cards react too
   if (canHover) {
