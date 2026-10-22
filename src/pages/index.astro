@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/layout/Footer.astro";
 import HomepageNavbar from "../components/layout/HomepageNavbar.astro";
 import HomeAboutSection from "../components/sections/HomeAboutSection.astro";
+// import HomeHorizontalText from "../components/sections/HomeHorizontalText.astro";
 import HomeStatsSection from "../components/sections/HomeStatsSection.astro";
 import HomeJourneySection from "../components/sections/HomeJourneySection.astro";
 import HomeTimelineSection from "../components/sections/HomeTimelineSection.astro";
@@ -26,6 +27,7 @@ import CtaSection from "../components/sections/CtaSection.astro";
   <main class="page-wrapper page-home">
     <div class="main-wrapper">
       <HomeAboutSection />
+      <!-- <HomeHorizontalText /> -->
       <HomeStatsSection />
       <HomeJourneySection />
        <LeadershipSection />
@@ -55,6 +57,7 @@ import CtaSection from "../components/sections/CtaSection.astro";
 
   import "../scripts/smooth-scroll";
   import "../scripts/hero-animations";
+  // import "../scripts/horizontal-text";
   import "../scripts/stats-animations";
   import "../scripts/landing-animations";
   import "../scripts/section-animations";
